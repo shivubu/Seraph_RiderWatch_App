@@ -50,10 +50,11 @@ public class MainActivity extends AppCompatActivity {
                 AppCompatResources.getDrawable(this,R.drawable.exaidnovel),
                 AppCompatResources.getDrawable(this,R.drawable.buildrabbitdragon),
                 AppCompatResources.getDrawable(this,R.drawable.evoltblackhole),
-                AppCompatResources.getDrawable(this,R.drawable.geatsdea)};
-        int[] sounds = {R.raw.seraph0,R.raw.omazio, R.raw.decadecomplete21,R.raw.exaidnovel,R.raw.buildrabbitdragon,R.raw.evolblackhole,R.raw.geatsdea};
-        int[] henshinsounds={R.raw.henshinseraph,R.raw.henshinohmazio,R.raw.henshindecadecomplete21,R.raw.henshinexaidnovel,R.raw.henshinbuildrabbitdragon,R.raw.henshinevolblackhole,R.raw.henshingeatsdea2};
-        int[] longpresssounds={R.raw.lpseraph,R.raw.lpohma,R.raw.lpdecadecomplete21,R.raw.lpexaidnovel,R.raw.lpbuildrabbitdragon,R.raw.lpevolblackhole,R.raw.lpgeatsdea};
+                AppCompatResources.getDrawable(this,R.drawable.geatsdea),
+                AppCompatResources.getDrawable(this,R.drawable.oootajadoreternity)};
+        int[] sounds = {R.raw.seraph0,R.raw.omazio, R.raw.decadecomplete21,R.raw.exaidnovel,R.raw.buildrabbitdragon,R.raw.evolblackhole,R.raw.geatsdea,R.raw.oootajadoreternity};
+        int[] henshinsounds={R.raw.henshinseraph,R.raw.henshinohmazio,R.raw.henshindecadecomplete21,R.raw.henshinexaidnovel,R.raw.henshinbuildrabbitdragon,R.raw.henshinevolblackhole,R.raw.henshingeatsdea2,R.raw.henshinoootajadoreternity};
+        int[] longpresssounds={R.raw.lpseraph,R.raw.lpohma,R.raw.lpdecadecomplete21,R.raw.lpexaidnovel,R.raw.lpbuildrabbitdragon,R.raw.lpevolblackhole,R.raw.lpgeatsdea,R.raw.lpoootajadoreternity};
         ArrayList<Integer> sound = new ArrayList<>();
         for (int j : sounds) {
             sound.add(j);
