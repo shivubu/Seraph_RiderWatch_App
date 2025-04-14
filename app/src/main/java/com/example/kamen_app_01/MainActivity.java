@@ -16,6 +16,7 @@ import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.Insets;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     MediaPlayer mp,end;
     private Drawable[] backgroundImages;
-    private int currentImageIndex = 0;
+    private int currentImageIndex = 0,flag=0;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,16 +46,18 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
         backgroundImages= new Drawable[]{ AppCompatResources.getDrawable(this,R.drawable.seraph),
-                AppCompatResources.getDrawable(this,R.drawable.omaz),
+                AppCompatResources.getDrawable(this,R.drawable.faiznext),
                 AppCompatResources.getDrawable(this,R.drawable.decadecomplete21),
+                AppCompatResources.getDrawable(this,R.drawable.oootajadoreternity),
                 AppCompatResources.getDrawable(this,R.drawable.exaidnovel),
+                AppCompatResources.getDrawable(this,R.drawable.genmmusou),
                 AppCompatResources.getDrawable(this,R.drawable.buildrabbitdragon),
                 AppCompatResources.getDrawable(this,R.drawable.evoltblackhole),
-                AppCompatResources.getDrawable(this,R.drawable.geatsdea),
-                AppCompatResources.getDrawable(this,R.drawable.oootajadoreternity)};
-        int[] sounds = {R.raw.seraph0,R.raw.omazio, R.raw.decadecomplete21,R.raw.exaidnovel,R.raw.buildrabbitdragon,R.raw.evolblackhole,R.raw.geatsdea,R.raw.oootajadoreternity};
-        int[] henshinsounds={R.raw.henshinseraph,R.raw.henshinohmazio,R.raw.henshindecadecomplete21,R.raw.henshinexaidnovel,R.raw.henshinbuildrabbitdragon,R.raw.henshinevolblackhole,R.raw.henshingeatsdea2,R.raw.henshinoootajadoreternity};
-        int[] longpresssounds={R.raw.lpseraph,R.raw.lpohma,R.raw.lpdecadecomplete21,R.raw.lpexaidnovel,R.raw.lpbuildrabbitdragon,R.raw.lpevolblackhole,R.raw.lpgeatsdea,R.raw.lpoootajadoreternity};
+                AppCompatResources.getDrawable(this,R.drawable.omaz),
+                AppCompatResources.getDrawable(this,R.drawable.geatsdea)};
+        int[] sounds = {R.raw.seraph0,R.raw.faiznext,R.raw.decadecomplete21,R.raw.oootajadoreternity,R.raw.exaidnovel,R.raw.genmmusou,R.raw.buildrabbitdragon,R.raw.evolblackhole,R.raw.omazio,R.raw.geatsdea};
+        int[] henshinsounds={R.raw.henshinseraph,R.raw.henshinfaiznext,R.raw.henshindecadecomplete21,R.raw.henshinoootajadoreternity,R.raw.henshinexaidnovel,R.raw.henshingenmmusou,R.raw.henshinbuildrabbitdragon,R.raw.henshinevolblackhole,R.raw.henshinzioohma,R.raw.henshingeatsdea2};
+        int[] longpresssounds={R.raw.lpseraph,R.raw.lpfaiznext,R.raw.lpdecadecomplete21,R.raw.lpoootajadoreternity,R.raw.lpexaidnovel,R.raw.lpgenmmusou,R.raw.lpbuildrabbitdragon,R.raw.lpevolblackhole,R.raw.lpohma,R.raw.lpgeatsdea};
         ArrayList<Integer> sound = new ArrayList<>();
         for (int j : sounds) {
             sound.add(j);
@@ -115,9 +118,24 @@ public class MainActivity extends AppCompatActivity {
                         mp=null;
                     }
                     imageView.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,R.anim.customfade));
-                    mp = MediaPlayer.create(MainActivity.this, longpress.get(currentImageIndex));
-                    mp.start();
-                    mp.setOnCompletionListener(mp -> imageView.clearAnimation());
+                    if(currentImageIndex==5 && flag==1 )
+                    {
+                        mp=MediaPlayer.create(MainActivity.this,R.raw.lpgenmmusoualt);
+                        mp.start();
+                        mp.setOnCompletionListener(mp -> {
+                            imageView.clearAnimation();
+                            flag=2;
+                        });
+                    }
+                    else
+                    {
+                        mp = MediaPlayer.create(MainActivity.this, longpress.get(currentImageIndex));
+                        mp.start();
+                        mp.setOnCompletionListener(mp -> {
+                            imageView.clearAnimation();
+                        });
+
+                    }
                     super.onLongPress(e);
                 }
                 @Override
@@ -147,6 +165,49 @@ public class MainActivity extends AppCompatActivity {
                     return super.onSingleTapConfirmed(e);
                 }
 
+                @Override
+                public boolean onFling(@Nullable MotionEvent e1, @NonNull MotionEvent e2, float velocityX, float velocityY) {
+                    if(mp!=null)
+                    {
+                        mp.release();
+                        mp=null;
+                    }
+                    if(currentImageIndex==5)
+                    {
+                        if(flag==0)
+                        {
+                            imageView.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,R.anim.customfade));
+                            mp=MediaPlayer.create(MainActivity.this,R.raw.genmpause);
+                            mp.start();
+                            mp.setOnCompletionListener(mp -> {
+                                imageView.clearAnimation();
+                                flag=1;
+                            });
+                        }
+                        if(flag==1)
+                        {
+                            imageView.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,R.anim.customfade));
+                            mp=MediaPlayer.create(MainActivity.this,R.raw.genmrestart);
+                            mp.start();
+                            mp.setOnCompletionListener(mp -> {
+                                imageView.clearAnimation();
+                                flag=0;
+                            });
+                        }
+                        if(flag==2)
+                        {
+                            imageView.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,R.anim.customfade));
+                            mp=MediaPlayer.create(MainActivity.this,R.raw.genmrestartalt);
+                            mp.start();
+                            mp.setOnCompletionListener(mp -> {
+                                imageView.clearAnimation();
+                                flag=0;
+                            });
+                        }
+
+                    }
+                    return super.onFling(e1, e2, velocityX, velocityY);
+                }
             });
             @Override
             public boolean onTouch(View v, MotionEvent event) {
