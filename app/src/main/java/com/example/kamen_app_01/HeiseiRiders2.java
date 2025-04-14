@@ -78,9 +78,23 @@ public class HeiseiRiders2 extends AppCompatActivity {
                         ViewConfigurationCompat.getScaledHorizontalScrollFactor(ViewConfiguration.get(getApplicationContext()), getApplicationContext());
                 if (delta > 0) {
                     // Rotate clockwise
+                    if(mp!=null)
+                    {
+                        mp.release();
+                        mp=null;
+                    }
+                    mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.transition2);
+                    mp.start();
                     i++;
                 } else if (delta < 0) {
                     // Rotate counter-clockwise
+                    if(mp!=null)
+                    {
+                        mp.release();
+                        mp=null;
+                    }
+                    mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.transition2);
+                    mp.start();
                     i--;
                 }
                 // Wrap around the image array
@@ -91,8 +105,6 @@ public class HeiseiRiders2 extends AppCompatActivity {
                 }
                 // Update the background image
                 if (!screen.isEmpty()) {
-                    mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.transition2);
-                    mp.start();
                     imageView.setImageResource(screen.get(i));
                 }
                 return true;

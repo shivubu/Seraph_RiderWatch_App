@@ -121,9 +121,23 @@ public class Ohma extends AppCompatActivity {
                         ViewConfigurationCompat.getScaledHorizontalScrollFactor(ViewConfiguration.get(getApplicationContext()), getApplicationContext());
                 if (delta > 0) {
                     // Rotate clockwise
+                    if(mp!=null)
+                    {
+                        mp.release();
+                        mp=null;
+                    }
+                    mp=MediaPlayer.create(Ohma.this,R.raw.transition2);
+                    mp.start();
                     currentImageIndex++;
                 } else if (delta < 0) {
                     // Rotate counter-clockwise
+                    if(mp!=null)
+                    {
+                        mp.release();
+                        mp=null;
+                    }
+                    mp=MediaPlayer.create(Ohma.this,R.raw.transition2);
+                    mp.start();
                     currentImageIndex--;
                 }
                 // Wrap around the image array
@@ -134,8 +148,6 @@ public class Ohma extends AppCompatActivity {
                 }
                 // Update the background image
                 if (ridewatches.length > 0) {
-                    mp=MediaPlayer.create(Ohma.this,R.raw.transition2);
-                    mp.start();
                     ridewatch.setImageDrawable(ridewatches[currentImageIndex]);
                 }
                 return true;

@@ -86,9 +86,23 @@ public class MainActivity extends AppCompatActivity {
                         ViewConfigurationCompat.getScaledHorizontalScrollFactor(ViewConfiguration.get(getApplicationContext()), getApplicationContext());
                 if (delta > 0) {
                     // Rotate clockwise
+                    if(mp!=null)
+                    {
+                        mp.release();
+                        mp=null;
+                    }
+                    mp=MediaPlayer.create(MainActivity.this,R.raw.transition2);
+                    mp.start();
                     currentImageIndex++;
                 } else if (delta < 0) {
                     // Rotate counter-clockwise
+                    if(mp!=null)
+                    {
+                        mp.release();
+                        mp=null;
+                    }
+                    mp=MediaPlayer.create(MainActivity.this,R.raw.transition2);
+                    mp.start();
                     currentImageIndex--;
                 }
                 // Wrap around the image array
@@ -99,8 +113,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 // Update the background image
                 if (backgroundImages.length > 0) {
-                    mp=MediaPlayer.create(MainActivity.this,R.raw.transition2);
-                    mp.start();
                     imageView.setImageDrawable(backgroundImages[currentImageIndex]);
                 }
                 return true;
