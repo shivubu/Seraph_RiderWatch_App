@@ -51,13 +51,13 @@ public class MainActivity extends AppCompatActivity {
                 AppCompatResources.getDrawable(this,R.drawable.oootajadoreternity),
                 AppCompatResources.getDrawable(this,R.drawable.exaidnovel),
                 AppCompatResources.getDrawable(this,R.drawable.genmmusou),
-                AppCompatResources.getDrawable(this,R.drawable.buildrabbitdragon),
+                AppCompatResources.getDrawable(this,R.drawable.crossbuild),
                 AppCompatResources.getDrawable(this,R.drawable.evoltblackhole),
                 AppCompatResources.getDrawable(this,R.drawable.omaz),
                 AppCompatResources.getDrawable(this,R.drawable.geatsdea)};
-        int[] sounds = {R.raw.seraph0,R.raw.faiznext,R.raw.decadecomplete21,R.raw.oootajadoreternity,R.raw.exaidnovel,R.raw.genmmusou,R.raw.buildrabbitdragon,R.raw.evolblackhole,R.raw.omazio,R.raw.geatsdea};
-        int[] henshinsounds={R.raw.henshinseraph,R.raw.henshinfaiznext,R.raw.henshindecadecomplete21,R.raw.henshinoootajadoreternity,R.raw.henshinexaidnovel,R.raw.henshingenmmusou,R.raw.henshinbuildrabbitdragon,R.raw.henshinevolblackhole,R.raw.henshinzioohma,R.raw.henshingeatsdea2};
-        int[] longpresssounds={R.raw.lpseraph,R.raw.lpfaiznext,R.raw.lpdecadecomplete21,R.raw.lpoootajadoreternity,R.raw.lpexaidnovel,R.raw.lpgenmmusou,R.raw.lpbuildrabbitdragon,R.raw.lpevolblackhole,R.raw.lpohma,R.raw.lpgeatsdea};
+        int[] sounds = {R.raw.seraph0,R.raw.faiznext,R.raw.decadecomplete21,R.raw.oootajadoreternity,R.raw.exaidnovel,R.raw.genmmusou,R.raw.crossbuild,R.raw.evolblackhole,R.raw.omazio,R.raw.geatsdea};
+        int[] henshinsounds={R.raw.henshinseraph,R.raw.henshinfaiznext,R.raw.henshindecadecomplete21,R.raw.henshinoootajadoreternity,R.raw.henshinexaidnovel,R.raw.henshingenmmusou,R.raw.henshincrossbuild,R.raw.henshinevolblackhole,R.raw.henshinzioohma,R.raw.henshingeatsdea2};
+        int[] longpresssounds={R.raw.lpseraph,R.raw.lpfaiznext,R.raw.lpdecadecomplete21,R.raw.lpoootajadoreternity,R.raw.lpexaidnovel,R.raw.lpgenmmusou,R.raw.lpcrossbuild,R.raw.lpevolblackhole,R.raw.lpohma,R.raw.lpgeatsdea};
         ArrayList<Integer> sound = new ArrayList<>();
         for (int j : sounds) {
             sound.add(j);
