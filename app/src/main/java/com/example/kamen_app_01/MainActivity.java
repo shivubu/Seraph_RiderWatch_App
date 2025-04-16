@@ -211,6 +211,7 @@ public class MainActivity extends AppCompatActivity {
                     {
                         mp.release();
                         mp=null;
+                        imageView.clearAnimation();
                     }
                     if(currentImageIndex==5)
                     {
