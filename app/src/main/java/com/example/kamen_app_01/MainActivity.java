@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     MediaPlayer mp,end;
     private Drawable[] backgroundImages;
-    private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,zt_flag=0;
+    private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,zt_flag=0,hazard_flag=0;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,14 +151,17 @@ public class MainActivity extends AppCompatActivity {
                         mp=MediaPlayer.create(MainActivity.this,R.raw.lpgenmmusoualt);
                         mp.start();
                         flag=2;
-                        mp.setOnCompletionListener(mp -> imageView.clearAnimation());
+                    }
+                    if(currentImageIndex==6 && hazard_flag==1)
+                    {
+                        mp=MediaPlayer.create(MainActivity.this,R.raw.lpcrossbuildhazard);
+                        mp.start();
                     }
                     else if(currentImageIndex==9 && zt_flag==1)
                     {
                         mp = MediaPlayer.create(MainActivity.this, R.raw.lpzerothreealt);
                         mp.start();
                         zt_flag=0;
-                        mp.setOnCompletionListener(mp -> imageView.clearAnimation());
                     }
                     else
                     {
@@ -168,9 +171,8 @@ public class MainActivity extends AppCompatActivity {
                         {
                             zt_flag=1;
                         }
-                        mp.setOnCompletionListener(mp -> imageView.clearAnimation());
-
                     }
+                    mp.setOnCompletionListener(mp -> imageView.clearAnimation());
                     super.onLongPress(e);
                 }
                 @Override
@@ -181,8 +183,17 @@ public class MainActivity extends AppCompatActivity {
                         mp=null;
                     }
                     imageView.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,R.anim.customfade));
-                    mp = MediaPlayer.create(MainActivity.this, henshinsound.get(currentImageIndex));
-                    mp.start();
+                    if(currentImageIndex==6 && hazard_flag==1)
+                    {
+                        mp=MediaPlayer.create(MainActivity.this,R.raw.henshincrossbuildhazard);
+                        mp.start();
+
+                    }
+                    else
+                    {
+                        mp = MediaPlayer.create(MainActivity.this, henshinsound.get(currentImageIndex));
+                        mp.start();
+                    }
                     mp.setOnCompletionListener(mp -> imageView.clearAnimation());
                     return super.onDoubleTap(e);
                 }
@@ -244,6 +255,21 @@ public class MainActivity extends AppCompatActivity {
 
                         }
 
+                    }
+                    if(currentImageIndex==6)
+                    {
+                        if (diffY > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE)
+                        {
+                            hazard_flag=1;
+                            mp=MediaPlayer.create(MainActivity.this,R.raw.hazardon);
+                            mp.start();
+                        }
+                        if (diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE)
+                        {
+                            hazard_flag=0;
+                            mp=MediaPlayer.create(MainActivity.this,R.raw.hazardoff);
+                            mp.start();
+                        }
                     }
                     if(currentImageIndex==9)
                     {
