@@ -146,20 +146,20 @@ public class MainActivity extends AppCompatActivity {
                         mp=null;
                     }
                     imageView.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,R.anim.customfade));
-                    if(currentImageIndex==5 && flag==1 || currentImageIndex==6 && hazard_flag==1 || currentImageIndex==9 && zt_flag==1 )
+                    if(currentImageIndex==5 && flag==1 || currentImageIndex==6 && hazard_flag==1 || currentImageIndex==9 && zt_flag==1)
                     {
-                        if(currentImageIndex == 5)
+                        if(currentImageIndex==5)
                         {
                             mp=MediaPlayer.create(MainActivity.this,R.raw.lpgenmmusoualt);
                             mp.start();
                             genmflag=1;
                         }
-                        if(currentImageIndex==6 && hazard_flag==1)
+                        if(currentImageIndex==6)
                         {
                             mp=MediaPlayer.create(MainActivity.this,R.raw.lpcrossbuildhazard);
                             mp.start();
                         }
-                        if(currentImageIndex==9 && zt_flag==1)
+                        if(currentImageIndex==9)
                         {
                             mp = MediaPlayer.create(MainActivity.this, R.raw.lpzerothreealt);
                             mp.start();
@@ -247,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
                                 flag=0;
                                 mp.setOnCompletionListener(mp -> imageView.clearAnimation());
                             }
-                            if(genmflag==1)
+                            if(flag==1 && genmflag==1)
                             {
                                 imageView.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,R.anim.customfade));
                                 mp=MediaPlayer.create(MainActivity.this,R.raw.genmrestartalt);
