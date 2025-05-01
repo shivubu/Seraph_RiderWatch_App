@@ -132,7 +132,7 @@ public class Menu extends AppCompatActivity {
         showa.setClickable(false);
         ohma.setClickable(false);
         button_name.startAnimation(fade);
-        mp=MediaPlayer.create(Menu.this,R.raw.transition1);
+        mp=MediaPlayer.create(Menu.this,R.raw.transition);
         mp.start();
         mp.setOnCompletionListener(mp -> {
             showa.clearAnimation();

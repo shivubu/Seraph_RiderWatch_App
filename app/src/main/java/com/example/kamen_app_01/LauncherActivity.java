@@ -3,11 +3,12 @@ package com.example.kamen_app_01;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.widget.ImageView;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -25,26 +26,23 @@ public class LauncherActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         AnimationManager animationManager=AnimationManager.getInstance();
         animationManager.preloadXmlAnimations(this);
+        Animation rotate= animationManager.getXmlAnimation("rotate");
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
         im2=findViewById(R.id.imageView2);
-        Animation rotate= animationManager.getXmlAnimation("rotate");
-        mp=MediaPlayer.create(this,R.raw.transition);
+        mp=MediaPlayer.create(this,R.raw.transition1);
         im2.setOnClickListener(v -> {
             im2.setClickable(false);
-            if(mp!=null)
-            {
-                im2.startAnimation(rotate);
-                mp.start();
-            }
+            new Handler(Looper.getMainLooper()).postDelayed(() -> im2.startAnimation(rotate), 500);
+            mp.start();
+
         });
         mp.setOnCompletionListener(mp1 -> {
-            mp.release();
+            mp1.release();
             mp=null;
-            im2.clearAnimation();
             startActivity(new Intent(LauncherActivity.this,Menu.class));
             finish();
         });
