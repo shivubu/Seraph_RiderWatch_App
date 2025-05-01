@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -31,7 +30,7 @@ public class Menu extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        fade=AnimationUtils.loadAnimation(this,R.anim.customfade);
+        fade=AnimationManager.getInstance().getXmlAnimation("customfade");
         heiseigen1=findViewById(R.id.imageView3);
         heiseigen2=findViewById(R.id.imageView4);
         custom=findViewById(R.id.imageView5);

@@ -15,13 +15,19 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Ohma"
-            android:exported="false"/>
+            android:exported="false"
+            android:taskAffinity=""
+            />
         <activity
             android:name=".Showa"
-            android:exported="false" />
+            android:exported="false"
+            android:taskAffinity=""
+            />
         <activity
             android:name=".ReiwaRiders1"
-            android:exported="false" />
+            android:exported="false"
+            android:taskAffinity=""
+            />
         <activity
             android:name=".HeiseiRiders2"
             android:exported="false"

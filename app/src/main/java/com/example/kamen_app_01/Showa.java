@@ -10,7 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
-import android.view.animation.AnimationUtils;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -41,6 +41,7 @@ public class Showa extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        Animation fade=AnimationManager.getInstance().getXmlAnimation("customfade");
         int[] rw = {R.drawable.rx_ridewatch_1, R.drawable.robo_rider_ridewatch_1,R.drawable.bio_rider_ridewatch_1,R.drawable.shin_ridewatch_1,R.drawable.zo_ridewatch_1,R.drawable.j_ridewatch_1,R.drawable.amazon_alfa_1,R.drawable.amazon_omega_1,R.drawable.amazon_neo_ridewatch_1};
         int[] sounds = {R.raw.blackrx,R.raw.roborider,R.raw.biorider,R.raw.shin,R.raw.zo,R.raw.j,R.raw.amazonalfa,R.raw.amazonomega,R.raw.amazonneo};
         int[] longprsssounds={R.raw.lpblackrx,R.raw.lproborider,R.raw.lpbiorider,R.raw.lpshin,R.raw.lpzo,R.raw.lpj,R.raw.lpamazonalfa,R.raw.lpamazonomega,R.raw.lpamazonneo};
@@ -116,7 +117,7 @@ public class Showa extends AppCompatActivity {
                         mp.release();
                         mp=null;
                     }
-                    imageView.startAnimation(AnimationUtils.loadAnimation(Showa.this,R.anim.customfade));
+                    imageView.startAnimation(fade);
                     mp = MediaPlayer.create(Showa.this, longpress.get(i));
                     mp.start();
                     mp.setOnCompletionListener(mp -> imageView.clearAnimation());
@@ -129,7 +130,7 @@ public class Showa extends AppCompatActivity {
                         mp.release();
                         mp=null;
                     }
-                    imageView.startAnimation(AnimationUtils.loadAnimation(Showa.this,R.anim.customfade));
+                    imageView.startAnimation(fade);
                     mp = MediaPlayer.create(Showa.this, sound.get(i));
                     mp.start();
                     mp.setOnCompletionListener(mp -> imageView.clearAnimation());

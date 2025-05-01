@@ -9,7 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
-import android.view.animation.AnimationUtils;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -40,9 +40,10 @@ public class HeiseiRiders1 extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        Animation fade=AnimationManager.getInstance().getXmlAnimation("customfade");
         int[] rw = {R.drawable.kuuga, R.drawable.agito,R.drawable.ryuki,R.drawable.faiz,R.drawable.blade,R.drawable.hibiki,R.drawable.kabuto,R.drawable.deno,R.drawable.kiva,R.drawable.decadec};
         int[] sounds = {R.raw.kuugault, R.raw.agitoshining,R.raw.ryukisurvive,R.raw.faizblaster,R.raw.bladeking,R.raw.hibikiarmed,R.raw.kabutohyper,R.raw.denoliner,R.raw.kivaemperor,R.raw.decadecomplete};
-        int[] henshinsounds={R.raw.henshinkuugault,R.raw.henshinagitoshining,R.raw.henshinryukisurvive,R.raw.henshinfaizblaster,R.raw.henshinbladeking,R.raw.henshinhibikiarmed,R.raw.henshinkabutohyper,R.raw.henshindenoliner,R.raw.henshinkivaemperor,R.raw.henshindecade21};
+        int[] henshinsounds={R.raw.henshinkuugault,R.raw.henshinagitoshining,R.raw.henshinryukisurvive,R.raw.henshinfaizblaster,R.raw.henshinbladeking,R.raw.henshinhibikiarmed,R.raw.henshinkabutohyper,R.raw.henshindenoliner,R.raw.henshinkivaemperor,R.raw.henshindecadecomplete};
         int[] longprsssounds={R.raw.lpkuuga,R.raw.lpagito,R.raw.lpryuki,R.raw.lpfaiz,R.raw.lpblade,R.raw.lphibiki,R.raw.lpkabuto,R.raw.lpdeno,R.raw.lpkiva,R.raw.lpdecade};
         ArrayList<Integer> screen = new ArrayList<>();
         for (int j : rw) {
@@ -113,7 +114,6 @@ public class HeiseiRiders1 extends AppCompatActivity {
         imageView.setOnTouchListener(new View.OnTouchListener() {
             final GestureDetector gestureDetector=new GestureDetector(getApplicationContext(),new GestureDetector.SimpleOnGestureListener()
             {
-
                 @Override
                 public void onLongPress(@NonNull MotionEvent e) {
                     if(mp!=null)
@@ -121,7 +121,7 @@ public class HeiseiRiders1 extends AppCompatActivity {
                         mp.release();
                         mp=null;
                     }
-                    imageView.startAnimation(AnimationUtils.loadAnimation(HeiseiRiders1.this,R.anim.customfade));
+                    imageView.startAnimation(fade);
                     mp = MediaPlayer.create(HeiseiRiders1.this, longpress.get(i));
                     mp.start();
                     mp.setOnCompletionListener(mp -> imageView.clearAnimation());
@@ -134,7 +134,7 @@ public class HeiseiRiders1 extends AppCompatActivity {
                         mp.release();
                         mp=null;
                     }
-                    imageView.startAnimation(AnimationUtils.loadAnimation(HeiseiRiders1.this,R.anim.customfade));
+                    imageView.startAnimation(fade);
                     mp = MediaPlayer.create(HeiseiRiders1.this, henshinsound.get(i));
                     mp.start();
                     mp.setOnCompletionListener(mp -> imageView.clearAnimation());
@@ -147,7 +147,7 @@ public class HeiseiRiders1 extends AppCompatActivity {
                         mp.release();
                         mp=null;
                     }
-                    imageView.startAnimation(AnimationUtils.loadAnimation(HeiseiRiders1.this,R.anim.customfade));
+                    imageView.startAnimation(fade);
                     mp = MediaPlayer.create(HeiseiRiders1.this, sound.get(i));
                     mp.start();
                     mp.setOnCompletionListener(mp -> imageView.clearAnimation());

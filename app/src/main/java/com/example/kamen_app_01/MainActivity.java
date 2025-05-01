@@ -11,7 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
-import android.view.animation.AnimationUtils;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        Animation fade=AnimationManager.getInstance().getXmlAnimation("customfade");
         backgroundImages= new Drawable[]{ AppCompatResources.getDrawable(this,R.drawable.seraph),
                 AppCompatResources.getDrawable(this,R.drawable.faiznext),
                 AppCompatResources.getDrawable(this,R.drawable.decadecomplete21),
@@ -145,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                         mp.release();
                         mp=null;
                     }
-                    imageView.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,R.anim.customfade));
+                    imageView.startAnimation(fade);
                     if(currentImageIndex==5 && flag==1 || currentImageIndex==6 && hazard_flag==1 || currentImageIndex==9 && zt_flag==1)
                     {
                         if(currentImageIndex==5)
@@ -185,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
                         mp.release();
                         mp=null;
                     }
-                    imageView.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,R.anim.customfade));
+                    imageView.startAnimation(fade);
                     if(currentImageIndex==6 && hazard_flag==1)
                     {
                         mp=MediaPlayer.create(MainActivity.this,R.raw.henshincrossbuildhazard);
@@ -207,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
                         mp.release();
                         mp=null;
                     }
-                    imageView.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,R.anim.customfade));
+                    imageView.startAnimation(fade);
                     mp = MediaPlayer.create(MainActivity.this, sound.get(currentImageIndex));
                     mp.start();
                     mp.setOnCompletionListener(mp -> imageView.clearAnimation());
@@ -231,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
                     {
                         if(diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE && flag==0)
                         {
-                            imageView.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,R.anim.customfade));
+                            imageView.startAnimation(fade);
                             mp=MediaPlayer.create(MainActivity.this,R.raw.genmpause);
                             mp.start();
                             flag=1;
@@ -241,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
                         {
                             if(flag==1 && genmflag==0)
                             {
-                                imageView.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,R.anim.customfade));
+                                imageView.startAnimation(fade);
                                 mp=MediaPlayer.create(MainActivity.this,R.raw.genmrestart);
                                 mp.start();
                                 flag=0;
@@ -249,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                             if(flag==1 && genmflag==1)
                             {
-                                imageView.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,R.anim.customfade));
+                                imageView.startAnimation(fade);
                                 mp=MediaPlayer.create(MainActivity.this,R.raw.genmrestartalt);
                                 mp.start();
                                 flag=0;

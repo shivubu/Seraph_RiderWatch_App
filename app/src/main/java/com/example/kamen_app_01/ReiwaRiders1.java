@@ -10,7 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
-import android.view.animation.AnimationUtils;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -41,6 +41,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        Animation fade=AnimationManager.getInstance().getXmlAnimation("customfade");
         int[] rw = {R.drawable.zeroone,R.drawable.saber,R.drawable.revi,R.drawable.geats,R.drawable.gotchard};
         int[] sounds = {R.raw.zeroone,R.raw.saber,R.raw.revi,R.raw.geats,R.raw.gotchard};
         int[] henshinsounds={R.raw.henshinzerotwo,R.raw.henshincrosssaber,R.raw.henshinrevicerex,R.raw.henshingeats9,R.raw.henshingotchardrainbow};
@@ -121,7 +122,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
                         mp.release();
                         mp=null;
                     }
-                    imageView.startAnimation(AnimationUtils.loadAnimation(ReiwaRiders1.this,R.anim.customfade));
+                    imageView.startAnimation(fade);
                     mp = MediaPlayer.create(ReiwaRiders1.this, longpresssound.get(i));
                     mp.start();
                     mp.setOnCompletionListener(mp -> imageView.clearAnimation());
@@ -134,7 +135,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
                         mp.release();
                         mp=null;
                     }
-                    imageView.startAnimation(AnimationUtils.loadAnimation(ReiwaRiders1.this,R.anim.customfade));
+                    imageView.startAnimation(fade);
                     mp = MediaPlayer.create(ReiwaRiders1.this, henshinsound.get(i));
                     mp.start();
                     mp.setOnCompletionListener(mp -> imageView.clearAnimation());
@@ -148,7 +149,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
                         mp.release();
                         mp=null;
                     }
-                    imageView.startAnimation(AnimationUtils.loadAnimation(ReiwaRiders1.this,R.anim.customfade));
+                    imageView.startAnimation(fade);
                     mp = MediaPlayer.create(ReiwaRiders1.this, sound.get(i));
                     mp.start();
                     mp.setOnCompletionListener(mp -> imageView.clearAnimation());

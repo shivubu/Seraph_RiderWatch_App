@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -24,25 +23,30 @@ public class LauncherActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_launch);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        AnimationManager animationManager=AnimationManager.getInstance();
+        animationManager.preloadXmlAnimations(this);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
         im2=findViewById(R.id.imageView2);
+        Animation rotate= animationManager.getXmlAnimation("rotate");
+        mp=MediaPlayer.create(this,R.raw.transition);
         im2.setOnClickListener(v -> {
             im2.setClickable(false);
-            Animation rotate= AnimationUtils.loadAnimation(LauncherActivity.this,R.anim.rotate);
-            im2.startAnimation(rotate);
-            mp=MediaPlayer.create(LauncherActivity.this,R.raw.transition);
-            mp.start();
-            mp.setOnCompletionListener(mp -> {
-                mp.release();
-                im2.clearAnimation();
-                Intent mainIntent = new Intent(LauncherActivity.this,Menu.class);
-                startActivity(mainIntent);
-                finish();
-            });
+            if(mp!=null)
+            {
+                im2.startAnimation(rotate);
+                mp.start();
+            }
+        });
+        mp.setOnCompletionListener(mp1 -> {
+            mp.release();
+            mp=null;
+            im2.clearAnimation();
+            startActivity(new Intent(LauncherActivity.this,Menu.class));
+            finish();
         });
     }
     @Override

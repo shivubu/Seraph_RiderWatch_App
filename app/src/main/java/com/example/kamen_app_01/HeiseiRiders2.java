@@ -10,7 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
-import android.view.animation.AnimationUtils;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -41,9 +41,10 @@ public class HeiseiRiders2 extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        Animation fade=AnimationManager.getInstance().getXmlAnimation("customfade");
         int[] rw = {R.drawable.w, R.drawable.ooo,R.drawable.fourze,R.drawable.wizard,R.drawable.gaim,R.drawable.drive,R.drawable.ghost,R.drawable.exaid,R.drawable.build,R.drawable.grandzio};
         int[] sounds = {R.raw.doublecjex, R.raw.oooputo,R.raw.fourzecosmic,R.raw.wizardinfinity,R.raw.gaimkiwami,R.raw.drivetrideron,R.raw.ghostmugen,R.raw.exaidmuteki,R.raw.buildgenius,R.raw.grandzio};
-        int[] henshinsounds={R.raw.henshindoublecjx,R.raw.henshinoooputo,R.raw.henshinfourzecosmic,R.raw.henshinwizardinfinity,R.raw.henshingaimkiwami,R.raw.henshindrivetrideron,R.raw.henshinghostmugen,R.raw.henshinmutekiexaid,R.raw.henshinbuildgenius,R.raw.henshingrandzio};
+        int[] henshinsounds={R.raw.henshindoublecjx,R.raw.henshinoooputo,R.raw.henshinfourzecosmic,R.raw.henshinwizardinfinity,R.raw.henshingaimkiwami,R.raw.henshindrivetrideron,R.raw.henshinghostmugen,R.raw.henshinexaidmuteki,R.raw.henshinbuildgenius,R.raw.henshingrandzio};
         int[] longpresssounds={R.raw.lpdouble,R.raw.lpooo,R.raw.lpfourze,R.raw.lpwizard,R.raw.lpgaim,R.raw.lpdrive,R.raw.lpghost,R.raw.lpexaid,R.raw.lpbuild,R.raw.lpzio};
         ArrayList<Integer> screen = new ArrayList<>();
         for (int j : rw) {
@@ -121,7 +122,7 @@ public class HeiseiRiders2 extends AppCompatActivity {
                         mp.release();
                         mp=null;
                     }
-                    imageView.startAnimation(AnimationUtils.loadAnimation(HeiseiRiders2.this,R.anim.customfade));
+                    imageView.startAnimation(fade);
                     mp = MediaPlayer.create(HeiseiRiders2.this, longpresssound.get(i));
                     mp.start();
                     mp.setOnCompletionListener(mp -> imageView.clearAnimation());
@@ -135,7 +136,7 @@ public class HeiseiRiders2 extends AppCompatActivity {
                         mp.release();
                         mp=null;
                     }
-                    imageView.startAnimation(AnimationUtils.loadAnimation(HeiseiRiders2.this,R.anim.customfade));
+                    imageView.startAnimation(fade);
                     mp = MediaPlayer.create(HeiseiRiders2.this, henshinsound.get(i));
                     mp.start();
                     mp.setOnCompletionListener(mp -> imageView.clearAnimation());
@@ -149,7 +150,7 @@ public class HeiseiRiders2 extends AppCompatActivity {
                         mp.release();
                         mp=null;
                     }
-                    imageView.startAnimation(AnimationUtils.loadAnimation(HeiseiRiders2.this,R.anim.customfade));
+                    imageView.startAnimation(fade);
                     mp = MediaPlayer.create(HeiseiRiders2.this, sound.get(i));
                     mp.start();
                     mp.setOnCompletionListener(mp -> imageView.clearAnimation());
