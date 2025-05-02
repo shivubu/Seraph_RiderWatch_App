@@ -33,21 +33,20 @@ public class LauncherActivity extends AppCompatActivity {
             return insets;
         });
         im2=findViewById(R.id.imageView2);
+        if(rotate==null)
+        {
+            im2.setClickable(false);
+        }
         mp=MediaPlayer.create(this,R.raw.transition);
         im2.setOnClickListener(v -> {
-            if(mp.isPlaying())
-            {
-                mp.release();
-            }
             im2.setClickable(false);
-            new Handler(Looper.getMainLooper()).postDelayed(() -> im2.startAnimation(rotate), 500);
             mp.start();
+            new Handler(Looper.getMainLooper()).postDelayed(() -> im2.startAnimation(rotate), 300);
+
 
         });
-        mp.setOnCompletionListener(mp1 -> {
-            mp1.release();
-            mp=null;
-            startActivity(new Intent(LauncherActivity.this,Menu.class));
+        mp.setOnCompletionListener(mp -> {
+            startActivity(new Intent(LauncherActivity.this, Menu.class));
             finish();
         });
     }
@@ -73,6 +72,13 @@ public class LauncherActivity extends AppCompatActivity {
         }
         super.onPause();
     }
-
-
+    @Override
+    protected void onDestroy() {
+        if(mp!=null)
+        {
+            mp.release();
+            mp=null;
+        }
+        super.onDestroy();
+    }
 }
