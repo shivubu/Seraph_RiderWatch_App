@@ -41,6 +41,8 @@ public class LauncherActivity extends AppCompatActivity {
             im2.setClickable(false);
             mp.start();
             new Handler(Looper.getMainLooper()).postDelayed(() -> im2.startAnimation(rotate), 300);
+
+
         });
         mp.setOnCompletionListener(mp -> {
             startActivity(new Intent(LauncherActivity.this, Menu.class));
