@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        Animation fade=AnimationManager.getInstance().getXmlAnimation("customfade");
+        Animation fade= AnimationUtils.loadAnimation(this,R.anim.customfade);
         backgroundImages= new Drawable[]{ AppCompatResources.getDrawable(this,R.drawable.seraph),
                 AppCompatResources.getDrawable(this,R.drawable.faiznext),
                 AppCompatResources.getDrawable(this,R.drawable.decadecomplete21),

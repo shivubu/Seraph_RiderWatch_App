@@ -8,6 +8,7 @@ import android.os.Looper;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,9 +25,7 @@ public class LauncherActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_launch);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        AnimationManager animationManager=AnimationManager.getInstance();
-        animationManager.preloadXmlAnimations(this);
-        Animation rotate= animationManager.getXmlAnimation("rotate");
+        Animation rotate= AnimationUtils.loadAnimation(this,R.anim.rotate);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

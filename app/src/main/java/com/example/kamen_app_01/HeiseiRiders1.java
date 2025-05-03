@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -40,7 +41,7 @@ public class HeiseiRiders1 extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        Animation fade=AnimationManager.getInstance().getXmlAnimation("customfade");
+        Animation fade= AnimationUtils.loadAnimation(this,R.anim.customfade);
         int[] rw = {R.drawable.kuuga, R.drawable.agito,R.drawable.ryuki,R.drawable.faiz,R.drawable.blade,R.drawable.hibiki,R.drawable.kabuto,R.drawable.deno,R.drawable.kiva,R.drawable.decadec};
         int[] sounds = {R.raw.kuugault, R.raw.agitoshining,R.raw.ryukisurvive,R.raw.faizblaster,R.raw.bladeking,R.raw.hibikiarmed,R.raw.kabutohyper,R.raw.denoliner,R.raw.kivaemperor,R.raw.decadecomplete};
         int[] henshinsounds={R.raw.henshinkuugault,R.raw.henshinagitoshining,R.raw.henshinryukisurvive,R.raw.henshinfaizblaster,R.raw.henshinbladeking,R.raw.henshinhibikiarmed,R.raw.henshinkabutohyper,R.raw.henshindenoliner,R.raw.henshinkivaemperor,R.raw.henshindecadecomplete};
