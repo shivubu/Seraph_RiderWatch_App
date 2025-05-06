@@ -223,14 +223,14 @@ public class MainActivity extends AppCompatActivity {
                     float diffX = e2.getX() - e1.getX();
                     float SWIPE_THRESHOLD_VELOCITY = 200;
                     float SWIPE_THRESHOLD_DISTANCE = 100;
-                    if(mp!=null)
-                    {
-                        mp.release();
-                        mp=null;
-                        imageView.clearAnimation();
-                    }
                     if(currentImageIndex==5)
                     {
+                        if(mp!=null)
+                        {
+                            mp.release();
+                            mp=null;
+                            imageView.clearAnimation();
+                        }
                         if(diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE && flag==0)
                         {
                             imageView.startAnimation(fade);
@@ -264,6 +264,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                     if(currentImageIndex==6)
                     {
+                        if(mp!=null)
+                        {
+                            mp.release();
+                            mp=null;
+                            imageView.clearAnimation();
+                        }
                         if (diffY > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE)
                         {
                             hazard_flag=1;
@@ -279,6 +285,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                     if(currentImageIndex==9)
                     {
+                        if(mp!=null)
+                        {
+                            mp.release();
+                            mp=null;
+                            imageView.clearAnimation();
+                        }
                         if(diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE)
                         {
                             zt_index++;
