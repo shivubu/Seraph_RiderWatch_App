@@ -43,7 +43,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
             return insets;
         });
         Animation fade= AnimationUtils.loadAnimation(this,R.anim.customfade);
-        int[] rw = {R.drawable.zeroone,R.drawable.saber,R.drawable.revi,R.drawable.geats,R.drawable.gotchard};
+        int[] rw = {R.drawable.zerotwo,R.drawable.sabercross,R.drawable.reviultimate,R.drawable.geats9,R.drawable.gotchardrainbow};
         int[] sounds = {R.raw.zeroone,R.raw.saber,R.raw.revi,R.raw.geats,R.raw.gotchard};
         int[] henshinsounds={R.raw.henshinzerotwo,R.raw.henshincrosssaber,R.raw.henshinrevicerex,R.raw.henshingeats9,R.raw.henshingotchardrainbow};
         int[] longpress={R.raw.lpzeroone,R.raw.lpsaber,R.raw.lprevi,R.raw.lpgeats,R.raw.lpgotchard};
