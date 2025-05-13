@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     MediaPlayer mp,end;
     private Drawable[] backgroundImages;
-    private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,zt_flag=0,hazard_flag=0,genmflag=0;
+    private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,zt_flag=0,hazard_flag=0,genmflag=0,fumetsuflag=0;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +126,14 @@ public class MainActivity extends AppCompatActivity {
                 }
                 // Update the background image
                 if (backgroundImages.length > 0) {
-                    imageView.setImageDrawable(backgroundImages[currentImageIndex]);
+                    if(currentImageIndex==5 && fumetsuflag==1)
+                    {
+                        imageView.setImageResource(R.drawable.genmfumetsu);
+                    }
+                    else
+                    {
+                        imageView.setImageDrawable(backgroundImages[currentImageIndex]);
+                    }
                     if(currentImageIndex==9)
                     {
                         zt_index=-1;
@@ -168,6 +175,11 @@ public class MainActivity extends AppCompatActivity {
                             zt_flag=0;
                         }
                     }
+                    else if(currentImageIndex==5 && fumetsuflag==1)
+                    {
+                        mp=MediaPlayer.create(MainActivity.this,R.raw.lpgenmhyperfumetsu);
+                        mp.start();
+                    }
                     else
                     {
                         mp = MediaPlayer.create(MainActivity.this, longpress.get(currentImageIndex));
@@ -188,7 +200,12 @@ public class MainActivity extends AppCompatActivity {
                         mp=null;
                     }
                     imageView.startAnimation(fade);
-                    if(currentImageIndex==6 && hazard_flag==1)
+                    if(currentImageIndex==5 && fumetsuflag==1)
+                    {
+                        mp=MediaPlayer.create(MainActivity.this,R.raw.henshingenmhyperfumetsu);
+                        mp.start();
+                    }
+                    else if(currentImageIndex==6 && hazard_flag==1)
                     {
                         mp=MediaPlayer.create(MainActivity.this,R.raw.henshincrossbuildhazard);
                         mp.start();
@@ -210,8 +227,15 @@ public class MainActivity extends AppCompatActivity {
                         mp=null;
                     }
                     imageView.startAnimation(fade);
-                    mp = MediaPlayer.create(MainActivity.this, sound.get(currentImageIndex));
-                    mp.start();
+                    if(currentImageIndex==5 && fumetsuflag==1)
+                    {
+                        mp=MediaPlayer.create(MainActivity.this,R.raw.genmhyperfumetsu);
+                        mp.start();
+                    }
+                    else{
+                        mp = MediaPlayer.create(MainActivity.this, sound.get(currentImageIndex));
+                        mp.start();
+                    }
                     mp.setOnCompletionListener(mp -> imageView.clearAnimation());
                     return super.onSingleTapConfirmed(e);
                 }
@@ -259,6 +283,23 @@ public class MainActivity extends AppCompatActivity {
                                 mp.setOnCompletionListener(mp -> imageView.clearAnimation());
                             }
 
+                        }
+                        if (diffY > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE) {
+                            if(fumetsuflag==0)
+                            {
+                                fumetsuflag=1;
+                                imageView.setImageResource(R.drawable.genmfumetsu);
+                                flag=0;
+                                genmflag=0;
+                            }
+                        }
+                        if (diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE)
+                        {
+                            if(fumetsuflag==1)
+                            {
+                                fumetsuflag=0;
+                                imageView.setImageResource(R.drawable.genmmusou);
+                            }
                         }
 
                     }
