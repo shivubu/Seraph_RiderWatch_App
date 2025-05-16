@@ -28,8 +28,8 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 
 public class ReiwaRiders1 extends AppCompatActivity {
-    int i=0,gavvoverhenshin=0;
-    int overindex;
+    int i=0,gavvoverhenshin=0,masterflag=0;
+    int overindex,masterindex;
     MediaPlayer mp,end;
     ImageView imageView;
     @SuppressLint("ClickableViewAccessibility")
@@ -50,6 +50,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
         int[] henshinsounds={R.raw.henshinzerotwo,R.raw.henshincrosssaber,R.raw.henshinrevicerex,R.raw.henshingeats9,R.raw.henshingotchardrainbow,R.raw.henshingavvover};
         int[] longpress={R.raw.lpzeroone,R.raw.lpsaber,R.raw.lprevi,R.raw.lpgeats,R.raw.lpgotchard,R.raw.lpgavvover};
         int[] gavvover={R.raw.gavvover0,R.raw.gavvover1,R.raw.gavvover2,R.raw.gavvover3};
+        int[] gavvmaster={R.raw.mastergummy,R.raw.mastersnack,R.raw.mastermarsh,R.raw.masterchoco,R.raw.mastercandy,R.raw.masterdonuts,R.raw.mastercake};
         ArrayList<Integer> screen = new ArrayList<>();
         for (int j : rw) {
             screen.add(j);
@@ -69,6 +70,10 @@ public class ReiwaRiders1 extends AppCompatActivity {
         ArrayList<Integer> gavvoversounds = new ArrayList<>();
         for (int j : gavvover) {
             gavvoversounds.add(j);
+        }
+        ArrayList<Integer> gavvmastersounds = new ArrayList<>();
+        for (int j : gavvmaster) {
+            gavvmastersounds.add(j);
         }
         imageView = findViewById(R.id.imageView8);
         imageView.setImageResource(screen.get(i));
@@ -119,6 +124,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
                     {
                         gavvoverhenshin=0;
                         overindex=-1;
+                        masterindex=-1;
                     }
                 }
                 return true;
@@ -136,8 +142,16 @@ public class ReiwaRiders1 extends AppCompatActivity {
                         mp=null;
                     }
                     imageView.startAnimation(fade);
-                    mp = MediaPlayer.create(ReiwaRiders1.this, longpresssound.get(i));
-                    mp.start();
+                    if(i==5 && masterflag==1)
+                    {
+                        mp = MediaPlayer.create(ReiwaRiders1.this,R.raw.lpgavvmaster);
+                        mp.start();
+                    }
+                    else
+                    {
+                        mp = MediaPlayer.create(ReiwaRiders1.this, longpresssound.get(i));
+                        mp.start();
+                    }
                     mp.setOnCompletionListener(mp -> imageView.clearAnimation());
                     super.onLongPress(e);
                 }
@@ -149,11 +163,19 @@ public class ReiwaRiders1 extends AppCompatActivity {
                         mp=null;
                     }
                     imageView.startAnimation(fade);
-                    mp = MediaPlayer.create(ReiwaRiders1.this, henshinsound.get(i));
-                    mp.start();
-                    if(i==5)
+                    if(i==5 && masterflag==1)
                     {
-                        gavvoverhenshin=1;
+                        mp = MediaPlayer.create(ReiwaRiders1.this,R.raw.henshingavvmaster);
+                        mp.start();
+                    }
+                    else
+                    {
+                        mp = MediaPlayer.create(ReiwaRiders1.this, henshinsound.get(i));
+                        mp.start();
+                        if(i==5 && masterflag==0)
+                        {
+                            gavvoverhenshin=1;
+                        }
                     }
                     mp.setOnCompletionListener(mp -> imageView.clearAnimation());
                     return super.onDoubleTap(e);
@@ -172,6 +194,11 @@ public class ReiwaRiders1 extends AppCompatActivity {
                         mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.oversmash);
                         mp.start();
                     }
+                    else if(i==5 && masterflag==1)
+                    {
+                        mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.gavvmaster);
+                        mp.start();
+                    }
                     else
                     {
                         mp = MediaPlayer.create(ReiwaRiders1.this, sound.get(i));
@@ -187,35 +214,88 @@ public class ReiwaRiders1 extends AppCompatActivity {
                     float diffX = e2.getX() - e1.getX();
                     float SWIPE_THRESHOLD_VELOCITY = 200;
                     float SWIPE_THRESHOLD_DISTANCE = 100;
-                    if(i==5 && gavvoverhenshin==1)
+                    if(i==5)
                     {
-                        if(mp!=null)
+                        if(gavvoverhenshin==1)
                         {
-                            mp.release();
-                            mp=null;
-                            imageView.clearAnimation();
-                        }
-                        if(diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE)
-                        {
-                            overindex--;
-                            if(overindex<0)
+                            if(mp!=null)
                             {
-                                overindex=gavvoversounds.size()-1;
+                                mp.release();
+                                mp=null;
+                                imageView.clearAnimation();
                             }
-                            mp=MediaPlayer.create(ReiwaRiders1.this,gavvoversounds.get(overindex));
-                            mp.start();
+                            if(diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE)
+                            {
+                                overindex--;
+                                if(overindex<0)
+                                {
+                                    overindex=gavvoversounds.size()-1;
+                                }
+                                mp=MediaPlayer.create(ReiwaRiders1.this,gavvoversounds.get(overindex));
+                                mp.start();
 
-                        }
-                        if(diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE)
-                        {
-                            overindex++;
-                            if(overindex>=gavvoversounds.size())
-                            {
-                                overindex=0;
                             }
-                            mp=MediaPlayer.create(ReiwaRiders1.this,gavvoversounds.get(overindex));
-                            mp.start();
+                            if(diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE)
+                            {
+                                overindex++;
+                                if(overindex>=gavvoversounds.size())
+                                {
+                                    overindex=0;
+                                }
+                                mp=MediaPlayer.create(ReiwaRiders1.this,gavvoversounds.get(overindex));
+                                mp.start();
+                            }
                         }
+                        if(masterflag==1)
+                        {
+                            if(mp!=null)
+                            {
+                                mp.release();
+                                mp=null;
+                                imageView.clearAnimation();
+                            }
+                            if(diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE)
+                            {
+                                masterindex--;
+                                if(masterindex<0)
+                                {
+                                    masterindex=gavvmastersounds.size()-1;
+                                }
+                                mp=MediaPlayer.create(ReiwaRiders1.this,gavvmastersounds.get(masterindex));
+                                mp.start();
+
+                            }
+                            if(diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE)
+                            {
+                                masterindex++;
+                                if(masterindex>=gavvmastersounds.size())
+                                {
+                                    masterindex=0;
+                                }
+                                mp=MediaPlayer.create(ReiwaRiders1.this,gavvmastersounds.get(masterindex));
+                                mp.start();
+                            }
+                        }
+                        if (diffY > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE)
+                        {
+                            if(masterflag==0)
+                            {
+                                masterflag=1;
+                                masterindex=-1;
+                                imageView.setImageResource(R.drawable.gavvmaster);
+                            }
+                        }
+                        if (diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE)
+                        {
+                            if(masterflag==1)
+                            {
+                                masterflag=0;
+                                imageView.setImageResource(R.drawable.gavvover);
+                                gavvoverhenshin=0;
+                                overindex=-1;
+                            }
+                        }
+
                     }
                     return super.onFling(e1, e2, velocityX, velocityY);
                 }
