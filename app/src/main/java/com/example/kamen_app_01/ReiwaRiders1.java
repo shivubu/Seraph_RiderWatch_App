@@ -282,7 +282,9 @@ public class ReiwaRiders1 extends AppCompatActivity {
                             {
                                 masterflag=1;
                                 masterindex=-1;
+                                gavvoverhenshin=0;
                                 imageView.setImageResource(R.drawable.gavvmaster);
+
                             }
                         }
                         if (diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE)
@@ -291,7 +293,6 @@ public class ReiwaRiders1 extends AppCompatActivity {
                             {
                                 masterflag=0;
                                 imageView.setImageResource(R.drawable.gavvover);
-                                gavvoverhenshin=0;
                                 overindex=-1;
                             }
                         }
