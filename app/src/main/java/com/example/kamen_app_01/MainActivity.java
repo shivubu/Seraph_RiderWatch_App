@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 AppCompatResources.getDrawable(this,R.drawable.saberub),
                 AppCompatResources.getDrawable(this,R.drawable.geatsdea)};
         int[] sounds = {R.raw.seraph0,R.raw.faiznext,R.raw.decadecomplete21,R.raw.oootajadoreternity,R.raw.exaidnovel,R.raw.genmmusou,R.raw.crossbuild,R.raw.evolblackhole,R.raw.omazio,R.raw.zerothree,R.raw.saberub,R.raw.geatsdea};
-        int[] henshinsounds={R.raw.henshinseraph_v1,R.raw.henshinfaiznext,R.raw.henshindecadecomplete21,R.raw.henshinoootajadoreternity,R.raw.henshinexaidnovel,R.raw.henshingenmmusou,R.raw.henshincrossbuild,R.raw.henshinevolblackhole,R.raw.henshinzioohma,R.raw.henshinzerothree,R.raw.henshinsaberub,R.raw.henshingeatsdea2};
+        int[] henshinsounds={R.raw.henshinseraph,R.raw.henshinfaiznext,R.raw.henshindecadecomplete21,R.raw.henshinoootajadoreternity,R.raw.henshinexaidnovel,R.raw.henshingenmmusou,R.raw.henshincrossbuild,R.raw.henshinevolblackhole,R.raw.henshinzioohma,R.raw.henshinzerothree,R.raw.henshinsaberub,R.raw.henshingeatsdea2};
         int[] longpresssounds={R.raw.lpseraph,R.raw.lpfaiznext,R.raw.lpdecadecomplete21,R.raw.lpoootajadoreternity,R.raw.lpexaidnovel,R.raw.lpgenmmusou,R.raw.lpcrossbuild,R.raw.lpevolblackhole,R.raw.lpohma,R.raw.lpzerothree,R.raw.lpsaberub2,R.raw.lpgeatsdea};
         int[] zt_sounds={R.raw.zt_create,R.raw.zt_singularity,R.raw.zt_ability,R.raw.zt_there_ark_ability,R.raw.zt_outsiders_ability};
         int[] ztweap_sounds={R.raw.attache_calibur,R.raw.attache_shotgun,R.raw.attache_arrow,R.raw.shotriser,R.raw.slashriser,R.raw.thousand_jacker,R.raw.authorise_blaster,R.raw.hopper_blade};
