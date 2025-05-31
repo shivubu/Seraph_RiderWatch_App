@@ -414,6 +414,10 @@ public class MainActivity extends AppCompatActivity {
             if (mp != null) {
                 mp.release();
             }
+            if(mp1!=null)
+            {
+                mp1.release();
+            }
             end = MediaPlayer.create(this,R.raw.transition);
             end.start();
             end.setOnCompletionListener(mp -> {
@@ -432,10 +436,14 @@ public class MainActivity extends AppCompatActivity {
         {
             mp.release();
             mp=null;
-            imageView.clearAnimation();
-            imageView.setClickable(true);
         }
-
+        if(mp1!=null)
+        {
+            mp1.release();
+            mp1=null;
+        }
+        imageView.clearAnimation();
+        imageView.setClickable(true);
         super.onPause();
     }
 }
