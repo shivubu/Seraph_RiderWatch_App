@@ -31,7 +31,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     ImageView imageView;
-    MediaPlayer mp,end;
+    MediaPlayer mp,mp1,end;
     private Drawable[] backgroundImages;
     private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,zt_flag=0,hazard_flag=0,genmflag=0,fumetsuflag=0,bahamutflag=0;
     @SuppressLint("ClickableViewAccessibility")
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 AppCompatResources.getDrawable(this,R.drawable.geatsdea)};
         int[] sounds = {R.raw.seraph0,R.raw.faiznext,R.raw.decadecomplete21,R.raw.oootajadoreternity,R.raw.exaidnovel,R.raw.genmmusou,R.raw.crossbuild,R.raw.evolblackhole,R.raw.omazio,R.raw.zerothree,R.raw.saberub,R.raw.geatsdea};
         int[] henshinsounds={R.raw.henshinseraph,R.raw.henshinfaiznext,R.raw.henshindecadecomplete21,R.raw.henshinoootajadoreternity,R.raw.henshinexaidnovel,R.raw.henshingenmmusou,R.raw.henshincrossbuild,R.raw.henshinevolblackhole,R.raw.henshinzioohma,R.raw.henshinzerothree,R.raw.henshinsaberub,R.raw.henshingeatsdea2};
-        int[] longpresssounds={R.raw.lpseraph,R.raw.lpfaiznext,R.raw.lpdecadecomplete21,R.raw.lpoootajadoreternity,R.raw.lpexaidnovel,R.raw.lpgenmmusou,R.raw.lpcrossbuild,R.raw.lpevolblackhole,R.raw.lpohma,R.raw.lpzerothree,R.raw.lpsaberub2,R.raw.lpgeatsdea};
+        int[] longpresssounds={R.raw.finisher_seraph,R.raw.lpfaiznext,R.raw.lpdecadecomplete21,R.raw.lpoootajadoreternity,R.raw.lpexaidnovel,R.raw.lpgenmmusou,R.raw.lpcrossbuild,R.raw.lpevolblackhole,R.raw.finisher_ohmazio,R.raw.lpzerothree,R.raw.lpsaberub2,R.raw.lpgeatsdea};
         int[] zt_sounds={R.raw.zt_create,R.raw.zt_singularity,R.raw.zt_ability,R.raw.zt_there_ark_ability,R.raw.zt_outsiders_ability};
         int[] ztweap_sounds={R.raw.attache_calibur,R.raw.attache_shotgun,R.raw.attache_arrow,R.raw.shotriser,R.raw.slashriser,R.raw.thousand_jacker,R.raw.authorise_blaster,R.raw.hopper_blade};
         ArrayList<Integer> sound = new ArrayList<>();
@@ -96,25 +96,20 @@ public class MainActivity extends AppCompatActivity {
                     mp=null;
                     imageView.clearAnimation();
                 }
+                if(mp1!=null) {
+                    mp1.release();
+                    mp1 = null;
+                    imageView.clearAnimation();
+                }
                 float delta = -motionEvent.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
                         ViewConfigurationCompat.getScaledHorizontalScrollFactor(ViewConfiguration.get(getApplicationContext()), getApplicationContext());
                 if (delta > 0) {
                     // Rotate clockwise
-                    if(mp!=null)
-                    {
-                        mp.release();
-                        mp=null;
-                    }
                     mp=MediaPlayer.create(MainActivity.this,R.raw.transition2);
                     mp.start();
                     currentImageIndex++;
                 } else if (delta < 0) {
                     // Rotate counter-clockwise
-                    if(mp!=null)
-                    {
-                        mp.release();
-                        mp=null;
-                    }
                     mp=MediaPlayer.create(MainActivity.this,R.raw.transition2);
                     mp.start();
                     currentImageIndex--;
@@ -155,50 +150,60 @@ public class MainActivity extends AppCompatActivity {
                         mp.release();
                         mp=null;
                     }
+                    if(mp1!=null)
+                    {
+                        mp1.release();
+                        mp1=null;
+                    }
                     imageView.startAnimation(fade);
-                    if(currentImageIndex==5 && flag==1 || currentImageIndex==6 && hazard_flag==1 || currentImageIndex==9 && zt_flag==1 || currentImageIndex==10 && bahamutflag==1)
-                    {
-                        if(currentImageIndex==5)
+                    mp=MediaPlayer.create(MainActivity.this,R.raw.judgement_finishtime);
+                    mp.start();
+                    mp.setOnCompletionListener(mp -> {
+                        if(currentImageIndex==5 && flag==1 || currentImageIndex==6 && hazard_flag==1 || currentImageIndex==9 && zt_flag==1 || currentImageIndex==10 && bahamutflag==1)
                         {
-                            mp=MediaPlayer.create(MainActivity.this,R.raw.lpgenmmusoualt);
-                            mp.start();
-                            genmflag=1;
+                            if(currentImageIndex==5)
+                            {
+                                mp1=MediaPlayer.create(MainActivity.this,R.raw.lpgenmmusoualt);
+                                mp1.start();
+                                genmflag=1;
+                            }
+                            if(currentImageIndex==6)
+                            {
+                                mp1=MediaPlayer.create(MainActivity.this,R.raw.lpcrossbuildhazard);
+                                mp1.start();
+                            }
+                            if(currentImageIndex==9)
+                            {
+                                mp1 = MediaPlayer.create(MainActivity.this, R.raw.lpzerothreealt);
+                                mp1.start();
+                                zt_flag=0;
+                            }
+                            if(currentImageIndex==10)
+                            {
+                                mp1=MediaPlayer.create(MainActivity.this,R.raw.lpsaberub1);
+                                mp1.start();
+                                bahamutflag=0;
+                            }
                         }
-                        if(currentImageIndex==6)
+                        else if(currentImageIndex==5 && fumetsuflag==1)
                         {
-                            mp=MediaPlayer.create(MainActivity.this,R.raw.lpcrossbuildhazard);
-                            mp.start();
+                            mp1=MediaPlayer.create(MainActivity.this,R.raw.lpgenmhyperfumetsu);
+                            mp1.start();
                         }
-                        if(currentImageIndex==9)
-                        {
-                            mp = MediaPlayer.create(MainActivity.this, R.raw.lpzerothreealt);
-                            mp.start();
-                            zt_flag=0;
+                        else {
+                            mp1 = MediaPlayer.create(MainActivity.this, longpress.get(currentImageIndex));
+                            mp1.start();
+                            if (currentImageIndex == 9 && zt_flag == 0) {
+                                zt_flag = 1;
+                            }
+                            if (currentImageIndex == 10 && bahamutflag == 0)
+                            {
+                                bahamutflag=1;
+                            }
                         }
-                        if(currentImageIndex==10)
-                        {
-                            mp=MediaPlayer.create(MainActivity.this,R.raw.lpsaberub1);
-                            mp.start();
-                            bahamutflag=0;
-                        }
-                    }
-                    else if(currentImageIndex==5 && fumetsuflag==1)
-                    {
-                        mp=MediaPlayer.create(MainActivity.this,R.raw.lpgenmhyperfumetsu);
-                        mp.start();
-                    }
-                    else {
-                        mp = MediaPlayer.create(MainActivity.this, longpress.get(currentImageIndex));
-                        mp.start();
-                        if (currentImageIndex == 9 && zt_flag == 0) {
-                            zt_flag = 1;
-                        }
-                        if (currentImageIndex == 10 && bahamutflag == 0)
-                        {
-                            bahamutflag=1;
-                        }
-                    }
-                    mp.setOnCompletionListener(mp -> imageView.clearAnimation());
+                        mp1.setOnCompletionListener(mp2 -> imageView.clearAnimation());
+                    });
+
                     super.onLongPress(e);
                 }
                 @Override
@@ -207,6 +212,11 @@ public class MainActivity extends AppCompatActivity {
                     {
                         mp.release();
                         mp=null;
+                    }
+                    if(mp1!=null)
+                    {
+                        mp1.release();
+                        mp1=null;
                     }
                     imageView.startAnimation(fade);
                     if(currentImageIndex==5 && fumetsuflag==1)
@@ -234,6 +244,11 @@ public class MainActivity extends AppCompatActivity {
                     {
                         mp.release();
                         mp=null;
+                    }
+                    if(mp1!=null)
+                    {
+                        mp1.release();
+                        mp1=null;
                     }
                     imageView.startAnimation(fade);
                     if(currentImageIndex==5 && fumetsuflag==1)
