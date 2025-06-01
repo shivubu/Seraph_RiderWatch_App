@@ -27,8 +27,8 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 
 public class HeiseiRiders2 extends AppCompatActivity {
-    int i=0;
-    MediaPlayer mp,end;
+    int i=0,flag=0;
+    MediaPlayer mp,mp1,end;
     ImageView imageView;
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -47,6 +47,7 @@ public class HeiseiRiders2 extends AppCompatActivity {
         int[] sounds = {R.raw.doublecjex, R.raw.oooputo,R.raw.fourzecosmic,R.raw.wizardinfinity,R.raw.gaimkiwami,R.raw.drivetrideron,R.raw.ghostmugen,R.raw.exaidmuteki,R.raw.buildgenius,R.raw.grandzio};
         int[] henshinsounds={R.raw.henshindoublecjx,R.raw.henshinoooputo,R.raw.henshinfourzecosmic,R.raw.henshinwizardinfinity,R.raw.henshingaimkiwami1,R.raw.henshindrivetrideron,R.raw.henshinghostmugen,R.raw.henshinexaidmuteki,R.raw.henshinbuildgenius,R.raw.henshingrandzio};
         int[] longpresssounds={R.raw.lpdouble,R.raw.lpooo,R.raw.lpfourze,R.raw.lpwizard,R.raw.lpgaim,R.raw.lpdrive,R.raw.lpghost,R.raw.lpexaid,R.raw.lpbuild,R.raw.lpzio};
+        int[] finishersounds={R.raw.finisher_doublecjex,R.raw.finisher_oooputo,R.raw.finisher_fourzecosmic,R.raw.finisher_wizardinfinity,R.raw.finisher_gaimkiwami,R.raw.finisher_drivetrideron,R.raw.finisher_ghostmugen,R.raw.finisher_exaidmuteki,R.raw.finisher_buildgenius,R.raw.finisher_grandzio};
         ArrayList<Integer> screen = new ArrayList<>();
         for (int j : rw) {
             screen.add(j);
@@ -63,6 +64,10 @@ public class HeiseiRiders2 extends AppCompatActivity {
         for (int j : longpresssounds) {
             longpresssound.add(j);
         }
+        ArrayList<Integer> finishersound = new ArrayList<>();
+        for (int j : finishersounds) {
+            finishersound.add(j);
+        }
         imageView = findViewById(R.id.imageView7);
         imageView.setImageResource(screen.get(i));
         imageView.setFocusable(true);
@@ -76,25 +81,21 @@ public class HeiseiRiders2 extends AppCompatActivity {
                     mp=null;
                     imageView.clearAnimation();
                 }
+                if(mp1!=null)
+                {
+                    mp1.release();
+                    mp1=null;
+                    imageView.clearAnimation();
+                }
                 float delta = -motionEvent.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
                         ViewConfigurationCompat.getScaledHorizontalScrollFactor(ViewConfiguration.get(getApplicationContext()), getApplicationContext());
                 if (delta > 0) {
                     // Rotate clockwise
-                    if(mp!=null)
-                    {
-                        mp.release();
-                        mp=null;
-                    }
                     mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.transition2);
                     mp.start();
                     i++;
                 } else if (delta < 0) {
                     // Rotate counter-clockwise
-                    if(mp!=null)
-                    {
-                        mp.release();
-                        mp=null;
-                    }
                     mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.transition2);
                     mp.start();
                     i--;
@@ -123,10 +124,19 @@ public class HeiseiRiders2 extends AppCompatActivity {
                         mp.release();
                         mp=null;
                     }
+                    if(mp1!=null)
+                    {
+                        mp1.release();
+                        mp1=null;
+                    }
                     imageView.startAnimation(fade);
-                    mp = MediaPlayer.create(HeiseiRiders2.this, longpresssound.get(i));
+                    mp = MediaPlayer.create(HeiseiRiders2.this,R.raw.judgement_finishtime);
                     mp.start();
-                    mp.setOnCompletionListener(mp -> imageView.clearAnimation());
+                    mp.setOnCompletionListener(mp -> {
+                        mp1=MediaPlayer.create(HeiseiRiders2.this,finishersound.get(i));
+                        mp1.start();
+                        mp1.setOnCompletionListener(mp2 -> imageView.clearAnimation());
+                    });
                     super.onLongPress(e);
                 }
 
@@ -136,6 +146,11 @@ public class HeiseiRiders2 extends AppCompatActivity {
                     {
                         mp.release();
                         mp=null;
+                    }
+                    if(mp1!=null)
+                    {
+                        mp1.release();
+                        mp1=null;
                     }
                     imageView.startAnimation(fade);
                     mp = MediaPlayer.create(HeiseiRiders2.this, henshinsound.get(i));
@@ -151,10 +166,25 @@ public class HeiseiRiders2 extends AppCompatActivity {
                         mp.release();
                         mp=null;
                     }
+                    if(mp1!=null)
+                    {
+                        mp1.release();
+                        mp1=null;
+                    }
                     imageView.startAnimation(fade);
-                    mp = MediaPlayer.create(HeiseiRiders2.this, sound.get(i));
-                    mp.start();
-                    mp.setOnCompletionListener(mp -> imageView.clearAnimation());
+                    if(flag==0){
+                        flag=1;
+                        mp = MediaPlayer.create(HeiseiRiders2.this, sound.get(i));
+                        mp.start();
+                        mp.setOnCompletionListener(mp -> imageView.clearAnimation());
+                    }
+                    else if(flag==1)
+                    {
+                        flag=0;
+                        mp = MediaPlayer.create(HeiseiRiders2.this, longpresssound.get(i));
+                        mp.start();
+                        mp.setOnCompletionListener(mp -> imageView.clearAnimation());
+                    }
                     return super.onSingleTapConfirmed(e);
                 }
             });
@@ -169,6 +199,9 @@ public class HeiseiRiders2 extends AppCompatActivity {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (mp != null) {
                 mp.release();
+            }
+            if (mp1 != null) {
+                mp1.release();
             }
             end = MediaPlayer.create(this,R.raw.transition);
             end.start();
@@ -189,6 +222,13 @@ public class HeiseiRiders2 extends AppCompatActivity {
         {
             mp.release();
             mp=null;
+            imageView.clearAnimation();
+            imageView.setClickable(true);
+        }
+        if(mp1!=null)
+        {
+            mp1.release();
+            mp1=null;
             imageView.clearAnimation();
             imageView.setClickable(true);
         }
