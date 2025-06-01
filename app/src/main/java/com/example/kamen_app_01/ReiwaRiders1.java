@@ -94,6 +94,12 @@ public class ReiwaRiders1 extends AppCompatActivity {
                     mp=null;
                     imageView.clearAnimation();
                 }
+                if(mp1!=null) {
+                    mp1.release();
+                    mp1 = null;
+                    imageView.clearAnimation();
+                }
+                flag=0;
                 float delta = -motionEvent.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
                         ViewConfigurationCompat.getScaledHorizontalScrollFactor(ViewConfiguration.get(getApplicationContext()), getApplicationContext());
                 if (delta > 0) {

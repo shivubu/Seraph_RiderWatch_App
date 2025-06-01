@@ -87,6 +87,7 @@ public class HeiseiRiders2 extends AppCompatActivity {
                     mp1=null;
                     imageView.clearAnimation();
                 }
+                flag=0;
                 float delta = -motionEvent.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
                         ViewConfigurationCompat.getScaledHorizontalScrollFactor(ViewConfiguration.get(getApplicationContext()), getApplicationContext());
                 if (delta > 0) {

@@ -101,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
                     mp1 = null;
                     imageView.clearAnimation();
                 }
+                stflag0=0;
+                stflag1=0;
                 float delta = -motionEvent.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
                         ViewConfigurationCompat.getScaledHorizontalScrollFactor(ViewConfiguration.get(getApplicationContext()), getApplicationContext());
                 if (delta > 0) {
