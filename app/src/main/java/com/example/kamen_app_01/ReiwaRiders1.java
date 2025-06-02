@@ -236,6 +236,11 @@ public class ReiwaRiders1 extends AppCompatActivity {
                         mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.gavvmaster);
                         mp.start();
                     }
+                    else
+                    {
+                        mp=MediaPlayer.create(ReiwaRiders1.this,sound.get(i));
+                        mp.start();
+                    }
                     mp.setOnCompletionListener(mp -> imageView.clearAnimation());
                     return super.onSingleTapConfirmed(e);
                 }
