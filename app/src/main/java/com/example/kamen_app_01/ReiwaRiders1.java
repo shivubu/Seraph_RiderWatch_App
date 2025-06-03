@@ -28,7 +28,7 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 
 public class ReiwaRiders1 extends AppCompatActivity {
-    int i=0,gavvoverhenshin=0,masterflag=0,flag=0;
+    int i=0,gavvoverhenshin=0,masterflag=0,flag=0,geatsflag=0;
     int overindex,masterindex;
     MediaPlayer mp,mp1,end;
     ImageView imageView;
@@ -49,7 +49,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
         int[] sounds = {R.raw.zeroone,R.raw.saber,R.raw.revi,R.raw.geats,R.raw.gotchard,R.raw.gavvover};
         int[] henshinsounds={R.raw.henshinzerotwo,R.raw.henshincrosssaber,R.raw.henshinrevicerex,R.raw.henshingeats9,R.raw.henshingotchardrainbow,R.raw.henshingavvover};
         int[] longpress={R.raw.lpzeroone,R.raw.lpsaber,R.raw.lprevi,R.raw.lpgeats,R.raw.lpgotchard};
-        int[] finishersounds={R.raw.finisher_zerotwo,R.raw.finisher_crosssaber,R.raw.finisher_reviultimate,R.raw.finisher_geats9,R.raw.finisher_gotchardrainbow,R.raw.lpgavvover};
+        int[] finishersounds={R.raw.finisher_zerotwo,R.raw.finisher_crosssaber,R.raw.finisher_reviultimate,R.raw.finisher_geats9_1,R.raw.finisher_gotchardrainbow,R.raw.lpgavvover};
         int[] gavvover={R.raw.gavvover0,R.raw.gavvover1,R.raw.gavvover2,R.raw.gavvover3};
         int[] gavvmaster={R.raw.mastergummy,R.raw.mastersnack,R.raw.mastermarsh,R.raw.masterchoco,R.raw.mastercandy,R.raw.masterdonuts,R.raw.mastercake};
         ArrayList<Integer> screen = new ArrayList<>();
@@ -122,6 +122,10 @@ public class ReiwaRiders1 extends AppCompatActivity {
                 // Update the background image
                 if (!screen.isEmpty()) {
                     imageView.setImageResource(screen.get(i));
+                    if(i==3)
+                    {
+                        geatsflag=0;
+                    }
                     if(i==5)
                     {
                         gavvoverhenshin=0;
@@ -152,7 +156,13 @@ public class ReiwaRiders1 extends AppCompatActivity {
                     mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.judgement_finishtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
-                        if(i==5 && masterflag==1)
+                        if(i==3 && geatsflag==1)
+                        {
+                            geatsflag=0;
+                            mp1 = MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9_2);
+                            mp1.start();
+                        }
+                        else if(i==5 && masterflag==1)
                         {
                             mp1 = MediaPlayer.create(ReiwaRiders1.this,R.raw.lpgavvmaster);
                             mp1.start();
@@ -161,6 +171,10 @@ public class ReiwaRiders1 extends AppCompatActivity {
                         {
                             mp1 = MediaPlayer.create(ReiwaRiders1.this, finishersound.get(i));
                             mp1.start();
+                            if(i==3 && geatsflag==0)
+                            {
+                                geatsflag=1;
+                            }
                         }
                         mp1.setOnCompletionListener(mp2 -> imageView.clearAnimation());
                     });
