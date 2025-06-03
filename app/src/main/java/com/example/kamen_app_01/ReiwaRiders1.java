@@ -225,21 +225,6 @@ public class ReiwaRiders1 extends AppCompatActivity {
                         mp1=null;
                     }
                     imageView.startAnimation(fade);
-                    if(i<=4)
-                    {
-                        if(flag==0)
-                        {
-                            flag=1;
-                            mp=MediaPlayer.create(ReiwaRiders1.this,sound.get(i));
-                            mp.start();
-                        }
-                        else if(flag==1)
-                        {
-                            flag=0;
-                            mp=MediaPlayer.create(ReiwaRiders1.this,longpresssound.get(i));
-                            mp.start();
-                        }
-                    }
                     if(i==5 && gavvoverhenshin==1)
                     {
                         mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.oversmash);
@@ -250,10 +235,21 @@ public class ReiwaRiders1 extends AppCompatActivity {
                         mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.gavvmaster);
                         mp.start();
                     }
+                    else if(i<=4 && flag==1)
+                    {
+                        flag=0;
+                        mp=MediaPlayer.create(ReiwaRiders1.this,longpresssound.get(i));
+                        mp.start();
+
+                    }
                     else
                     {
                         mp=MediaPlayer.create(ReiwaRiders1.this,sound.get(i));
                         mp.start();
+                        if(i<=4)
+                        {
+                            flag=1;
+                        }
                     }
                     mp.setOnCompletionListener(mp -> imageView.clearAnimation());
                     return super.onSingleTapConfirmed(e);
