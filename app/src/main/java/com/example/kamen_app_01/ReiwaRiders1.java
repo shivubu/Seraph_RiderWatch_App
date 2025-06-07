@@ -271,6 +271,12 @@ public class ReiwaRiders1 extends AppCompatActivity {
                                 mp=null;
                                 imageView.clearAnimation();
                             }
+                            if(mp1!=null)
+                            {
+                                mp1.release();
+                                mp1=null;
+                                imageView.clearAnimation();
+                            }
                             if(diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE)
                             {
                                 overindex--;
@@ -299,6 +305,12 @@ public class ReiwaRiders1 extends AppCompatActivity {
                             {
                                 mp.release();
                                 mp=null;
+                                imageView.clearAnimation();
+                            }
+                            if(mp1!=null)
+                            {
+                                mp1.release();
+                                mp1=null;
                                 imageView.clearAnimation();
                             }
                             if(diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE)
