@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     MediaPlayer mp,mp1,end;
     private Drawable[] backgroundImages;
-    private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,zt_flag=0,hazard_flag=0,genmflag=0,fumetsuflag=0,bahamutflag=0,flag1=0,ohmaflag=0;
+    private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,zt_flag=0,hazard_flag=0,genmflag=0,fumetsuflag=0,bahamutflag=0,flag1=0,ohmaflag=0,saberflag=0;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +58,11 @@ public class MainActivity extends AppCompatActivity {
                 AppCompatResources.getDrawable(this,R.drawable.omaz),
                 AppCompatResources.getDrawable(this,R.drawable.zerothree),
                 AppCompatResources.getDrawable(this,R.drawable.saberub),
+                AppCompatResources.getDrawable(this,R.drawable.sabershs),
                 AppCompatResources.getDrawable(this,R.drawable.geatsdea)};
-        int[] sounds = {R.raw.seraph0,R.raw.faiznext,R.raw.decadecomplete21,R.raw.oootajadoreternity,R.raw.exaidnovel,R.raw.genmmusou,R.raw.crossbuild,R.raw.evolblackhole,R.raw.omazio,R.raw.zerothree,R.raw.saberub,R.raw.geatsdea};
-        int[] henshinsounds={R.raw.henshinseraph_ver1,R.raw.henshinfaiznext,R.raw.henshindecadecomplete21,R.raw.henshinoootajadoreternity,R.raw.henshinexaidnovel,R.raw.henshingenmmusou,R.raw.henshincrossbuild,R.raw.henshinevolblackhole,R.raw.henshinzioohma,R.raw.henshinzerothree,R.raw.henshinsaberub,R.raw.henshingeatsdea2};
-        int[] longpresssounds={R.raw.finisher_seraph,R.raw.lpfaiznext,R.raw.finisher_decadecomplete,R.raw.lpoootajadoreternity,R.raw.lpexaidnovel,R.raw.lpgenmmusou,R.raw.lpcrossbuild,R.raw.finisher_evolblackhole,R.raw.finisher_zioohma,R.raw.lpzerothree,R.raw.lpsaberub2,R.raw.lpgeatsdea};
+        int[] sounds = {R.raw.seraph0,R.raw.faiznext,R.raw.decadecomplete21,R.raw.oootajadoreternity,R.raw.exaidnovel,R.raw.genmmusou,R.raw.crossbuild,R.raw.evolblackhole,R.raw.omazio,R.raw.zerothree,R.raw.saberub,R.raw.sabershs,R.raw.geatsdea};
+        int[] henshinsounds={R.raw.henshinseraph_ver1,R.raw.henshinfaiznext,R.raw.henshindecadecomplete21,R.raw.henshinoootajadoreternity,R.raw.henshinexaidnovel,R.raw.henshingenmmusou,R.raw.henshincrossbuild,R.raw.henshinevolblackhole,R.raw.henshinzioohma,R.raw.henshinzerothree,R.raw.henshinsaberub,R.raw.henshinsabershs,R.raw.henshingeatsdea2};
+        int[] longpresssounds={R.raw.finisher_seraph,R.raw.lpfaiznext,R.raw.finisher_decadecomplete,R.raw.lpoootajadoreternity,R.raw.lpexaidnovel,R.raw.lpgenmmusou,R.raw.lpcrossbuild,R.raw.finisher_evolblackhole,R.raw.finisher_zioohma,R.raw.lpzerothree,R.raw.lpsaberub2,R.raw.finisher_sabershs1,R.raw.lpgeatsdea};
         int[] zt_sounds={R.raw.zt_create,R.raw.zt_singularity,R.raw.zt_ability,R.raw.zt_there_ark_ability,R.raw.zt_outsiders_ability};
         int[] ztweap_sounds={R.raw.attache_calibur,R.raw.attache_shotgun,R.raw.attache_arrow,R.raw.shotriser,R.raw.slashriser,R.raw.thousand_jacker,R.raw.authorise_blaster,R.raw.hopper_blade};
         ArrayList<Integer> sound = new ArrayList<>();
@@ -140,6 +141,14 @@ public class MainActivity extends AppCompatActivity {
                         zt_index=-1;
                         ztweap_index=-1;
                     }
+                    if(currentImageIndex==10)
+                    {
+                        bahamutflag=0;
+                    }
+                    if(currentImageIndex==11)
+                    {
+                        saberflag=0;
+                    }
                 }
                 return true;
             }
@@ -164,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
                     mp=MediaPlayer.create(MainActivity.this,R.raw.judgement_finishtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
-                        if(currentImageIndex==5 && flag==1 || currentImageIndex==6 && hazard_flag==1 || currentImageIndex==8 && ohmaflag==1 || currentImageIndex==9 && zt_flag==1 || currentImageIndex==10 && bahamutflag==1)
+                        if(currentImageIndex==5 && flag==1 || currentImageIndex==6 && hazard_flag==1 || currentImageIndex==8 && ohmaflag==1 || currentImageIndex==9 && zt_flag==1 || currentImageIndex==10 && bahamutflag==1 || currentImageIndex==11 && saberflag==1)
                         {
                             if(currentImageIndex==5)
                             {
@@ -194,6 +203,11 @@ public class MainActivity extends AppCompatActivity {
                                 mp1.start();
                                 bahamutflag=0;
                             }
+                            if(currentImageIndex==11) {
+                                mp1 = MediaPlayer.create(MainActivity.this, R.raw.finisher_sabershs2);
+                                mp1.start();
+                                saberflag = 0;
+                            }
                         }
                         else if(currentImageIndex==5 && fumetsuflag==1)
                         {
@@ -209,6 +223,10 @@ public class MainActivity extends AppCompatActivity {
                             if (currentImageIndex == 10 && bahamutflag == 0)
                             {
                                 bahamutflag=1;
+                            }
+                            if(currentImageIndex==11 && saberflag==0)
+                            {
+                                saberflag=1;
                             }
                         }
                         mp1.setOnCompletionListener(mp2 -> imageView.clearAnimation());
@@ -289,13 +307,24 @@ public class MainActivity extends AppCompatActivity {
                             flag1=0;
                             mp=MediaPlayer.create(MainActivity.this,R.raw.lpohma);
                         }
-
+                        if(currentImageIndex==11)
+                        {
+                            flag1=2;
+                            mp=MediaPlayer.create(MainActivity.this,R.raw.lpsabershs1);
+                        }
                         mp.start();
+                    }
+                    else if(currentImageIndex==11 && flag1==2)
+                    {
+                        flag1=0;
+                        mp=MediaPlayer.create(MainActivity.this,R.raw.lpsabershs2);
+                        mp.start();
+
                     }
                     else{
                         mp = MediaPlayer.create(MainActivity.this, sound.get(currentImageIndex));
                         mp.start();
-                        if(currentImageIndex==2 || currentImageIndex==7 || currentImageIndex==8)
+                        if(currentImageIndex==2 || currentImageIndex==7 || currentImageIndex==8 || currentImageIndex==11)
                         {
                             flag1=1;
                         }
