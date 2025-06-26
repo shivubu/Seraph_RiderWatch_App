@@ -27,7 +27,7 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 
 public class HeiseiRiders2 extends AppCompatActivity {
-    int i=0,flag=0;
+    int i=0,flag=0,grand=0,kiwami=0;
     MediaPlayer mp,mp1,end;
     ImageView imageView;
     @SuppressLint("ClickableViewAccessibility")
@@ -43,7 +43,16 @@ public class HeiseiRiders2 extends AppCompatActivity {
             return insets;
         });
         Animation fade= AnimationUtils.loadAnimation(this,R.anim.customfade);
-        int[] rw = {R.drawable.w, R.drawable.ooo,R.drawable.fourze,R.drawable.wizard,R.drawable.gaim,R.drawable.drive,R.drawable.ghost,R.drawable.exaid,R.drawable.build,R.drawable.grandzio};
+        int[] rw = {R.drawable.w,
+                R.drawable.ooo,
+                R.drawable.fourze,
+                R.drawable.wizard,
+                R.drawable.gaim,
+                R.drawable.drive,
+                R.drawable.ghost,
+                R.drawable.exaid,
+                R.drawable.build,
+                R.drawable.grandzio};
         int[] sounds = {R.raw.doublecjex, R.raw.oooputo,R.raw.fourzecosmic,R.raw.wizardinfinity,R.raw.gaimkiwami,R.raw.drivetrideron,R.raw.ghostmugen,R.raw.exaidmuteki,R.raw.buildgenius,R.raw.grandzio};
         int[] henshinsounds={R.raw.henshindoublecjx,R.raw.henshinoooputo,R.raw.henshinfourzecosmic,R.raw.henshinwizardinfinity,R.raw.henshingaimkiwami1,R.raw.henshindrivetrideron,R.raw.henshinghostmugen,R.raw.henshinexaidmuteki,R.raw.henshinbuildgenius,R.raw.henshingrandzio};
         int[] longpresssounds={R.raw.lpdouble,R.raw.lpooo,R.raw.lpfourze,R.raw.lpwizard,R.raw.lpgaim,R.raw.lpdrive,R.raw.lpghost,R.raw.lpexaid,R.raw.lpbuild,R.raw.lpzio};
@@ -134,7 +143,43 @@ public class HeiseiRiders2 extends AppCompatActivity {
                     mp = MediaPlayer.create(HeiseiRiders2.this,R.raw.judgement_finishtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
-                        mp1=MediaPlayer.create(HeiseiRiders2.this,finishersound.get(i));
+                        if(i==4) {
+                            switch (kiwami) {
+                                case 0:
+                                    mp1 = MediaPlayer.create(HeiseiRiders2.this, finishersound.get(i));
+                                    kiwami = 1;
+                                    break;
+                                case 1:
+                                    mp1 = MediaPlayer.create(HeiseiRiders2.this, R.raw.finisher_gaimkiwami_1);
+                                    kiwami = 2;
+                                    break;
+                                case 2:
+                                    mp1 = MediaPlayer.create(HeiseiRiders2.this, R.raw.finisher_gaimkiwami_2);
+                                    kiwami = 3;
+                                    break;
+                                case 3:
+                                    mp1 = MediaPlayer.create(HeiseiRiders2.this, R.raw.finisher_gaimkiwami_3);
+                                    kiwami = 0;
+                                    break;
+                            }
+                        }
+                        else if(i==9) {
+                            switch (grand) {
+                                case 0:
+                                    mp1 = MediaPlayer.create(HeiseiRiders2.this, finishersound.get(i));
+                                    grand = 1;
+                                    break;
+                                case 1:
+                                    mp1 = MediaPlayer.create(HeiseiRiders2.this, R.raw.finisher_grandzio_1);
+                                    grand = 0;
+                                    break;
+
+                            }
+                        }
+                        else
+                        {
+                            mp1=MediaPlayer.create(HeiseiRiders2.this,finishersound.get(i));
+                        }
                         mp1.start();
                         mp1.setOnCompletionListener(mp2 -> imageView.clearAnimation());
                     });
