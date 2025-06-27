@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     MediaPlayer mp,mp1,end;
     private Drawable[] backgroundImages;
-    private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,zt_flag=0,hazard_flag=0,genmflag=0,fumetsuflag=0,bahamutflag=0,flag1=0,ohmaflag=0,saberflag=0;
+    private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,zt_flag=0,hazard_flag=0,genmflag=0,fumetsuflag=0,bahamutflag=0,flag1=0,ohmaflag=0,saberflag=0,geatsflag=0;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,22 +134,13 @@ public class MainActivity extends AppCompatActivity {
                     {
                         imageView.setImageDrawable(backgroundImages[currentImageIndex]);
                     }
-                    if(currentImageIndex==8)
+                    switch(currentImageIndex)
                     {
-                        ohmaflag=0;
-                    }
-                    if(currentImageIndex==9)
-                    {
-                        zt_index=-1;
-                        ztweap_index=-1;
-                    }
-                    if(currentImageIndex==10)
-                    {
-                        bahamutflag=0;
-                    }
-                    if(currentImageIndex==11)
-                    {
-                        saberflag=0;
+                        case 8: ohmaflag=0;break;
+                        case 9: zt_index=-1;ztweap_index=-1;break;
+                        case 10: bahamutflag=0;break;
+                        case 11: saberflag=0;break;
+                        case 12: geatsflag=0;break;
                     }
                 }
                 return true;
@@ -180,45 +171,47 @@ public class MainActivity extends AppCompatActivity {
                             if(currentImageIndex==5)
                             {
                                 mp1=MediaPlayer.create(MainActivity.this,R.raw.lpgenmmusoualt);
-                                mp1.start();
                                 genmflag=1;
                             }
                             if(currentImageIndex==6)
                             {
                                 mp1=MediaPlayer.create(MainActivity.this,R.raw.lpcrossbuildhazard);
-                                mp1.start();
                             }
                             if(currentImageIndex==8)
                             {
                                 mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_ohmazio);
-                                mp1.start();
                             }
                             if(currentImageIndex==9)
                             {
                                 mp1 = MediaPlayer.create(MainActivity.this, R.raw.lpzerothreealt);
-                                mp1.start();
                                 zt_flag=0;
                             }
                             if(currentImageIndex==10)
                             {
                                 mp1=MediaPlayer.create(MainActivity.this,R.raw.lpsaberub1);
-                                mp1.start();
                                 bahamutflag=0;
                             }
                             if(currentImageIndex==11) {
                                 mp1 = MediaPlayer.create(MainActivity.this, R.raw.finisher_sabershs2);
-                                mp1.start();
                                 saberflag = 0;
                             }
                         }
                         else if(currentImageIndex==5 && fumetsuflag==1)
                         {
                             mp1=MediaPlayer.create(MainActivity.this,R.raw.lpgenmhyperfumetsu);
-                            mp1.start();
+                        }
+                        else if(currentImageIndex==12 && geatsflag!=0)
+                        {
+                            switch(geatsflag)
+                            {
+                                case 1:mp1=MediaPlayer.create(MainActivity.this,R.raw.lpgeatsdea_1);
+                                        break;
+                                case 2:mp1=MediaPlayer.create(MainActivity.this,R.raw.lpgeatsdea_2);
+                                        break;
+                            }
                         }
                         else {
                             mp1 = MediaPlayer.create(MainActivity.this, longpress.get(currentImageIndex));
-                            mp1.start();
                             if (currentImageIndex == 9 && zt_flag == 0) {
                                 zt_flag = 1;
                             }
@@ -231,6 +224,7 @@ public class MainActivity extends AppCompatActivity {
                                 saberflag=1;
                             }
                         }
+                        mp1.start();
                         mp1.setOnCompletionListener(mp2 -> imageView.clearAnimation());
                     });
 
@@ -508,6 +502,34 @@ public class MainActivity extends AppCompatActivity {
                             }
                             mp=MediaPlayer.create(MainActivity.this,ztweap_sound.get(ztweap_index));
                             mp.start();
+
+                        }
+                    }
+                    if(currentImageIndex==12)
+                    {
+                        if(mp!=null)
+                        {
+                            mp.release();
+                            mp=null;
+                            imageView.clearAnimation();
+                        }
+                        if(mp1!=null)
+                        {
+                            mp1.release();
+                            mp1=null;
+                            imageView.clearAnimation();
+                        }
+                        if(diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE)
+                        {
+                            mp=MediaPlayer.create(MainActivity.this,R.raw.finisher_geats9);
+                            mp.start();
+                            geatsflag=2;
+                        }
+                        if(diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE)
+                        {
+                            mp=MediaPlayer.create(MainActivity.this,R.raw.finisher_geats9);
+                            mp.start();
+                            geatsflag=1;
 
                         }
                     }

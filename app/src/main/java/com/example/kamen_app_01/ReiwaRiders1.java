@@ -122,15 +122,10 @@ public class ReiwaRiders1 extends AppCompatActivity {
                 // Update the background image
                 if (!screen.isEmpty()) {
                     imageView.setImageResource(screen.get(i));
-                    if(i==3)
+                    switch(i)
                     {
-                        geatsflag=0;
-                    }
-                    if(i==5)
-                    {
-                        gavvoverhenshin=0;
-                        overindex=-1;
-                        masterindex=-1;
+                        case 3: geatsflag=0; break;
+                        case 5: gavvoverhenshin=0; overindex=-1; masterindex=-1; break;
                     }
                 }
                 return true;
@@ -156,26 +151,26 @@ public class ReiwaRiders1 extends AppCompatActivity {
                     mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.judgement_finishtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
-                        if(i==3 && geatsflag==1)
+                        if(i==3)
                         {
-                            geatsflag=0;
-                            mp1 = MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9_2);
-                            mp1.start();
+                            switch(geatsflag)
+                            {
+
+                                case 0:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9_1);
+                                        break;
+                                case 1:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9_2);
+                                        break;
+                            }
                         }
                         else if(i==5 && masterflag==1)
                         {
                             mp1 = MediaPlayer.create(ReiwaRiders1.this,R.raw.lpgavvmaster);
-                            mp1.start();
                         }
                         else
                         {
                             mp1 = MediaPlayer.create(ReiwaRiders1.this, finishersound.get(i));
-                            mp1.start();
-                            if(i==3 && geatsflag==0)
-                            {
-                                geatsflag=1;
-                            }
                         }
+                        mp1.start();
                         mp1.setOnCompletionListener(mp2 -> imageView.clearAnimation());
                     });
 
@@ -261,22 +256,50 @@ public class ReiwaRiders1 extends AppCompatActivity {
                     float diffX = e2.getX() - e1.getX();
                     float SWIPE_THRESHOLD_VELOCITY = 200;
                     float SWIPE_THRESHOLD_DISTANCE = 100;
+                    if(i==3)
+                    {
+                        if(mp!=null)
+                        {
+                            mp.release();
+                            mp=null;
+                            imageView.clearAnimation();
+                        }
+                        if(mp1!=null)
+                        {
+                            mp1.release();
+                            mp1=null;
+                            imageView.clearAnimation();
+                        }
+                        if(diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE)
+                        {
+                            mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9);
+                            mp.start();
+                            geatsflag=1;
+                        }
+                        if(diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE)
+                        {
+                            mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9);
+                            mp.start();
+                            geatsflag=0;
+
+                        }
+                    }
                     if(i==5)
                     {
+                        if(mp!=null)
+                        {
+                            mp.release();
+                            mp=null;
+                            imageView.clearAnimation();
+                        }
+                        if(mp1!=null)
+                        {
+                            mp1.release();
+                            mp1=null;
+                            imageView.clearAnimation();
+                        }
                         if(gavvoverhenshin==1)
                         {
-                            if(mp!=null)
-                            {
-                                mp.release();
-                                mp=null;
-                                imageView.clearAnimation();
-                            }
-                            if(mp1!=null)
-                            {
-                                mp1.release();
-                                mp1=null;
-                                imageView.clearAnimation();
-                            }
                             if(diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE)
                             {
                                 overindex--;
@@ -301,18 +324,6 @@ public class ReiwaRiders1 extends AppCompatActivity {
                         }
                         if(masterflag==1)
                         {
-                            if(mp!=null)
-                            {
-                                mp.release();
-                                mp=null;
-                                imageView.clearAnimation();
-                            }
-                            if(mp1!=null)
-                            {
-                                mp1.release();
-                                mp1=null;
-                                imageView.clearAnimation();
-                            }
                             if(diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE)
                             {
                                 masterindex--;

@@ -120,13 +120,13 @@ public class HeiseiRiders2 extends AppCompatActivity {
                 // Update the background image
                 if (!screen.isEmpty()) {
                     imageView.setImageResource(screen.get(i));
-                    if(i==4)
+                    switch (i)
                     {
-                        kiwami=0;
-                    }
-                    if(i==9)
-                    {
-                        grand=0;
+                        case 4:
+                            kiwami=0;
+                            break;
+                        case 9:
+                            grand=0;break;
                     }
                 }
                 return true;
