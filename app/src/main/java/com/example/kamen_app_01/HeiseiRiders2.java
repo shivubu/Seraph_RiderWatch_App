@@ -145,6 +145,17 @@ public class HeiseiRiders2 extends AppCompatActivity {
                     float SWIPE_THRESHOLD_DISTANCE = 100;
                     if(i==4)
                     {
+                        imageView.clearAnimation();
+                        if(mp!=null)
+                        {
+                            mp.release();
+                            mp=null;
+                        }
+                        if(mp1!=null)
+                        {
+                            mp1.release();
+                            mp1=null;
+                        }
                         if (diffY > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE)
                         {
                             mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.slash);
