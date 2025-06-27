@@ -16,6 +16,7 @@ import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.InputDeviceCompat;
@@ -119,6 +120,14 @@ public class HeiseiRiders2 extends AppCompatActivity {
                 // Update the background image
                 if (!screen.isEmpty()) {
                     imageView.setImageResource(screen.get(i));
+                    if(i==4)
+                    {
+                        kiwami=0;
+                    }
+                    if(i==9)
+                    {
+                        grand=0;
+                    }
                 }
                 return true;
             }
@@ -127,6 +136,30 @@ public class HeiseiRiders2 extends AppCompatActivity {
         imageView.setOnTouchListener(new View.OnTouchListener() {
             final GestureDetector gestureDetector=new GestureDetector(getApplicationContext(),new GestureDetector.SimpleOnGestureListener()
             {
+                @Override
+                public boolean onFling(@Nullable MotionEvent e1, @NonNull MotionEvent e2, float velocityX, float velocityY) {
+                    assert e1 != null;
+                    float diffY = e2.getY() - e1.getY();
+                    float diffX = e2.getX() - e1.getX();
+                    float SWIPE_THRESHOLD_VELOCITY = 200;
+                    float SWIPE_THRESHOLD_DISTANCE = 100;
+                    if(i==4)
+                    {
+                        if (diffY > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE)
+                        {
+                            mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.slash);
+                            mp.start();
+                            kiwami++;
+                            if(kiwami>3)
+                            {
+                                kiwami=0;
+                            }
+
+                        }
+                    }
+                    return super.onFling(e1, e2, velocityX, velocityY);
+                }
+
                 @Override
                 public void onLongPress(@NonNull MotionEvent e) {
                     if(mp!=null)
@@ -147,19 +180,15 @@ public class HeiseiRiders2 extends AppCompatActivity {
                             switch (kiwami) {
                                 case 0:
                                     mp1 = MediaPlayer.create(HeiseiRiders2.this, finishersound.get(i));
-                                    kiwami = 1;
                                     break;
                                 case 1:
                                     mp1 = MediaPlayer.create(HeiseiRiders2.this, R.raw.finisher_gaimkiwami_1);
-                                    kiwami = 2;
                                     break;
                                 case 2:
                                     mp1 = MediaPlayer.create(HeiseiRiders2.this, R.raw.finisher_gaimkiwami_2);
-                                    kiwami = 3;
                                     break;
                                 case 3:
                                     mp1 = MediaPlayer.create(HeiseiRiders2.this, R.raw.finisher_gaimkiwami_3);
-                                    kiwami = 0;
                                     break;
                             }
                         }
@@ -205,6 +234,7 @@ public class HeiseiRiders2 extends AppCompatActivity {
                     return super.onDoubleTap(e);
                 }
 
+
                 @Override
                 public boolean onSingleTapConfirmed(@NonNull MotionEvent e) {
                     if(mp!=null)
@@ -234,6 +264,7 @@ public class HeiseiRiders2 extends AppCompatActivity {
                     return super.onSingleTapConfirmed(e);
                 }
             });
+
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return gestureDetector.onTouchEvent(event);
