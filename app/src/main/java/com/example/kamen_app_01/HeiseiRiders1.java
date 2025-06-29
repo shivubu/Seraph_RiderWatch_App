@@ -15,6 +15,7 @@ import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.InputDeviceCompat;
@@ -26,7 +27,7 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 
 public class HeiseiRiders1 extends AppCompatActivity {
-    int i=0,flag=0;
+    int i=0,flag=0,kabuto=0;
     MediaPlayer mp,mp1,end;
     ImageView imageView;
     @SuppressLint("ClickableViewAccessibility")
@@ -108,6 +109,10 @@ public class HeiseiRiders1 extends AppCompatActivity {
                 // Update the background image
                 if (!screen.isEmpty()) {
                     imageView.setImageResource(screen.get(i));
+                    switch(i)
+                    {
+                        case 6:kabuto=0;break;
+                    }
                 }
                 return true;
             }
@@ -116,6 +121,47 @@ public class HeiseiRiders1 extends AppCompatActivity {
         imageView.setOnTouchListener(new View.OnTouchListener() {
             final GestureDetector gestureDetector=new GestureDetector(getApplicationContext(),new GestureDetector.SimpleOnGestureListener()
             {
+                @Override
+                public boolean onFling(@Nullable MotionEvent e1, @NonNull MotionEvent e2, float velocityX, float velocityY) {
+                    assert e1 != null;
+                    float diffY = e2.getY() - e1.getY();
+                    float diffX = e2.getX() - e1.getX();
+                    float SWIPE_THRESHOLD_VELOCITY = 200;
+                    float SWIPE_THRESHOLD_DISTANCE = 100;
+                    if(i==6)
+                    {
+                        imageView.clearAnimation();
+                        if(mp!=null)
+                        {
+                            mp.release();
+                            mp=null;
+                        }
+                        if(mp1!=null)
+                        {
+                            mp1.release();
+                            mp1=null;
+                        }
+                        if(diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE && flag==0)
+                        {
+                            kabuto=1;
+                        }
+                        if(diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE)
+                        {
+                            kabuto=2;
+                        }
+                        if (diffY > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE) {
+                            mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.hyperclockover);
+                            mp.start();
+                        }
+                        if (diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE)
+                        {
+                            mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.hyperclockup);
+                            mp.start();
+                        }
+                    }
+                    return super.onFling(e1, e2, velocityX, velocityY);
+
+                }
                 @Override
                 public void onLongPress(@NonNull MotionEvent e) {
                     if(mp!=null)
@@ -132,7 +178,17 @@ public class HeiseiRiders1 extends AppCompatActivity {
                     mp = MediaPlayer.create(HeiseiRiders1.this,R.raw.judgement_finishtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
-                        mp1=MediaPlayer.create(HeiseiRiders1.this,finishersound.get(i));
+                        if(i==6 && kabuto!=0)
+                        {
+                            switch (kabuto)
+                            {
+                                case 1:mp1=MediaPlayer.create(HeiseiRiders1.this,R.raw.maxhypercyclone);break;
+                                case 2:mp1=MediaPlayer.create(HeiseiRiders1.this,R.raw.maxhypertyphoon);break;
+                            }
+                        }
+                        else {
+                            mp1 = MediaPlayer.create(HeiseiRiders1.this, finishersound.get(i));
+                        }
                         mp1.start();
                         mp1.setOnCompletionListener(mp2 -> imageView.clearAnimation());
                     });
