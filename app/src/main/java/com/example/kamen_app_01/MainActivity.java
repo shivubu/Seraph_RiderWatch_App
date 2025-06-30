@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     MediaPlayer mp,mp1,end;
     private Drawable[] backgroundImages;
-    private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,zt_flag=0,hazard_flag=0,genmflag=0,fumetsuflag=0,bahamutflag=0,flag1=0,ohmaflag=0,saberflag=0,geatsflag=0;
+    private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,zt_flag=0,hazard_flag=0,genmflag=0,fumetsuflag=0,bahamut=0,sabermode=0,flag1=0,ohmaflag=0,superherosenki1=0,superherosenki2=0,wonder1=0,wonder2=0,geatsflag=0;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,14 +57,13 @@ public class MainActivity extends AppCompatActivity {
                 AppCompatResources.getDrawable(this,R.drawable.evoltblackhole),
                 AppCompatResources.getDrawable(this,R.drawable.omaz),
                 AppCompatResources.getDrawable(this,R.drawable.zerothree),
-                AppCompatResources.getDrawable(this,R.drawable.saberub),
-                AppCompatResources.getDrawable(this,R.drawable.sabershs),
+                AppCompatResources.getDrawable(this,R.drawable.saber),
                 AppCompatResources.getDrawable(this,R.drawable.geatsdea),
                 AppCompatResources.getDrawable(this,R.drawable.gotchard)
         };
-        int[] sounds = {R.raw.seraph0,R.raw.faiznext,R.raw.decadecomplete21,R.raw.oootajadoreternity,R.raw.exaidnovel,R.raw.genmmusou,R.raw.crossbuild,R.raw.evolblackhole,R.raw.omazio,R.raw.zerothree,R.raw.saberub,R.raw.sabershs,R.raw.geatsdea,R.raw.gotchardultima};
-        int[] henshinsounds={R.raw.henshinseraph_ver1,R.raw.henshinfaiznext,R.raw.henshindecadecomplete21,R.raw.henshinoootajadoreternity,R.raw.henshinexaidnovel,R.raw.henshingenmmusou,R.raw.henshincrossbuild,R.raw.henshinevolblackhole,R.raw.henshinzioohma,R.raw.henshinzerothree,R.raw.henshinsaberub,R.raw.henshinsabershs,R.raw.henshingeatsdea2,R.raw.henshingotchardultima};
-        int[] longpresssounds={R.raw.finisher_seraph,R.raw.lpfaiznext,R.raw.finisher_decadecomplete,R.raw.lpoootajadoreternity,R.raw.lpexaidnovel,R.raw.lpgenmmusou,R.raw.lpcrossbuild,R.raw.finisher_evolblackhole,R.raw.finisher_zioohma,R.raw.lpzerothree,R.raw.lpsaberub2,R.raw.finisher_sabershs1,R.raw.lpgeatsdea,R.raw.lpgotchardultima};
+        int[] sounds = {R.raw.seraph0,R.raw.faiznext,R.raw.decadecomplete21,R.raw.oootajadoreternity,R.raw.exaidnovel,R.raw.genmmusou,R.raw.crossbuild,R.raw.evolblackhole,R.raw.omazio,R.raw.zerothree,R.raw.saberwa,R.raw.geatsdea,R.raw.gotchardultima};
+        int[] henshinsounds={R.raw.henshinseraph_ver1,R.raw.henshinfaiznext,R.raw.henshindecadecomplete21,R.raw.henshinoootajadoreternity,R.raw.henshinexaidnovel,R.raw.henshingenmmusou,R.raw.henshincrossbuild,R.raw.henshinevolblackhole,R.raw.henshinzioohma,R.raw.henshinzerothree,R.raw.henshinsaberwa,R.raw.henshingeatsdea2,R.raw.henshingotchardultima};
+        int[] longpresssounds={R.raw.finisher_seraph,R.raw.lpfaiznext,R.raw.finisher_decadecomplete,R.raw.lpoootajadoreternity,R.raw.lpexaidnovel,R.raw.lpgenmmusou,R.raw.lpcrossbuild,R.raw.finisher_evolblackhole,R.raw.finisher_zioohma,R.raw.lpzerothree,R.raw.finisher_saberwa1,R.raw.lpgeatsdea,R.raw.lpgotchardultima};
         int[] zt_sounds={R.raw.zt_create,R.raw.zt_singularity,R.raw.zt_ability,R.raw.zt_there_ark_ability,R.raw.zt_outsiders_ability};
         int[] ztweap_sounds={R.raw.attache_calibur,R.raw.attache_shotgun,R.raw.attache_arrow,R.raw.shotriser,R.raw.slashriser,R.raw.thousand_jacker,R.raw.authorise_blaster,R.raw.hopper_blade};
         ArrayList<Integer> sound = new ArrayList<>();
@@ -138,9 +137,8 @@ public class MainActivity extends AppCompatActivity {
                     {
                         case 8: ohmaflag=0;break;
                         case 9: zt_index=-1;ztweap_index=-1;break;
-                        case 10: bahamutflag=0;break;
-                        case 11: saberflag=0;break;
-                        case 12: geatsflag=0;break;
+                        case 10: sabermode=0;bahamut=0;superherosenki1=superherosenki2=0;wonder1=wonder2=0;break;
+                        case 11: geatsflag=0;break;
                     }
                 }
                 return true;
@@ -166,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
                     mp=MediaPlayer.create(MainActivity.this,R.raw.judgement_finishtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
-                        if(currentImageIndex==5 && flag==1 || currentImageIndex==6 && hazard_flag==1 || currentImageIndex==8 && ohmaflag==1 || currentImageIndex==9 && zt_flag==1 || currentImageIndex==10 && bahamutflag==1 || currentImageIndex==11 && saberflag==1)
+                        if(currentImageIndex==5 && flag==1 || currentImageIndex==6 && hazard_flag==1 || currentImageIndex==8 && ohmaflag==1 || currentImageIndex==9 && zt_flag==1)
                         {
                             if(currentImageIndex==5)
                             {
@@ -186,21 +184,40 @@ public class MainActivity extends AppCompatActivity {
                                 mp1 = MediaPlayer.create(MainActivity.this, R.raw.lpzerothreealt);
                                 zt_flag=0;
                             }
-                            if(currentImageIndex==10)
-                            {
-                                mp1=MediaPlayer.create(MainActivity.this,R.raw.lpsaberub1);
-                                bahamutflag=0;
-                            }
-                            if(currentImageIndex==11) {
-                                mp1 = MediaPlayer.create(MainActivity.this, R.raw.finisher_sabershs2);
-                                saberflag = 0;
-                            }
                         }
                         else if(currentImageIndex==5 && fumetsuflag==1)
                         {
                             mp1=MediaPlayer.create(MainActivity.this,R.raw.lpgenmhyperfumetsu);
                         }
-                        else if(currentImageIndex==12 && geatsflag!=0)
+                        else if(currentImageIndex==10)
+                        {
+                            if(sabermode==0)
+                            {
+                                switch(wonder2)
+                                {
+                                    case 0 : mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_saberwa1);wonder2=1;break;
+                                    case 1 : mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_saberwa2);wonder2=2;break;
+                                    case 2 : mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_saberwa3);wonder2=0;break;
+                                }
+                            }
+                            else if(sabermode==1)
+                            {
+                                switch(bahamut)
+                                {
+                                    case 0 : mp1=MediaPlayer.create(MainActivity.this,R.raw.lpsaberub1);bahamut=1;break;
+                                    case 1 : mp1=MediaPlayer.create(MainActivity.this,R.raw.lpsaberub2);bahamut=0;break;
+                                }
+                            }
+                            else if(sabermode==2)
+                            {
+                                switch(superherosenki2)
+                                {
+                                    case 0 : mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_sabershs1);superherosenki2=1;break;
+                                    case 1 : mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_sabershs2);superherosenki2=0;break;
+                                }
+                            }
+                        }
+                        else if(currentImageIndex==11 && geatsflag!=0)
                         {
                             switch(geatsflag)
                             {
@@ -214,14 +231,6 @@ public class MainActivity extends AppCompatActivity {
                             mp1 = MediaPlayer.create(MainActivity.this, longpress.get(currentImageIndex));
                             if (currentImageIndex == 9 && zt_flag == 0) {
                                 zt_flag = 1;
-                            }
-                            if (currentImageIndex == 10 && bahamutflag == 0)
-                            {
-                                bahamutflag=1;
-                            }
-                            if(currentImageIndex==11 && saberflag==0)
-                            {
-                                saberflag=1;
                             }
                         }
                         mp1.start();
@@ -260,6 +269,17 @@ public class MainActivity extends AppCompatActivity {
                         mp=MediaPlayer.create(MainActivity.this,R.raw.henshinohmazio);
                         mp.start();
                     }
+                    else if(currentImageIndex==10 && sabermode!=0)
+                    {
+                        if(sabermode==1)
+                        {
+                            mp=MediaPlayer.create(MainActivity.this,R.raw.henshinsaberub);
+                        }
+                        else if(sabermode==2)
+                        {
+                            mp=MediaPlayer.create(MainActivity.this,R.raw.henshinsabershs);
+                        }
+                    }
                     else
                     {
                         mp = MediaPlayer.create(MainActivity.this, henshinsound.get(currentImageIndex));
@@ -284,7 +304,6 @@ public class MainActivity extends AppCompatActivity {
                     if(currentImageIndex==5 && fumetsuflag==1)
                     {
                         mp=MediaPlayer.create(MainActivity.this,R.raw.genmhyperfumetsu);
-                        mp.start();
                     }
                     else if(flag1==1)
                     {
@@ -303,28 +322,40 @@ public class MainActivity extends AppCompatActivity {
                             flag1=0;
                             mp=MediaPlayer.create(MainActivity.this,R.raw.lpohma);
                         }
-                        if(currentImageIndex==11)
-                        {
-                            flag1=2;
-                            mp=MediaPlayer.create(MainActivity.this,R.raw.lpsabershs1);
-                        }
-                        mp.start();
                     }
-                    else if(currentImageIndex==11 && flag1==2)
+                    else if(currentImageIndex==10)
                     {
-                        flag1=0;
-                        mp=MediaPlayer.create(MainActivity.this,R.raw.lpsabershs2);
-                        mp.start();
-
+                        if(sabermode==0)
+                        {
+                            switch(wonder1)
+                            {
+                                case 0 : mp=MediaPlayer.create(MainActivity.this,R.raw.saberwa);wonder1=1;break;
+                                case 1 : mp=MediaPlayer.create(MainActivity.this,R.raw.saberwa1);wonder1=2;break;
+                                case 2 : mp=MediaPlayer.create(MainActivity.this,R.raw.saberwa2);wonder1=0;break;
+                            }
+                        }
+                        else if(sabermode==1)
+                        {
+                            mp=MediaPlayer.create(MainActivity.this,R.raw.saberub);
+                        }
+                        else if(sabermode==2)
+                        {
+                            switch(superherosenki1)
+                            {
+                                case 0 : mp=MediaPlayer.create(MainActivity.this,R.raw.sabershs);superherosenki1=1;break;
+                                case 1 : mp=MediaPlayer.create(MainActivity.this,R.raw.lpsabershs1);superherosenki1=2;break;
+                                case 2 : mp=MediaPlayer.create(MainActivity.this,R.raw.lpsabershs2);superherosenki1=0;break;
+                            }
+                        }
                     }
                     else{
                         mp = MediaPlayer.create(MainActivity.this, sound.get(currentImageIndex));
-                        mp.start();
-                        if(currentImageIndex==2 || currentImageIndex==7 || currentImageIndex==8 || currentImageIndex==11)
+                        if(currentImageIndex==2 || currentImageIndex==7 || currentImageIndex==8 )
                         {
                             flag1=1;
                         }
                     }
+                    mp.start();
                     mp.setOnCompletionListener(mp -> imageView.clearAnimation());
                     return super.onSingleTapConfirmed(e);
                 }
@@ -338,17 +369,16 @@ public class MainActivity extends AppCompatActivity {
                     float SWIPE_THRESHOLD_DISTANCE = 100;
                     if(currentImageIndex==5)
                     {
+                        imageView.clearAnimation();
                         if(mp!=null)
                         {
                             mp.release();
                             mp=null;
-                            imageView.clearAnimation();
                         }
                         if(mp1!=null)
                         {
                             mp1.release();
                             mp1=null;
-                            imageView.clearAnimation();
                         }
                         if(diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE && flag==0)
                         {
@@ -400,17 +430,16 @@ public class MainActivity extends AppCompatActivity {
                     }
                     if(currentImageIndex==6)
                     {
+                        imageView.clearAnimation();
                         if(mp!=null)
                         {
                             mp.release();
                             mp=null;
-                            imageView.clearAnimation();
                         }
                         if(mp1!=null)
                         {
                             mp1.release();
                             mp1=null;
-                            imageView.clearAnimation();
                         }
                         if (diffY > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE)
                         {
@@ -427,16 +456,15 @@ public class MainActivity extends AppCompatActivity {
                     }
                     if(currentImageIndex==8)
                     {
+                        imageView.clearAnimation();
                         if(mp!=null) {
                             mp.release();
                             mp = null;
-                            imageView.clearAnimation();
                         }
                         if(mp1!=null)
                         {
                             mp1.release();
                             mp1=null;
-                            imageView.clearAnimation();
                         }
                         if(diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE && flag==0)
                         {
@@ -450,17 +478,16 @@ public class MainActivity extends AppCompatActivity {
                     }
                     if(currentImageIndex==9)
                     {
+                        imageView.clearAnimation();
                         if(mp!=null)
                         {
                             mp.release();
                             mp=null;
-                            imageView.clearAnimation();
                         }
                         if(mp1!=null)
                         {
                             mp1.release();
                             mp1=null;
-                            imageView.clearAnimation();
                         }
                         if(diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE)
                         {
@@ -505,19 +532,62 @@ public class MainActivity extends AppCompatActivity {
 
                         }
                     }
-                    if(currentImageIndex==12)
+                    if(currentImageIndex==10)
                     {
-                        if(mp!=null)
-                        {
+                        imageView.clearAnimation();
+                        if(mp!=null) {
                             mp.release();
-                            mp=null;
-                            imageView.clearAnimation();
+                            mp = null;
                         }
                         if(mp1!=null)
                         {
                             mp1.release();
                             mp1=null;
-                            imageView.clearAnimation();
+                        }
+                        if (diffY > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE) {
+                            if(sabermode==0)
+                            {
+                                sabermode=1;
+                                imageView.setImageResource(R.drawable.saberub);
+                                bahamut=0;
+                            }
+                            else if(sabermode==2)
+                            {
+                                sabermode=0;
+                                imageView.setImageResource(R.drawable.saber);
+                                wonder1=0;
+                                wonder2=0;
+                            }
+                        }
+                        if (diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE)
+                        {
+                            if(sabermode==1)
+                            {
+                                sabermode=0;
+                                imageView.setImageResource(R.drawable.saber);
+                                wonder1=0;
+                            }
+                            else if(sabermode==0)
+                            {
+                                sabermode=2;
+                                imageView.setImageResource(R.drawable.sabershs);
+                                superherosenki1=0;
+                                superherosenki2=0;
+                            }
+                        }
+                    }
+                    if(currentImageIndex==11)
+                    {
+                        imageView.clearAnimation();
+                        if(mp!=null)
+                        {
+                            mp.release();
+                            mp=null;
+                        }
+                        if(mp1!=null)
+                        {
+                            mp1.release();
+                            mp1=null;
                         }
                         if(diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE)
                         {
