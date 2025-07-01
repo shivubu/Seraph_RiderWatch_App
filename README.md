@@ -3,6 +3,6 @@ A kamen rider fan app built using Java and Android Studio. It has the sound effe
 Ohma Zio transformation and attack sound effects.
 The App contains 3 types of sound effects for inputs:
 1. Ridewatch Sound : Single press
-2. Alt. Ridewatch Sound : Long press
+2. Final form Finisher Sound : Long press
 3. Kamen Rider Final form Transformation sound : Double press (not available for Showa riders)
 The app also boasts some custom rider sound effects made specifically for the app.
