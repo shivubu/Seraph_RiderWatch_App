@@ -28,7 +28,7 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 
 public class ReiwaRiders1 extends AppCompatActivity {
-    int i=0,gavvoverhenshin=0,masterflag=0,flag=0,geatsflag=0;
+    int i=0,gavvoverhenshin=0,masterflag=0,flag=0,geatsflag=0,saber=0;
     int overindex,masterindex;
     MediaPlayer mp,mp1,end;
     ImageView imageView;
@@ -124,6 +124,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
                     imageView.setImageResource(screen.get(i));
                     switch(i)
                     {
+                        case 1: saber=0;break;
                         case 3: geatsflag=0; break;
                         case 5: gavvoverhenshin=0; overindex=-1; masterindex=-1; break;
                     }
@@ -151,7 +152,16 @@ public class ReiwaRiders1 extends AppCompatActivity {
                     mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.judgement_finishtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
-                        if(i==3)
+                        if(i==1)
+                        {
+                            switch(saber)
+                            {
+                                case 0:mp1= MediaPlayer.create(ReiwaRiders1.this,finishersound.get(i));saber=1;break;
+                                case 1:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_crosssaber1);saber=2;break;
+                                case 2:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_crosssaber2);saber=0;break;
+                            }
+                        }
+                        else if(i==3)
                         {
                             switch(geatsflag)
                             {
