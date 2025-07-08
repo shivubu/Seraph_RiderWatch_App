@@ -23,12 +23,11 @@ import androidx.core.view.MotionEventCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.ViewConfigurationCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 import java.util.ArrayList;
 
 public class HeiseiRiders1 extends AppCompatActivity {
-    int i=0,flag=0,kabuto=0;
-    MediaPlayer mp,mp1,end;
+    int i=0,flag=0,kabuto=0,hculoop=0;
+    MediaPlayer mp,mp1,end,hyperclockup;
     ImageView imageView;
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -79,13 +78,17 @@ public class HeiseiRiders1 extends AppCompatActivity {
                 {
                     mp.release();
                     mp=null;
-                    imageView.clearAnimation();
                 }
                 if(mp1!=null) {
                     mp1.release();
                     mp1 = null;
-                    imageView.clearAnimation();
                 }
+                if(hyperclockup!=null)
+                {
+                    hyperclockup.release();
+                    hyperclockup=null;
+                }
+                imageView.clearAnimation();
                 flag=0;
                 float delta = -motionEvent.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
                         ViewConfigurationCompat.getScaledHorizontalScrollFactor(ViewConfiguration.get(getApplicationContext()), getApplicationContext());
@@ -111,7 +114,7 @@ public class HeiseiRiders1 extends AppCompatActivity {
                     imageView.setImageResource(screen.get(i));
                     switch(i)
                     {
-                        case 6:kabuto=0;break;
+                        case 6:kabuto=hculoop=0;break;
                     }
                 }
                 return true;
@@ -141,6 +144,11 @@ public class HeiseiRiders1 extends AppCompatActivity {
                             mp1.release();
                             mp1=null;
                         }
+                        if(hyperclockup!=null)
+                        {
+                            hyperclockup.release();
+                            hyperclockup=null;
+                        }
                         if(diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE && flag==0)
                         {
                             kabuto=1;
@@ -150,13 +158,25 @@ public class HeiseiRiders1 extends AppCompatActivity {
                             kabuto=2;
                         }
                         if (diffY > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE) {
-                            mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.hyperclockover);
-                            mp.start();
+                            if(hculoop==1)
+                            {
+                                imageView.clearAnimation();
+                                mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.hyperclockover);
+                                mp.start();
+                                hculoop=0;
+                            }
                         }
                         if (diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE)
                         {
+                            imageView.startAnimation(fade);
                             mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.hyperclockup);
                             mp.start();
+                            mp.setOnCompletionListener(mp -> {
+                                hyperclockup=MediaPlayer.create(HeiseiRiders1.this,R.raw.hyperclockuploop);
+                                hyperclockup.setLooping(true);
+                                hyperclockup.start();
+                                hculoop=1;
+                            });
                         }
                     }
                     return super.onFling(e1, e2, velocityX, velocityY);
@@ -173,6 +193,11 @@ public class HeiseiRiders1 extends AppCompatActivity {
                     {
                         mp1.release();
                         mp1=null;
+                    }
+                    if(hyperclockup!=null)
+                    {
+                        hyperclockup.release();
+                        hyperclockup=null;
                     }
                     imageView.startAnimation(fade);
                     mp = MediaPlayer.create(HeiseiRiders1.this,R.raw.judgement_finishtime);
@@ -206,6 +231,11 @@ public class HeiseiRiders1 extends AppCompatActivity {
                         mp1.release();
                         mp1=null;
                     }
+                    if(hyperclockup!=null)
+                    {
+                        hyperclockup.release();
+                        hyperclockup=null;
+                    }
                     imageView.startAnimation(fade);
                     mp = MediaPlayer.create(HeiseiRiders1.this, henshinsound.get(i));
                     mp.start();
@@ -223,6 +253,11 @@ public class HeiseiRiders1 extends AppCompatActivity {
                     {
                         mp1.release();
                         mp1=null;
+                    }
+                    if(hyperclockup!=null)
+                    {
+                        hyperclockup.release();
+                        hyperclockup=null;
                     }
                     imageView.startAnimation(fade);
                     if(flag==0){
@@ -257,6 +292,10 @@ public class HeiseiRiders1 extends AppCompatActivity {
             if (mp1 != null) {
                 mp1.release();
             }
+            if(hyperclockup!=null)
+            {
+                hyperclockup.release();
+            }
             end = MediaPlayer.create(this,R.raw.transition);
             end.start();
             end.setOnCompletionListener(mp -> {
@@ -281,6 +320,11 @@ public class HeiseiRiders1 extends AppCompatActivity {
         if(mp1!=null) {
             mp1.release();
             mp1 = null;
+        }
+        if(hyperclockup!=null)
+        {
+            hyperclockup.release();
+            hyperclockup=null;
         }
         imageView.clearAnimation();
         imageView.setClickable(true);
