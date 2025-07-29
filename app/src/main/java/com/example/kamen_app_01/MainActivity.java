@@ -255,19 +255,16 @@ public class MainActivity extends AppCompatActivity {
                     if(currentImageIndex==5 && fumetsuflag==1)
                     {
                         mp=MediaPlayer.create(MainActivity.this,R.raw.henshingenmhyperfumetsu);
-                        mp.start();
                     }
                     else if(currentImageIndex==6 && hazard_flag==1)
                     {
                         mp=MediaPlayer.create(MainActivity.this,R.raw.henshincrossbuildhazard);
-                        mp.start();
 
                     }
                     else if(currentImageIndex==8 && ohmaflag==1)
                     {
                         ohmaflag=0;
                         mp=MediaPlayer.create(MainActivity.this,R.raw.henshinohmazio);
-                        mp.start();
                     }
                     else if(currentImageIndex==10 && sabermode!=0)
                     {
@@ -283,8 +280,8 @@ public class MainActivity extends AppCompatActivity {
                     else
                     {
                         mp = MediaPlayer.create(MainActivity.this, henshinsound.get(currentImageIndex));
-                        mp.start();
                     }
+                    mp.start();
                     mp.setOnCompletionListener(mp -> imageView.clearAnimation());
                     return super.onDoubleTap(e);
                 }
