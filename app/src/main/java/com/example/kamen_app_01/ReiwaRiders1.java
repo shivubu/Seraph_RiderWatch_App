@@ -266,8 +266,10 @@ public class ReiwaRiders1 extends AppCompatActivity {
                     float diffX = e2.getX() - e1.getX();
                     float SWIPE_THRESHOLD_VELOCITY = 200;
                     float SWIPE_THRESHOLD_DISTANCE = 100;
-                    boolean b1 = diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
-                    boolean b = diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
+                    boolean downSwipe = diffY > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE;
+                    boolean upSwipe = diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE;
+                    boolean rightSwipe = diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
+                    boolean leftSwipe= diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
                     if(i==3)
                     {
                         if(mp!=null)
@@ -282,13 +284,13 @@ public class ReiwaRiders1 extends AppCompatActivity {
                             mp1=null;
                             imageView.clearAnimation();
                         }
-                        if(b)
+                        if(rightSwipe)
                         {
                             mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9);
                             mp.start();
                             geatsflag=1;
                         }
-                        if(b1)
+                        if(leftSwipe)
                         {
                             mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9);
                             mp.start();
@@ -312,7 +314,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
                         }
                         if(gavvoverhenshin==1)
                         {
-                            if(b1)
+                            if(leftSwipe)
                             {
                                 overindex--;
                                 if(overindex<0)
@@ -323,7 +325,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
                                 mp.start();
 
                             }
-                            if(b)
+                            if(rightSwipe)
                             {
                                 overindex++;
                                 if(overindex>=gavvoversounds.size())
@@ -336,7 +338,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
                         }
                         if(masterflag==1)
                         {
-                            if(b1)
+                            if(leftSwipe)
                             {
                                 masterindex--;
                                 if(masterindex<0)
@@ -347,7 +349,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
                                 mp.start();
 
                             }
-                            if(b)
+                            if(rightSwipe)
                             {
                                 masterindex++;
                                 if(masterindex>=gavvmastersounds.size())
@@ -358,7 +360,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
                                 mp.start();
                             }
                         }
-                        if (diffY > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE)
+                        if (downSwipe)
                         {
                             if(masterflag==0)
                             {
@@ -369,7 +371,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
 
                             }
                         }
-                        if (diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE)
+                        if (upSwipe)
                         {
                             if(masterflag==1)
                             {

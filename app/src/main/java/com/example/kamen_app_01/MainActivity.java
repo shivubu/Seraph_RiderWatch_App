@@ -363,9 +363,10 @@ public class MainActivity extends AppCompatActivity {
                     float diffX = e2.getX() - e1.getX();
                     float SWIPE_THRESHOLD_VELOCITY = 200;
                     float SWIPE_THRESHOLD_DISTANCE = 100;
-                    boolean b1 = diffY > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE;
-                    boolean b2 = diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE;
-                    boolean b = diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
+                    boolean downSwipe = diffY > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE;
+                    boolean upSwipe = diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE;
+                    boolean rightSwipe = diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
+                    boolean leftSwipe= diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
                     if(currentImageIndex==5)
                     {
                         imageView.clearAnimation();
@@ -379,7 +380,7 @@ public class MainActivity extends AppCompatActivity {
                             mp1.release();
                             mp1=null;
                         }
-                        if(diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE && flag==0)
+                        if(leftSwipe && flag==0)
                         {
                             imageView.startAnimation(fade);
                             mp=MediaPlayer.create(MainActivity.this,R.raw.genmpause);
@@ -387,7 +388,7 @@ public class MainActivity extends AppCompatActivity {
                             flag=1;
                             mp.setOnCompletionListener(mp -> imageView.clearAnimation());
                         }
-                        if(b)
+                        if(rightSwipe)
                         {
                             if(flag==1 && genmflag==0)
                             {
@@ -408,7 +409,7 @@ public class MainActivity extends AppCompatActivity {
                             }
 
                         }
-                        if (b1) {
+                        if (downSwipe) {
                             if(fumetsuflag==0)
                             {
                                 fumetsuflag=1;
@@ -417,7 +418,7 @@ public class MainActivity extends AppCompatActivity {
                                 genmflag=0;
                             }
                         }
-                        if (b2)
+                        if (upSwipe)
                         {
                             if(fumetsuflag==1)
                             {
@@ -440,13 +441,13 @@ public class MainActivity extends AppCompatActivity {
                             mp1.release();
                             mp1=null;
                         }
-                        if (b1)
+                        if (downSwipe)
                         {
                             hazard_flag=1;
                             mp=MediaPlayer.create(MainActivity.this,R.raw.hazardon);
                             mp.start();
                         }
-                        if (b2)
+                        if (upSwipe)
                         {
                             hazard_flag=0;
                             mp=MediaPlayer.create(MainActivity.this,R.raw.hazardoff);
@@ -469,13 +470,12 @@ public class MainActivity extends AppCompatActivity {
                         {
                             ohmaflag=1;
                         }
-                        if(b)
+                        if(rightSwipe)
                         {
                             ohmaflag=0;
                         }
 
                     }
-                    boolean b3 = diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
                     if(currentImageIndex==9)
                     {
                         imageView.clearAnimation();
@@ -489,7 +489,7 @@ public class MainActivity extends AppCompatActivity {
                             mp1.release();
                             mp1=null;
                         }
-                        if(b)
+                        if(rightSwipe)
                         {
                             zt_index++;
                             if(zt_index>=zt_sounds.length)
@@ -499,7 +499,7 @@ public class MainActivity extends AppCompatActivity {
                             mp=MediaPlayer.create(MainActivity.this,zt_sound.get(zt_index));
                             mp.start();
                         }
-                        if(b3)
+                        if(leftSwipe)
                         {
                             zt_index--;
                             if(zt_index<0)
@@ -509,7 +509,7 @@ public class MainActivity extends AppCompatActivity {
                             mp=MediaPlayer.create(MainActivity.this,zt_sound.get(zt_index));
                             mp.start();
                         }
-                        if(b2)
+                        if(upSwipe)
                         {
                             ztweap_index++;
                             if(ztweap_index>=ztweap_sounds.length)
@@ -520,7 +520,7 @@ public class MainActivity extends AppCompatActivity {
                             mp.start();
 
                         }
-                        if(b1)
+                        if(downSwipe)
                         {
                             ztweap_index--;
                             if(ztweap_index<0)
@@ -544,7 +544,7 @@ public class MainActivity extends AppCompatActivity {
                             mp1.release();
                             mp1=null;
                         }
-                        if (b1) {
+                        if (downSwipe) {
                             if(sabermode==0)
                             {
                                 sabermode=1;
@@ -559,7 +559,7 @@ public class MainActivity extends AppCompatActivity {
                                 wonder2=0;
                             }
                         }
-                        if (b2)
+                        if (upSwipe)
                         {
                             if(sabermode==1)
                             {
@@ -589,13 +589,13 @@ public class MainActivity extends AppCompatActivity {
                             mp1.release();
                             mp1=null;
                         }
-                        if(b)
+                        if(rightSwipe)
                         {
                             mp=MediaPlayer.create(MainActivity.this,R.raw.finisher_geats9);
                             mp.start();
                             geatsflag=2;
                         }
-                        if(b3)
+                        if(leftSwipe)
                         {
                             mp=MediaPlayer.create(MainActivity.this,R.raw.finisher_geats9);
                             mp.start();
