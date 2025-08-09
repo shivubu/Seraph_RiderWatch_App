@@ -36,16 +36,17 @@ public class LauncherActivity extends AppCompatActivity {
         {
             im2.setClickable(false);
         }
-        mp=MediaPlayer.create(this,R.raw.transition);
         im2.setOnClickListener(v -> {
             im2.setClickable(false);
+            mp=MediaPlayer.create(this,R.raw.transition);
             mp.start();
             new Handler(Looper.getMainLooper()).postDelayed(() -> im2.startAnimation(rotate), 300);
+            mp.setOnCompletionListener(mp -> {
+                startActivity(new Intent(LauncherActivity.this, Menu.class));
+                finish();
+            });
         });
-        mp.setOnCompletionListener(mp -> {
-            startActivity(new Intent(LauncherActivity.this, Menu.class));
-            finish();
-        });
+
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -69,13 +70,5 @@ public class LauncherActivity extends AppCompatActivity {
         }
         super.onPause();
     }
-    @Override
-    protected void onDestroy() {
-        if(mp!=null)
-        {
-            mp.release();
-            mp=null;
-        }
-        super.onDestroy();
-    }
+
 }

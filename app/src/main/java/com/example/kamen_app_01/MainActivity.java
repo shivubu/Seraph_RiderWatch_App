@@ -14,7 +14,6 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -364,6 +363,9 @@ public class MainActivity extends AppCompatActivity {
                     float diffX = e2.getX() - e1.getX();
                     float SWIPE_THRESHOLD_VELOCITY = 200;
                     float SWIPE_THRESHOLD_DISTANCE = 100;
+                    boolean b1 = diffY > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE;
+                    boolean b2 = diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE;
+                    boolean b = diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
                     if(currentImageIndex==5)
                     {
                         imageView.clearAnimation();
@@ -385,7 +387,7 @@ public class MainActivity extends AppCompatActivity {
                             flag=1;
                             mp.setOnCompletionListener(mp -> imageView.clearAnimation());
                         }
-                        if(diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE)
+                        if(b)
                         {
                             if(flag==1 && genmflag==0)
                             {
@@ -406,7 +408,7 @@ public class MainActivity extends AppCompatActivity {
                             }
 
                         }
-                        if (diffY > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE) {
+                        if (b1) {
                             if(fumetsuflag==0)
                             {
                                 fumetsuflag=1;
@@ -415,7 +417,7 @@ public class MainActivity extends AppCompatActivity {
                                 genmflag=0;
                             }
                         }
-                        if (diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE)
+                        if (b2)
                         {
                             if(fumetsuflag==1)
                             {
@@ -438,13 +440,13 @@ public class MainActivity extends AppCompatActivity {
                             mp1.release();
                             mp1=null;
                         }
-                        if (diffY > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE)
+                        if (b1)
                         {
                             hazard_flag=1;
                             mp=MediaPlayer.create(MainActivity.this,R.raw.hazardon);
                             mp.start();
                         }
-                        if (diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE)
+                        if (b2)
                         {
                             hazard_flag=0;
                             mp=MediaPlayer.create(MainActivity.this,R.raw.hazardoff);
@@ -467,12 +469,13 @@ public class MainActivity extends AppCompatActivity {
                         {
                             ohmaflag=1;
                         }
-                        if(diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE)
+                        if(b)
                         {
                             ohmaflag=0;
                         }
 
                     }
+                    boolean b3 = diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
                     if(currentImageIndex==9)
                     {
                         imageView.clearAnimation();
@@ -486,7 +489,7 @@ public class MainActivity extends AppCompatActivity {
                             mp1.release();
                             mp1=null;
                         }
-                        if(diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE)
+                        if(b)
                         {
                             zt_index++;
                             if(zt_index>=zt_sounds.length)
@@ -496,7 +499,7 @@ public class MainActivity extends AppCompatActivity {
                             mp=MediaPlayer.create(MainActivity.this,zt_sound.get(zt_index));
                             mp.start();
                         }
-                        if(diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE)
+                        if(b3)
                         {
                             zt_index--;
                             if(zt_index<0)
@@ -506,7 +509,7 @@ public class MainActivity extends AppCompatActivity {
                             mp=MediaPlayer.create(MainActivity.this,zt_sound.get(zt_index));
                             mp.start();
                         }
-                        if(diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE)
+                        if(b2)
                         {
                             ztweap_index++;
                             if(ztweap_index>=ztweap_sounds.length)
@@ -517,7 +520,7 @@ public class MainActivity extends AppCompatActivity {
                             mp.start();
 
                         }
-                        if(diffY > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE)
+                        if(b1)
                         {
                             ztweap_index--;
                             if(ztweap_index<0)
@@ -541,7 +544,7 @@ public class MainActivity extends AppCompatActivity {
                             mp1.release();
                             mp1=null;
                         }
-                        if (diffY > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE) {
+                        if (b1) {
                             if(sabermode==0)
                             {
                                 sabermode=1;
@@ -556,7 +559,7 @@ public class MainActivity extends AppCompatActivity {
                                 wonder2=0;
                             }
                         }
-                        if (diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE)
+                        if (b2)
                         {
                             if(sabermode==1)
                             {
@@ -586,13 +589,13 @@ public class MainActivity extends AppCompatActivity {
                             mp1.release();
                             mp1=null;
                         }
-                        if(diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE)
+                        if(b)
                         {
                             mp=MediaPlayer.create(MainActivity.this,R.raw.finisher_geats9);
                             mp.start();
                             geatsflag=2;
                         }
-                        if(diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE)
+                        if(b3)
                         {
                             mp=MediaPlayer.create(MainActivity.this,R.raw.finisher_geats9);
                             mp.start();
