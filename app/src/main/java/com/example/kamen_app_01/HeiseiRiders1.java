@@ -130,6 +130,10 @@ public class HeiseiRiders1 extends AppCompatActivity {
                     float diffX = e2.getX() - e1.getX();
                     float SWIPE_THRESHOLD_VELOCITY = 200;
                     float SWIPE_THRESHOLD_DISTANCE = 100;
+                    boolean downSwipe = diffY > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE;
+                    boolean upSwipe = diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE;
+                    boolean rightSwipe = diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
+                    boolean leftSwipe= diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
                     if(i==6)
                     {
                         imageView.clearAnimation();
@@ -152,11 +156,11 @@ public class HeiseiRiders1 extends AppCompatActivity {
                         {
                             kabuto=1;
                         }
-                        if(diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE)
+                        if(rightSwipe)
                         {
                             kabuto=2;
                         }
-                        if (diffY > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE) {
+                        if (downSwipe) {
                             if(hculoop==1)
                             {
                                 imageView.clearAnimation();
@@ -165,7 +169,7 @@ public class HeiseiRiders1 extends AppCompatActivity {
                                 hculoop=0;
                             }
                         }
-                        if (diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE)
+                        if (upSwipe)
                         {
                             imageView.startAnimation(fade);
                             mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.hyperclockup);

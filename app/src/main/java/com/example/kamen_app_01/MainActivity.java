@@ -262,7 +262,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else if(currentImageIndex==8 && ohmaflag==1)
                     {
-                        ohmaflag=0;
                         mp=MediaPlayer.create(MainActivity.this,R.raw.henshinohmazio);
                     }
                     else if(currentImageIndex==10 && sabermode!=0)
