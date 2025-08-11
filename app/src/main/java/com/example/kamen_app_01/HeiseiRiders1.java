@@ -152,13 +152,21 @@ public class HeiseiRiders1 extends AppCompatActivity {
                             hyperclockup.release();
                             hyperclockup=null;
                         }
-                        if(diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE && flag==0)
+                        if(leftSwipe)
                         {
-                            kabuto=1;
+                            switch(kabuto)
+                            {
+                                case 0:kabuto=1;break;
+                                case 2:kabuto=0;break;
+                            }
                         }
                         if(rightSwipe)
                         {
-                            kabuto=2;
+                            switch(kabuto)
+                            {
+                                case 0:kabuto=2;break;
+                                case 1:kabuto=0;break;
+                            }
                         }
                         if (downSwipe) {
                             if(hculoop==1)

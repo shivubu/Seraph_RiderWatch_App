@@ -465,12 +465,18 @@ public class MainActivity extends AppCompatActivity {
                             mp1.release();
                             mp1=null;
                         }
-                        if(diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE && flag==0)
+                        if(leftSwipe)
                         {
+                            mp=MediaPlayer.create(MainActivity.this,R.raw.ohma);
+                            mp.start();
+                            mp.setOnCompletionListener(MediaPlayer::release);
                             ohmaflag=1;
                         }
                         if(rightSwipe)
                         {
+                            mp=MediaPlayer.create(MainActivity.this,R.raw.ohma);
+                            mp.start();
+                            mp.setOnCompletionListener(MediaPlayer::release);
                             ohmaflag=0;
                         }
 
@@ -592,13 +598,21 @@ public class MainActivity extends AppCompatActivity {
                         {
                             mp=MediaPlayer.create(MainActivity.this,R.raw.finisher_geats9);
                             mp.start();
-                            geatsflag=2;
+                            switch(geatsflag)
+                            {
+                                case 0:geatsflag=2;break;
+                                case 1:geatsflag=0;break;
+                            }
                         }
                         if(leftSwipe)
                         {
                             mp=MediaPlayer.create(MainActivity.this,R.raw.finisher_geats9);
                             mp.start();
-                            geatsflag=1;
+                            switch(geatsflag)
+                            {
+                                case 0:geatsflag=1;break;
+                                case 2:geatsflag=0;break;
+                            }
 
                         }
                     }
