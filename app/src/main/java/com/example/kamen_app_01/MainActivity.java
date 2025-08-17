@@ -134,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     switch(currentImageIndex)
                     {
+                        case 5:fumetsu=0;break;
                         case 8: ohmaflag=0;break;
                         case 9: zt_index=-1;ztweap_index=-1;break;
                         case 10: sabermode=0;bahamut=0;superherosenki1=superherosenki2=0;wonder1=wonder2=0;break;
