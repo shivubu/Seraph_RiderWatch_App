@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     MediaPlayer mp,mp1,end;
     private Drawable[] backgroundImages;
-    private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,zt_flag=0,hazard_flag=0,genmflag=0,fumetsuflag=0,bahamut=0,sabermode=0,flag1=0,ohmaflag=0,superherosenki1=0,superherosenki2=0,wonder1=0,wonder2=0,geatsflag=0;
+    private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,zt_flag=0,hazard_flag=0,genmflag=0,fumetsuflag=0,bahamut=0,sabermode=0,flag1=0,ohmaflag=0,superherosenki1=0,superherosenki2=0,wonder1=0,wonder2=0,geatsflag=0,fumetsu=0;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,7 +186,12 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else if(currentImageIndex==5 && fumetsuflag==1)
                         {
-                            mp1=MediaPlayer.create(MainActivity.this,R.raw.lpgenmhyperfumetsu);
+                            switch (fumetsu)
+                            {
+                                case 0:mp1=MediaPlayer.create(MainActivity.this,R.raw.lpgenmhyperfumetsu1);break;
+                                case 1:mp1=MediaPlayer.create(MainActivity.this,R.raw.lpgenmhyperfumetsu2);break;
+                                case 2:mp1=MediaPlayer.create(MainActivity.this,R.raw.lpgenmhyperfumetsu3);break;
+                            }
                         }
                         else if(currentImageIndex==10)
                         {
@@ -379,39 +384,65 @@ public class MainActivity extends AppCompatActivity {
                             mp1.release();
                             mp1=null;
                         }
-                        if(leftSwipe && flag==0)
+                        if(fumetsuflag==0)
                         {
-                            imageView.startAnimation(fade);
-                            mp=MediaPlayer.create(MainActivity.this,R.raw.genmpause);
-                            mp.start();
-                            flag=1;
-                            mp.setOnCompletionListener(mp -> imageView.clearAnimation());
-                        }
-                        if(rightSwipe)
-                        {
-                            if(flag==1 && genmflag==0)
+                            if(leftSwipe && flag==0)
                             {
                                 imageView.startAnimation(fade);
-                                mp=MediaPlayer.create(MainActivity.this,R.raw.genmrestart);
+                                mp=MediaPlayer.create(MainActivity.this,R.raw.genmpause);
                                 mp.start();
-                                flag=0;
+                                flag=1;
                                 mp.setOnCompletionListener(mp -> imageView.clearAnimation());
                             }
-                            if(flag==1 && genmflag==1)
+                            if(rightSwipe)
                             {
-                                imageView.startAnimation(fade);
-                                mp=MediaPlayer.create(MainActivity.this,R.raw.genmrestartalt);
-                                mp.start();
-                                flag=0;
-                                genmflag=0;
-                                mp.setOnCompletionListener(mp -> imageView.clearAnimation());
-                            }
+                                if(flag==1 && genmflag==0)
+                                {
+                                    imageView.startAnimation(fade);
+                                    mp=MediaPlayer.create(MainActivity.this,R.raw.genmrestart);
+                                    mp.start();
+                                    flag=0;
+                                    mp.setOnCompletionListener(mp -> imageView.clearAnimation());
+                                }
+                                if(flag==1 && genmflag==1)
+                                {
+                                    imageView.startAnimation(fade);
+                                    mp=MediaPlayer.create(MainActivity.this,R.raw.genmrestartalt);
+                                    mp.start();
+                                    flag=0;
+                                    genmflag=0;
+                                    mp.setOnCompletionListener(mp -> imageView.clearAnimation());
+                                }
 
+                            }
+                        }
+                        else {
+                            if(leftSwipe)
+                            {
+                                mp=MediaPlayer.create(MainActivity.this,R.raw.fumetsu_1);
+                                mp.start();
+                                switch(fumetsu)
+                                {
+                                    case 0:fumetsu=1;break;
+                                    case 2:fumetsu=0;break;
+                                }
+                            }
+                            if(rightSwipe)
+                            {
+                                mp=MediaPlayer.create(MainActivity.this,R.raw.fumetsu_2);
+                                mp.start();
+                                switch(fumetsu)
+                                {
+                                    case 0:fumetsu=2;break;
+                                    case 1:fumetsu=0;break;
+                                }
+                            }
                         }
                         if (downSwipe) {
                             if(fumetsuflag==0)
                             {
                                 fumetsuflag=1;
+                                fumetsu=0;
                                 imageView.setImageResource(R.drawable.genmfumetsu);
                                 flag=0;
                                 genmflag=0;
