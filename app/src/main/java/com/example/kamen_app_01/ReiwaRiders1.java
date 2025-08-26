@@ -46,7 +46,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
         });
         Animation fade= AnimationUtils.loadAnimation(this,R.anim.customfade);
         int[] rw = {R.drawable.zerotwo,R.drawable.sabercross,R.drawable.reviultimate,R.drawable.geats9,R.drawable.gotchardrainbow,R.drawable.gavvover};
-        int[] sounds = {R.raw.zeroone,R.raw.saber,R.raw.revi,R.raw.geats,R.raw.gotchard,R.raw.gavvover};
+        int[] sounds = {R.raw.zerotwo,R.raw.sabercross,R.raw.reviultimate,R.raw.geats9,R.raw.gotchardrainbow,R.raw.gavvover};
         int[] henshinsounds={R.raw.henshinzerotwo,R.raw.henshincrosssaber,R.raw.henshinrevicerex,R.raw.henshingeats9,R.raw.henshingotchardrainbow,R.raw.henshingavvover};
         int[] longpress={R.raw.lpzeroone,R.raw.lpsaber,R.raw.lprevi,R.raw.lpgeats,R.raw.lpgotchard};
         int[] finishersounds={R.raw.finisher_zerotwo,R.raw.finisher_crosssaber,R.raw.finisher_reviultimate,R.raw.finisher_geats9_1,R.raw.finisher_gotchardrainbow,R.raw.lpgavvover};
@@ -254,7 +254,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
                     {
                         switch(hellrise)
                         {
-                            case 0:mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.zeroone);break;
+                            case 0:mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.zerotwo);break;
                             case 1:mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.zeroonehellrise);break;
                         }
                     }
