@@ -254,7 +254,16 @@ public class ReiwaRiders1 extends AppCompatActivity {
                     {
                         switch(hellrise)
                         {
-                            case 0:mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.zerotwo);break;
+                            case 0:if(flag==0)
+                            {
+                                flag=1;
+                                mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.zerotwo);
+                            }
+                            else if(flag==1)
+                            {
+                                flag=0;
+                                mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.lpzeroone);
+                            }break;
                             case 1:mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.zeroonehellrise);break;
                         }
                     }
