@@ -28,7 +28,7 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 
 public class ReiwaRiders1 extends AppCompatActivity {
-    int i=0,gavvoverhenshin=0,flag=0,geatsflag=0,saber=0,gavvmode=0;
+    int i=0,gavvoverhenshin=0,flag=0,geatsflag=0,saber=0,gavvmode=0,hellrise=0;
     int overindex,masterindex;
     MediaPlayer mp,mp1,end;
     ImageView imageView;
@@ -124,6 +124,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
                     imageView.setImageResource(screen.get(i));
                     switch(i)
                     {
+                        case 0: hellrise=0;break;
                         case 1: saber=0;break;
                         case 3: geatsflag=0; break;
                         case 5: gavvmode=0;gavvoverhenshin=0; overindex=-1; masterindex=-1; break;
@@ -152,7 +153,15 @@ public class ReiwaRiders1 extends AppCompatActivity {
                     mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.judgement_finishtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
-                        if(i==1)
+                        if(i==0)
+                        {
+                            switch(hellrise)
+                            {
+                                case 0:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_zerotwo);break;
+                                case 1:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_zeronehellrise);break;
+                            }
+                        }
+                        else if(i==1)
                         {
                             switch(saber)
                             {
@@ -203,7 +212,11 @@ public class ReiwaRiders1 extends AppCompatActivity {
                         mp1=null;
                     }
                     imageView.startAnimation(fade);
-                    if(i==5 && gavvmode!=0)
+                    if(i==0 && hellrise==1)
+                    {
+                        mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.henshinzeronehellrise);
+                    }
+                    else if(i==5 && gavvmode!=0)
                     {
                         switch (gavvmode)
                         {
@@ -237,7 +250,15 @@ public class ReiwaRiders1 extends AppCompatActivity {
                         mp1=null;
                     }
                     imageView.startAnimation(fade);
-                    if(i==5 )
+                    if(i==0)
+                    {
+                        switch(hellrise)
+                        {
+                            case 0:mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.zeroone);break;
+                            case 1:mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.zeroonehellrise);break;
+                        }
+                    }
+                    else if(i==5)
                     {
                         switch(gavvmode)
                         {
@@ -280,7 +301,32 @@ public class ReiwaRiders1 extends AppCompatActivity {
                     boolean upSwipe = diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE;
                     boolean rightSwipe = diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
                     boolean leftSwipe= diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
-                    if(i==3)
+                    if(i==0)
+                    {
+                        if(mp!=null)
+                        {
+                            mp.release();
+                            mp=null;
+                            imageView.clearAnimation();
+                        }
+                        if(mp1!=null)
+                        {
+                            mp1.release();
+                            mp1=null;
+                            imageView.clearAnimation();
+                        }
+                        if(upSwipe && hellrise==0)
+                        {
+                            hellrise=1;
+                            imageView.setImageResource(R.drawable.zeroonehellrise);
+                        }
+                        if(downSwipe && hellrise==1)
+                        {
+                            hellrise=0;
+                            imageView.setImageResource(R.drawable.zerotwo);
+                        }
+                    }
+                    else if(i==3)
                     {
                         if(mp!=null)
                         {
@@ -308,7 +354,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
 
                         }
                     }
-                    if(i==5)
+                    else if(i==5)
                     {
                         if(mp!=null)
                         {
