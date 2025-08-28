@@ -28,7 +28,7 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 
 public class ReiwaRiders1 extends AppCompatActivity {
-    int i=0,gavvoverhenshin=0,flag=0,geatsflag=0,saber=0,gavvmode=0,hellrise=0;
+    int i=0,gavvoverhenshin=0,flag=0,geatsflag=0,saber=0,gavvmode=0,hellrise=0,primitive=0,pdhenshin=0;
     int overindex,masterindex;
     MediaPlayer mp,mp1,end;
     ImageView imageView;
@@ -125,7 +125,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
                     switch(i)
                     {
                         case 0: hellrise=0;break;
-                        case 1: saber=0;break;
+                        case 1: saber=0;primitive=0;pdhenshin=0;break;
                         case 3: geatsflag=0; break;
                         case 5: gavvmode=0;gavvoverhenshin=0; overindex=-1; masterindex=-1; break;
                     }
@@ -163,11 +163,18 @@ public class ReiwaRiders1 extends AppCompatActivity {
                         }
                         else if(i==1)
                         {
-                            switch(saber)
+                            if(primitive==1)
                             {
-                                case 0:mp1= MediaPlayer.create(ReiwaRiders1.this,finishersound.get(i));saber=1;break;
-                                case 1:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_crosssaber1);saber=2;break;
-                                case 2:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_crosssaber2);saber=0;break;
+                                mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_saberprimitivedragon);
+                            }
+                            else
+                            {
+                                switch(saber)
+                                {
+                                    case 0:mp1= MediaPlayer.create(ReiwaRiders1.this,finishersound.get(i));saber=1;break;
+                                    case 1:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_crosssaber1);saber=2;break;
+                                    case 2:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_crosssaber2);saber=0;break;
+                                }
                             }
                         }
                         else if(i==3)
@@ -215,6 +222,19 @@ public class ReiwaRiders1 extends AppCompatActivity {
                     if(i==0 && hellrise==1)
                     {
                         mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.henshinzeronehellrise);
+                    }
+                    else if(i==1 && primitive==1)
+                    {
+                        if(pdhenshin==0)
+                        {
+                            mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.henshinsaberprimitivedragon);
+                            pdhenshin=1;
+                        }
+                        else
+                        {
+                            mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.henshinsaberprimitivedragonalt);
+                            pdhenshin=0;
+                        }
                     }
                     else if(i==5 && gavvmode!=0)
                     {
@@ -267,6 +287,16 @@ public class ReiwaRiders1 extends AppCompatActivity {
                             case 1:mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.zeroonehellrise);break;
                         }
                     }
+                    else if(i==1 && primitive==1)
+                    {
+                        mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.saberprimitvedragon);
+                    }
+                    else if(i<=4 && flag==1)
+                    {
+                        flag=0;
+                        mp=MediaPlayer.create(ReiwaRiders1.this,longpresssound.get(i));
+
+                    }
                     else if(i==5)
                     {
                         switch(gavvmode)
@@ -280,12 +310,6 @@ public class ReiwaRiders1 extends AppCompatActivity {
                             case 1:mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.gavvmaster);break;
                             case 2:mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.amazinggummy);break;
                         }
-                    }
-                    else if(i<=4 && flag==1)
-                    {
-                        flag=0;
-                        mp=MediaPlayer.create(ReiwaRiders1.this,longpresssound.get(i));
-
                     }
                     else
                     {
@@ -333,6 +357,31 @@ public class ReiwaRiders1 extends AppCompatActivity {
                         {
                             hellrise=0;
                             imageView.setImageResource(R.drawable.zerotwo);
+                        }
+                    }
+                    else if(i==1)
+                    {
+                        if(mp!=null)
+                        {
+                            mp.release();
+                            mp=null;
+                            imageView.clearAnimation();
+                        }
+                        if(mp1!=null)
+                        {
+                            mp1.release();
+                            mp1=null;
+                            imageView.clearAnimation();
+                        }
+                        if(upSwipe && primitive==0)
+                        {
+                            primitive=1;
+                            imageView.setImageResource(R.drawable.saberprimitivedragon);
+                        }
+                        if(downSwipe && primitive==1)
+                        {
+                            primitive=0;
+                            imageView.setImageResource(R.drawable.sabercross);
                         }
                     }
                     else if(i==3)
