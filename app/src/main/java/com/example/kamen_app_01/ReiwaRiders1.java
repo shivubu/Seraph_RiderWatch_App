@@ -177,15 +177,16 @@ public class ReiwaRiders1 extends AppCompatActivity {
                                 }
                             }
                         }
-                        else if(i==3)
+                        else if(i==3 && geatsflag!=0)
                         {
                             switch(geatsflag)
                             {
 
-                                case 0:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9_1);
-                                        break;
-                                case 1:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9_2);
-                                        break;
+                                case 1:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9_1);break;
+                                case 2:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9_2);break;
+                                case 3:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9_3);break;
+                                case 4:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9_4);break;
+
                             }
                         }
                         else if(i==5 && gavvmode!=0)
@@ -386,30 +387,55 @@ public class ReiwaRiders1 extends AppCompatActivity {
                     }
                     else if(i==3)
                     {
+                        imageView.clearAnimation();
                         if(mp!=null)
                         {
                             mp.release();
                             mp=null;
-                            imageView.clearAnimation();
                         }
                         if(mp1!=null)
                         {
                             mp1.release();
                             mp1=null;
-                            imageView.clearAnimation();
                         }
                         if(rightSwipe)
                         {
                             mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9);
                             mp.start();
-                            geatsflag=1;
+                            switch(geatsflag)
+                            {
+                                case 0:geatsflag=2;break;
+                                case 1:geatsflag=0;break;
+                            }
                         }
                         if(leftSwipe)
                         {
                             mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9);
                             mp.start();
-                            geatsflag=0;
-
+                            switch(geatsflag)
+                            {
+                                case 0:geatsflag=1;break;
+                                case 2:geatsflag=0;break;
+                            }
+                        }
+                        if(upSwipe)
+                        {
+                            mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9);
+                            mp.start();
+                            switch(geatsflag)
+                            {
+                                case 0:geatsflag=3;break;
+                                case 4:geatsflag=0;break;
+                            }
+                        }
+                        if(downSwipe) {
+                            mp = MediaPlayer.create(ReiwaRiders1.this, R.raw.finisher_geats9);
+                            mp.start();
+                            switch (geatsflag)
+                            {
+                                case 0:geatsflag=4;break;
+                                case 3:geatsflag=0;break;
+                            }
                         }
                     }
                     else if(i==5)

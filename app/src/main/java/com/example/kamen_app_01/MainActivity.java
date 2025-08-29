@@ -226,10 +226,10 @@ public class MainActivity extends AppCompatActivity {
                         {
                             switch(geatsflag)
                             {
-                                case 1:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_geatsdea_1);
-                                        break;
-                                case 2:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_geatsdea_2);
-                                        break;
+                                case 1:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_geatsdea_1);break;
+                                case 2:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_geatsdea_2);break;
+                                case 3:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_geatsdea_3);break;
+                                case 4:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_geatsdea_4);break;
                             }
                         }
                         else {
@@ -645,7 +645,25 @@ public class MainActivity extends AppCompatActivity {
                                 case 0:geatsflag=1;break;
                                 case 2:geatsflag=0;break;
                             }
-
+                        }
+                        if(upSwipe)
+                        {
+                            mp=MediaPlayer.create(MainActivity.this,R.raw.finisher_geats9);
+                            mp.start();
+                            switch(geatsflag)
+                            {
+                                case 0:geatsflag=3;break;
+                                case 4:geatsflag=0;break;
+                            }
+                        }
+                        if(downSwipe) {
+                            mp = MediaPlayer.create(MainActivity.this, R.raw.finisher_geats9);
+                            mp.start();
+                            switch (geatsflag)
+                            {
+                                case 0:geatsflag=4;break;
+                                case 3:geatsflag=0;break;
+                            }
                         }
                     }
                     return super.onFling(e1, e2, velocityX, velocityY);
