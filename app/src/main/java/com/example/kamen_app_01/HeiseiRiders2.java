@@ -28,7 +28,7 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 
 public class HeiseiRiders2 extends AppCompatActivity {
-    int i=0,flag=0,grand=0,kiwami=0;
+    int i=0,flag=0,grand=0,kiwami=0,hazard;
     MediaPlayer mp,mp1,end;
     ImageView imageView;
     @SuppressLint("ClickableViewAccessibility")
@@ -122,11 +122,9 @@ public class HeiseiRiders2 extends AppCompatActivity {
                     imageView.setImageResource(screen.get(i));
                     switch (i)
                     {
-                        case 4:
-                            kiwami=0;
-                            break;
-                        case 9:
-                            grand=0;break;
+                        case 4: kiwami=0;break;
+                        case 8: hazard=0;break;
+                        case 9: grand=0;break;
                     }
                 }
                 return true;
@@ -172,6 +170,49 @@ public class HeiseiRiders2 extends AppCompatActivity {
 
                         }
                     }
+                    else if(i==8)
+                    {
+                        imageView.clearAnimation();
+                        if(mp!=null)
+                        {
+                            mp.release();
+                            mp=null;
+                        }
+                        if(mp1!=null)
+                        {
+                            mp1.release();
+                            mp1=null;
+                        }
+                        if(leftSwipe)
+                        {
+                            switch(hazard)
+                            {
+                                case 0:mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.oneside);mp.start();break;
+                                case 1:mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.onesidehazard);mp.start();break;
+                            }
+
+                        }
+                        else if(rightSwipe)
+                        {
+                            switch (hazard)
+                            {
+                                case 0:mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.otherside);mp.start();break;
+                                case 1:mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.othersidehazard);mp.start();break;
+                            }
+                        }
+                        if(downSwipe)
+                        {
+                            hazard=1;
+                            mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.hazardon);
+                            mp.start();
+                        }
+                        if(upSwipe){
+                            hazard = 0;
+                            mp = MediaPlayer.create(HeiseiRiders2.this, R.raw.hazardoff);
+                            mp.start();
+                        }
+
+                    }
                     return super.onFling(e1, e2, velocityX, velocityY);
                 }
 
@@ -206,6 +247,10 @@ public class HeiseiRiders2 extends AppCompatActivity {
                                     mp1 = MediaPlayer.create(HeiseiRiders2.this, R.raw.finisher_gaimkiwami_3);
                                     break;
                             }
+                        }
+                        else if(i==8 && hazard==1)
+                        {
+                            mp1=MediaPlayer.create(HeiseiRiders2.this,R.raw.lpbuildgeniushazard);
                         }
                         else if(i==9) {
                             switch (grand) {
@@ -243,7 +288,14 @@ public class HeiseiRiders2 extends AppCompatActivity {
                         mp1=null;
                     }
                     imageView.startAnimation(fade);
-                    mp = MediaPlayer.create(HeiseiRiders2.this, henshinsound.get(i));
+                    if(i==8 && hazard==1)
+                    {
+                        mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.henshinbuildgeniushazard);
+                    }
+                    else
+                    {
+                        mp=MediaPlayer.create(HeiseiRiders2.this,henshinsound.get(i));
+                    }
                     mp.start();
                     mp.setOnCompletionListener(mp -> imageView.clearAnimation());
                     return super.onDoubleTap(e);
