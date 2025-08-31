@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     MediaPlayer mp,mp1,end;
     private Drawable[] backgroundImages;
-    private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,zt_flag=0,hazard_flag=0,genmflag=0,fumetsuflag=0,bahamut=0,sabermode=0,flag1=0,ohmaflag=0,superherosenki1=0,superherosenki2=0,wonder1=0,wonder2=0,geatsflag=0,fumetsu=0,dea;
+    private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,zt_flag=0,hazard_flag=0,genmflag=0,fumetsuflag=0,bahamut=0,sabermode=0,flag1=0,ohmaflag=0,superherosenki1=0,superherosenki2=0,wonder1=0,wonder2=0,geatsflag=0,fumetsu=0,dea,rampage_index,phblade_index;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         int[] longpresssounds={R.raw.finisher_seraph,R.raw.lpfaiznext,R.raw.finisher_decadecomplete,R.raw.lpoootajadoreternity,R.raw.lpexaidnovel,R.raw.lpgenmmusou,R.raw.lpcrossbuild,R.raw.finisher_evolblackhole,R.raw.finisher_zioohma,R.raw.lpzerothree,R.raw.finisher_saberwa1,R.raw.finisher_geatsdea,R.raw.lpgotchardultima};
         int[] zt_sounds={R.raw.zt_create,R.raw.zt_singularity,R.raw.zt_ability,R.raw.zt_there_ark_ability,R.raw.zt_outsiders_ability};
         int[] ztweap_sounds={R.raw.attache_calibur,R.raw.attache_shotgun,R.raw.attache_arrow,R.raw.shotriser,R.raw.slashriser,R.raw.thousand_jacker,R.raw.authorise_blaster,R.raw.hopper_blade};
+        int[] phblade_sounds={R.raw.dockingrise,R.raw.gigantslash,R.raw.ultimaterise};
+        int[] rampage_sounds={R.raw.rampagegattling,R.raw.powerrampage,R.raw.speedrampage,R.raw.elementrampage,R.raw.allrampage};
         ArrayList<Integer> sound = new ArrayList<>();
         for (int j : sounds) {
             sound.add(j);
@@ -84,6 +86,14 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Integer> ztweap_sound = new ArrayList<>();
         for (int j : ztweap_sounds) {
             ztweap_sound.add(j);
+        }
+        ArrayList<Integer> phblade_sound = new ArrayList<>();
+        for (int j : phblade_sounds) {
+            phblade_sound.add(j);
+        }
+        ArrayList<Integer> rampage_sound = new ArrayList<>();
+        for (int j : rampage_sounds) {
+            rampage_sound.add(j);
         }
         imageView = findViewById(R.id.imageView);
         imageView.setFocusable(true);
@@ -136,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                     {
                         case 5:fumetsu=0;break;
                         case 8: ohmaflag=0;break;
-                        case 9: zt_index=-1;ztweap_index=-1;break;
+                        case 9: zt_index=-1;ztweap_index=-1;phblade_index=-1;rampage_index=-1;break;
                         case 10: sabermode=0;bahamut=0;superherosenki1=superherosenki2=0;wonder1=wonder2=0;break;
                         case 11: geatsflag=0;dea=0;break;
                     }
@@ -531,26 +541,6 @@ public class MainActivity extends AppCompatActivity {
                             mp1.release();
                             mp1=null;
                         }
-                        if(rightSwipe)
-                        {
-                            zt_index++;
-                            if(zt_index>=zt_sounds.length)
-                            {
-                                zt_index=0;
-                            }
-                            mp=MediaPlayer.create(MainActivity.this,zt_sound.get(zt_index));
-                            mp.start();
-                        }
-                        if(leftSwipe)
-                        {
-                            zt_index--;
-                            if(zt_index<0)
-                            {
-                                zt_index=zt_sounds.length-1;
-                            }
-                            mp=MediaPlayer.create(MainActivity.this,zt_sound.get(zt_index));
-                            mp.start();
-                        }
                         if(upSwipe)
                         {
                             ztweap_index++;
@@ -573,6 +563,82 @@ public class MainActivity extends AppCompatActivity {
                             mp.start();
 
                         }
+                        if(ztweap_index==3)
+                        {
+                            if(rightSwipe)
+                            {
+                                rampage_index++;
+                                if(rampage_index>=rampage_sounds.length)
+                                {
+                                    rampage_index=0;
+                                }
+                                mp=MediaPlayer.create(MainActivity.this,rampage_sound.get(rampage_index));
+                                mp.start();
+                            }
+                            if(leftSwipe) {
+                                rampage_index--;
+                                if (rampage_index < 0) {
+                                    rampage_index = rampage_sounds.length - 1;
+                                }
+                                mp = MediaPlayer.create(MainActivity.this, rampage_sound.get(rampage_index));
+                                mp.start();
+                            }
+                        }
+                        else if(ztweap_index==5)
+                        {
+                            if(leftSwipe||rightSwipe)
+                            {
+                                mp=MediaPlayer.create(MainActivity.this,R.raw.jackingbreak);
+                                mp.start();
+                            }
+                        }
+                        else if(ztweap_index==7)
+                        {
+                            if(rightSwipe)
+                            {
+                                phblade_index++;
+                                if(phblade_index>=phblade_sounds.length)
+                                {
+                                    phblade_index=0;
+                                }
+                                mp=MediaPlayer.create(MainActivity.this,phblade_sound.get(phblade_index));
+                                mp.start();
+                            }
+                            if(leftSwipe)
+                            {
+                                phblade_index--;
+                                if(phblade_index<0)
+                                {
+                                    phblade_index=phblade_sounds.length-1;
+                                }
+                                mp=MediaPlayer.create(MainActivity.this,phblade_sound.get(phblade_index));
+                                mp.start();
+                            }
+                        }
+                        else
+                        {
+                            if(rightSwipe)
+                            {
+                                zt_index++;
+                                if(zt_index>=zt_sounds.length)
+                                {
+                                    zt_index=0;
+                                }
+                                mp=MediaPlayer.create(MainActivity.this,zt_sound.get(zt_index));
+                                mp.start();
+                            }
+                            if(leftSwipe)
+                            {
+                                zt_index--;
+                                if(zt_index<0)
+                                {
+                                    zt_index=zt_sounds.length-1;
+                                }
+                                mp=MediaPlayer.create(MainActivity.this,zt_sound.get(zt_index));
+                                mp.start();
+                            }
+                        }
+
                     }
                     if(currentImageIndex==10)
                     {
