@@ -157,7 +157,7 @@ public class HeiseiRiders2 extends AppCompatActivity {
                             mp1.release();
                             mp1=null;
                         }
-                        if(upSwipe)
+                        if(downSwipe)
                         {
                             imageView.setImageResource(R.drawable.wizardgold);
                             imageView.startAnimation(fade);
@@ -169,7 +169,7 @@ public class HeiseiRiders2 extends AppCompatActivity {
                                 imageView.clearAnimation();
                             });
                         }
-                        if(downSwipe)
+                        if(upSwipe)
                         {
                             imageView.setImageResource(screen.get(i));
                         }
