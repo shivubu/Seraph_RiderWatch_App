@@ -145,7 +145,36 @@ public class HeiseiRiders2 extends AppCompatActivity {
                     boolean upSwipe = diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE;
                     boolean rightSwipe = diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
                     boolean leftSwipe= diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
-                    if(i==4)
+                    if(i==3)
+                    {
+                        imageView.clearAnimation();
+                        if(mp!=null) {
+                            mp.release();
+                            mp = null;
+                        }
+                        if(mp1!=null)
+                        {
+                            mp1.release();
+                            mp1=null;
+                        }
+                        if(upSwipe)
+                        {
+                            imageView.setImageResource(R.drawable.wizardgold);
+                            imageView.startAnimation(fade);
+                            mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.finisher_wizardinfinity_1);
+                            mp.start();
+                            mp.setOnCompletionListener(mp1 -> {
+                                mp.release();
+                                mp=null;
+                                imageView.clearAnimation();
+                            });
+                        }
+                        if(downSwipe)
+                        {
+                            imageView.setImageResource(screen.get(i));
+                        }
+                    }
+                    else if(i==4)
                     {
                         imageView.clearAnimation();
                         if(mp!=null)

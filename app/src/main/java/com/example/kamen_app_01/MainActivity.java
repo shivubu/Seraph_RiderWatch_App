@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     MediaPlayer mp,mp1,end;
     private Drawable[] backgroundImages;
-    private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,zt_flag=0,hazard_flag=0,genmflag=0,fumetsuflag=0,bahamut=0,sabermode=0,flag1=0,ohmaflag=0,superherosenki1=0,superherosenki2=0,wonder1=0,wonder2=0,geatsflag=0,fumetsu=0,dea,rampage_index,phblade_index;
+    private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,zt_flag=0,hazard_flag=0,genmflag=0,fumetsuflag=0,bahamut=0,sabermode=0,flag1=0,ohmaflag=0,superherosenki1=0,superherosenki2=0,wonder1=0,wonder2=0,geatsflag=0,fumetsu=0,dea,rampage_index,phblade_index,exc_index;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         int[] ztweap_sounds={R.raw.attache_calibur,R.raw.attache_shotgun,R.raw.attache_arrow,R.raw.shotriser,R.raw.slashriser,R.raw.thousand_jacker,R.raw.authorise_blaster,R.raw.hopper_blade};
         int[] phblade_sounds={R.raw.dockingrise,R.raw.gigantslash,R.raw.ultimaterise};
         int[] rampage_sounds={R.raw.rampagegattling,R.raw.powerrampage,R.raw.speedrampage,R.raw.elementrampage,R.raw.allrampage};
+        int[] exceed_sounds={R.raw.exceedcharge,R.raw.exceedcharge_shot,R.raw.exceedcharge_pointer,R.raw.exceedcharge_edge,R.raw.exceedcharge_blaster,R.raw.exceedcharge_blasterandedge};
         ArrayList<Integer> sound = new ArrayList<>();
         for (int j : sounds) {
             sound.add(j);
@@ -94,6 +95,10 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Integer> rampage_sound = new ArrayList<>();
         for (int j : rampage_sounds) {
             rampage_sound.add(j);
+        }
+        ArrayList<Integer> exceed_sound = new ArrayList<>();
+        for (int j : exceed_sounds) {
+            exceed_sound.add(j);
         }
         imageView = findViewById(R.id.imageView);
         imageView.setFocusable(true);
@@ -144,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     switch(currentImageIndex)
                     {
+                        case 1:exc_index=-1;break;
                         case 5:fumetsu=0;break;
                         case 8: ohmaflag=0;break;
                         case 9: zt_index=-1;ztweap_index=-1;phblade_index=-1;rampage_index=-1;break;
@@ -387,7 +393,52 @@ public class MainActivity extends AppCompatActivity {
                     boolean upSwipe = diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE;
                     boolean rightSwipe = diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
                     boolean leftSwipe= diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
-                    if(currentImageIndex==5)
+                    if(currentImageIndex==1)
+                    {
+                        imageView.clearAnimation();
+                        if(mp!=null) {
+                            mp.release();
+                            mp = null;
+                        }
+                        if(mp1!=null)
+                        {
+                            mp1.release();
+                            mp1=null;
+                        }
+                        if(upSwipe)
+                        {
+                            exc_index++;
+                            if(exc_index>=exceed_sounds.length)
+                            {
+                                exc_index=0;
+                            }
+                            mp=MediaPlayer.create(MainActivity.this,exceed_sound.get(exc_index));
+                            mp.start();
+                            imageView.startAnimation(fade);
+                            mp.setOnCompletionListener(mp1 -> {
+                                mp.release();
+                                mp=null;
+                                imageView.clearAnimation();
+                            });
+                        }
+                        if(downSwipe)
+                        {
+                            exc_index--;
+                            if(exc_index<0)
+                            {
+                                exc_index=exceed_sounds.length-1;
+                            }
+                            mp=MediaPlayer.create(MainActivity.this,exceed_sound.get(exc_index));
+                            mp.start();
+                            imageView.startAnimation(fade);
+                            mp.setOnCompletionListener(mp1 -> {
+                                mp.release();
+                                mp=null;
+                                imageView.clearAnimation();
+                            });
+                        }
+                    }
+                    else if(currentImageIndex==5)
                     {
                         imageView.clearAnimation();
                         if(mp!=null)
@@ -474,7 +525,7 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                     }
-                    if(currentImageIndex==6)
+                    else if(currentImageIndex==6)
                     {
                         imageView.clearAnimation();
                         if(mp!=null)
@@ -528,7 +579,7 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                     }
-                    if(currentImageIndex==9)
+                    else if(currentImageIndex==9)
                     {
                         imageView.clearAnimation();
                         if(mp!=null)
@@ -640,7 +691,7 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                     }
-                    if(currentImageIndex==10)
+                    else if(currentImageIndex==10)
                     {
                         imageView.clearAnimation();
                         if(mp!=null) {
@@ -684,7 +735,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     }
-                    if(currentImageIndex==11)
+                    else if(currentImageIndex==11)
                     {
                         imageView.clearAnimation();
                         if(mp!=null)
