@@ -261,19 +261,16 @@ public class HeiseiRiders2 extends AppCompatActivity {
                     mp = MediaPlayer.create(HeiseiRiders2.this,R.raw.judgement_finishtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
-                        if(i==4) {
+                        if(i==4 && kiwami!=0) {
                             switch (kiwami) {
-                                case 0:
-                                    mp1 = MediaPlayer.create(HeiseiRiders2.this, finishersound.get(i));
-                                    break;
                                 case 1:
-                                    mp1 = MediaPlayer.create(HeiseiRiders2.this, R.raw.finisher_gaimkiwami_1);
+                                    mp1 = MediaPlayer.create(HeiseiRiders2.this, R.raw.finisher_gaimkiwami_1);kiwami=0;
                                     break;
                                 case 2:
-                                    mp1 = MediaPlayer.create(HeiseiRiders2.this, R.raw.finisher_gaimkiwami_2);
+                                    mp1 = MediaPlayer.create(HeiseiRiders2.this, R.raw.finisher_gaimkiwami_2);kiwami=0;
                                     break;
                                 case 3:
-                                    mp1 = MediaPlayer.create(HeiseiRiders2.this, R.raw.finisher_gaimkiwami_3);
+                                    mp1 = MediaPlayer.create(HeiseiRiders2.this, R.raw.finisher_gaimkiwami_3);kiwami=0;
                                     break;
                             }
                         }
