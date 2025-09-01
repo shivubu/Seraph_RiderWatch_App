@@ -25,7 +25,7 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 
 public class HeiseiRiders1 extends AppCompatActivity {
-    int i=0,flag=0,kabuto=0,hculoop=0;
+    int i=0,flag=0,kabuto=0,hculoop=0,blade;
     MediaPlayer mp,mp1,end,hyperclockup;
     ImageView imageView;
     @SuppressLint("ClickableViewAccessibility")
@@ -45,7 +45,7 @@ public class HeiseiRiders1 extends AppCompatActivity {
         int[] sounds = {R.raw.kuugault, R.raw.agitoshining,R.raw.ryukisurvive,R.raw.faizblaster,R.raw.bladeking,R.raw.hibikiarmed,R.raw.kabutohyper,R.raw.denoliner,R.raw.kivaemperor,R.raw.decadecomplete};
         int[] henshinsounds={R.raw.henshinkuugault,R.raw.henshinagitoshining,R.raw.henshinryukisurvive,R.raw.henshinfaizblaster,R.raw.henshinbladeking,R.raw.henshinhibikiarmed,R.raw.henshinkabutohyper,R.raw.henshindenoliner,R.raw.henshinkivaemperor,R.raw.henshindecadecomplete};
         int[] longprsssounds={R.raw.lpkuuga,R.raw.lpagito,R.raw.lpryuki,R.raw.lpfaiz,R.raw.lpblade,R.raw.lphibiki,R.raw.lpkabuto,R.raw.lpdeno,R.raw.lpkiva,R.raw.lpdecade};
-        int[] finishersounds={R.raw.finisher_kuugault,R.raw.finisher_agitoshining,R.raw.finisher_ryukisurvive,R.raw.finisher_faizblaster,R.raw.finisher_bladeking,R.raw.finisher_hibikiarmed,R.raw.finisher_kabutohyper,R.raw.finisher_denoliner,R.raw.finisher_kivaemperor,R.raw.finisher_decadecomplete};
+        int[] finishersounds={R.raw.finisher_kuugault,R.raw.finisher_agitoshining,R.raw.finisher_ryukisurvive,R.raw.finisher_faizblaster,R.raw.finisher_bladeking_1,R.raw.finisher_hibikiarmed,R.raw.finisher_kabutohyper,R.raw.finisher_denoliner,R.raw.finisher_kivaemperor,R.raw.finisher_decadecomplete};
         ArrayList<Integer> screen = new ArrayList<>();
         for (int j : rw) {
             screen.add(j);
@@ -113,6 +113,7 @@ public class HeiseiRiders1 extends AppCompatActivity {
                     imageView.setImageResource(screen.get(i));
                     switch(i)
                     {
+                        case 4:blade=0;
                         case 6:kabuto=hculoop=0;break;
                     }
                 }
@@ -214,7 +215,15 @@ public class HeiseiRiders1 extends AppCompatActivity {
                     mp = MediaPlayer.create(HeiseiRiders1.this,R.raw.judgement_finishtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
-                        if(i==6 && kabuto!=0)
+                        if(i==4)
+                        {
+                            switch(blade)
+                            {
+                                case 0:mp1=MediaPlayer.create(HeiseiRiders1.this,R.raw.finisher_bladeking_1);blade=1;break;
+                                case 1:mp1=MediaPlayer.create(HeiseiRiders1.this,R.raw.finisher_bladeking_2);blade=0;break;
+                            }
+                        }
+                        else if(i==6 && kabuto!=0)
                         {
                             switch (kabuto)
                             {
