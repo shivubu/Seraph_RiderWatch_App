@@ -28,7 +28,7 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 
 public class HeiseiRiders2 extends AppCompatActivity {
-    int i=0,flag=0,grand=0,kiwami=0,hazard,w,kiwamicounter,kiwami1;
+    int i=0,flag=0,grand=0,kiwami=0,hazard,w,kiwamicounter,kiwami1,tricounter,triflag;
     MediaPlayer mp,mp1,end;
     ImageView imageView;
     @SuppressLint("ClickableViewAccessibility")
@@ -59,6 +59,8 @@ public class HeiseiRiders2 extends AppCompatActivity {
         int[] longpresssounds={R.raw.lpdouble,R.raw.lpooo,R.raw.lpfourze,R.raw.lpwizard,R.raw.lpgaim,R.raw.lpdrive,R.raw.lpghost,R.raw.lpexaid,R.raw.lpbuild,R.raw.lpzio};
         int[] finishersounds={R.raw.finisher_doublecjex,R.raw.finisher_oooputo,R.raw.finisher_fourzecosmic,R.raw.finisher_wizardinfinity,R.raw.finisher_gaimkiwami,R.raw.finisher_drivetrideron,R.raw.finisher_ghostmugen,R.raw.finisher_exaidmuteki,R.raw.finisher_buildgenius,R.raw.finisher_grandzio};
         int[] kiwamisounds={R.raw.kiwami1,R.raw.kiwami2,R.raw.kiwami3,R.raw.kiwami4,R.raw.kiwami5,R.raw.kiwami6,R.raw.kiwami7,R.raw.kiwami8,R.raw.kiwami9,R.raw.kiwami10,R.raw.kiwami11,R.raw.kiwami12,R.raw.kiwami13,R.raw.kiwami14,R.raw.kiwami15,R.raw.kiwami16};
+        int[] trideronhenshins={R.raw.henshin_trideron123,R.raw.henshin_trideronsaver,R.raw.henshin_triderondream,R.raw.henshin_triderongenbar,R.raw.henshin_trideronweather,R.raw.henshin_triderontough,R.raw.henshin_triderongrand};
+        int[] trideronfinishers={R.raw.finisher_trideron123,R.raw.finisher_trideronsaver,R.raw.finisher_triderondream,R.raw.finisher_triderongenbar,R.raw.finisher_trideronweather,R.raw.finisher_triderontough,R.raw.finisher_triderongrand};
         ArrayList<Integer> screen = new ArrayList<>();
         for (int j : rw) {
             screen.add(j);
@@ -82,6 +84,14 @@ public class HeiseiRiders2 extends AppCompatActivity {
         ArrayList<Integer> kiwamisound = new ArrayList<>();
         for (int j : kiwamisounds) {
             kiwamisound.add(j);
+        }
+        ArrayList<Integer> trideronhenshin = new ArrayList<>();
+        for (int j : trideronhenshins) {
+            trideronhenshin.add(j);
+        }
+        ArrayList<Integer> trideronfinisher = new ArrayList<>();
+        for (int j : trideronfinishers) {
+            trideronfinisher.add(j);
         }
         imageView = findViewById(R.id.imageView7);
         imageView.setImageResource(screen.get(i));
@@ -129,6 +139,7 @@ public class HeiseiRiders2 extends AppCompatActivity {
                     {
                         case 0:w=0;break;
                         case 4: kiwami=0;kiwami1=0;kiwamicounter=-1;break;
+                        case 5: tricounter=-1;triflag=0;break;
                         case 8: hazard=0;break;
                         case 9: grand=0;break;
                     }
@@ -268,6 +279,50 @@ public class HeiseiRiders2 extends AppCompatActivity {
                             mp.start();
                         }
                     }
+                    else if(i==5)
+                    {
+                        imageView.clearAnimation();
+                        if(mp!=null)
+                        {
+                            mp.release();
+                            mp=null;
+                        }
+                        if(mp1!=null)
+                        {
+                            mp1.release();
+                            mp1=null;
+                        }
+                        if(rightSwipe)
+                        {
+                            tricounter++;
+                            if(tricounter>=trideronhenshins.length)
+                            {
+                                tricounter=0;
+                            }
+                            mp=MediaPlayer.create(HeiseiRiders2.this,trideronhenshin.get(tricounter));
+                            mp.start();
+                        }
+                        if(leftSwipe)
+                        {
+                            tricounter--;
+                            if(tricounter<0)
+                            {
+                                tricounter=trideronhenshins.length-1;
+                            }
+                            mp=MediaPlayer.create(HeiseiRiders2.this,trideronhenshin.get(tricounter));
+                            mp.start();
+                        }
+                        if(downSwipe)
+                        {
+                            tricounter=-1;
+                            triflag=0;
+                        }
+                        if(upSwipe)
+                        {
+                            tricounter=-1;
+                            triflag=1;
+                        }
+                    }
                     else if(i==8)
                     {
                         imageView.clearAnimation();
@@ -344,6 +399,22 @@ public class HeiseiRiders2 extends AppCompatActivity {
                                 case 3:
                                     mp1 = MediaPlayer.create(HeiseiRiders2.this, R.raw.finisher_gaimkiwami_3);kiwami=0;
                                     break;
+                            }
+                        }
+                        else if(i==5)
+                        {
+                            if(tricounter==-1)
+                            {
+                                switch(triflag)
+                                {
+                                    case 0:mp1=MediaPlayer.create(HeiseiRiders2.this,finishersound.get(i));break;
+                                    case 1:mp1=MediaPlayer.create(HeiseiRiders2.this,R.raw.finisher_trideronall);break;
+                                }
+                                mp1.start();
+                            }
+                            else {
+                                mp1=MediaPlayer.create(HeiseiRiders2.this,trideronfinisher.get(tricounter));
+                                mp1.start();
                             }
                         }
                         else if(i==8 && hazard==1)
