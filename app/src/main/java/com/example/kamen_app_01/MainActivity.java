@@ -63,12 +63,13 @@ public class MainActivity extends AppCompatActivity {
         };
         int[] sounds = {R.raw.seraph0,R.raw.faiznext,R.raw.decadecomplete21,R.raw.oootajadoreternity,R.raw.drivespecial,R.raw.exaidnovel,R.raw.genmmusou,R.raw.crossbuild,R.raw.evolblackhole,R.raw.omazio,R.raw.zerothree,R.raw.saberwa,R.raw.geatsdea,R.raw.gotchardultima};
         int[] henshinsounds={R.raw.henshinseraph_ver1,R.raw.henshinfaiznext,R.raw.henshindecadecomplete21,R.raw.henshinoootajadoreternity,R.raw.henshindrivespecial,R.raw.henshinexaidnovel,R.raw.henshingenmmusou,R.raw.henshincrossbuild,R.raw.henshinevolblackhole,R.raw.henshinzioohma,R.raw.henshinzerothree,R.raw.henshinsaberwa,R.raw.henshingeatsdea_0,R.raw.henshingotchardultima};
-        int[] longpresssounds={R.raw.finisher_seraph,R.raw.lpfaiznext,R.raw.finisher_decadecomplete,R.raw.lpoootajadoreternity,R.raw.finisher_drivespecial,R.raw.lpexaidnovel,R.raw.lpgenmmusou,R.raw.lpcrossbuild,R.raw.finisher_evolblackhole,R.raw.finisher_zioohma,R.raw.lpzerothree,R.raw.finisher_saberwa1,R.raw.finisher_geatsdea,R.raw.lpgotchardultima};
+        int[] longpresssounds={R.raw.finisher_seraph,R.raw.exceedcharge,R.raw.finisher_decadecomplete,R.raw.lpoootajadoreternity,R.raw.finisher_drivespecial,R.raw.lpexaidnovel,R.raw.lpgenmmusou,R.raw.lpcrossbuild,R.raw.finisher_evolblackhole,R.raw.finisher_zioohma,R.raw.lpzerothree,R.raw.finisher_saberwa1,R.raw.finisher_geatsdea,R.raw.lpgotchardultima};
         int[] zt_sounds={R.raw.zt_create,R.raw.zt_singularity,R.raw.zt_ability,R.raw.zt_there_ark_ability,R.raw.zt_outsiders_ability};
         int[] ztweap_sounds={R.raw.attache_calibur,R.raw.attache_shotgun,R.raw.attache_arrow,R.raw.shotriser,R.raw.slashriser,R.raw.thousand_jacker,R.raw.authorise_blaster,R.raw.hopper_blade};
         int[] phblade_sounds={R.raw.dockingrise,R.raw.gigantslash,R.raw.ultimaterise};
         int[] rampage_sounds={R.raw.rampagegattling,R.raw.powerrampage,R.raw.speedrampage,R.raw.elementrampage,R.raw.allrampage};
-        int[] exceed_sounds={R.raw.exceedcharge,R.raw.exceedcharge_shot,R.raw.exceedcharge_pointer,R.raw.exceedcharge_edge,R.raw.exceedcharge_blaster,R.raw.exceedcharge_blasterandedge};
+        int[] faiz_weaps={R.raw.faiz_shot,R.raw.faiz_pointer,R.raw.faiz_edge,R.raw.faiz_blaster,R.raw.faiz_edgeandblaster};
+        int[] exceed_sounds={R.raw.ec_faizshot,R.raw.ec_pointer,R.raw.ec_edge,R.raw.ec_blaster,R.raw.ec_edgeandblaster};
         ArrayList<Integer> sound = new ArrayList<>();
         for (int j : sounds) {
             sound.add(j);
@@ -96,6 +97,10 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Integer> rampage_sound = new ArrayList<>();
         for (int j : rampage_sounds) {
             rampage_sound.add(j);
+        }
+        ArrayList<Integer> faiz_weap = new ArrayList<>();
+        for (int j : faiz_weaps) {
+            faiz_weap.add(j);
         }
         ArrayList<Integer> exceed_sound = new ArrayList<>();
         for (int j : exceed_sounds) {
@@ -175,7 +180,11 @@ public class MainActivity extends AppCompatActivity {
                     mp=MediaPlayer.create(MainActivity.this,R.raw.judgement_finishtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
-                        if(currentImageIndex==4 && drivemode==1)
+                        if(currentImageIndex==1 && exc_index!=-1)
+                        {
+                            mp1=MediaPlayer.create(MainActivity.this,exceed_sound.get(exc_index));
+                        }
+                        else if(currentImageIndex==4 && drivemode==1)
                         {
                             mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_drivenext);
                         }
@@ -410,33 +419,32 @@ public class MainActivity extends AppCompatActivity {
                             mp1.release();
                             mp1 = null;
                         }
-                        if (upSwipe) {
+                        if (rightSwipe) {
                             exc_index++;
-                            if (exc_index >= exceed_sounds.length) {
+                            if (exc_index >= faiz_weaps.length) {
                                 exc_index = 0;
                             }
-                            mp = MediaPlayer.create(MainActivity.this, exceed_sound.get(exc_index));
+                            mp = MediaPlayer.create(MainActivity.this, faiz_weap.get(exc_index));
                             mp.start();
-                            imageView.startAnimation(fade);
-                            mp.setOnCompletionListener(mp1 -> {
-                                mp.release();
-                                mp = null;
-                                imageView.clearAnimation();
-                            });
                         }
-                        if (downSwipe) {
+                        if (leftSwipe) {
                             exc_index--;
                             if (exc_index < 0) {
-                                exc_index = exceed_sounds.length - 1;
+                                exc_index = faiz_weaps.length - 1;
                             }
-                            mp = MediaPlayer.create(MainActivity.this, exceed_sound.get(exc_index));
+                            mp = MediaPlayer.create(MainActivity.this, faiz_weap.get(exc_index));
+                            mp.start();
+                        }
+                        if(upSwipe)
+                        {
+                            mp=MediaPlayer.create(MainActivity.this,R.raw.lpfaiznext);
                             mp.start();
                             imageView.startAnimation(fade);
-                            mp.setOnCompletionListener(mp1 -> {
-                                mp.release();
-                                mp = null;
-                                imageView.clearAnimation();
-                            });
+                            mp.setOnCompletionListener(mp -> imageView.clearAnimation());
+                        }
+                        if(downSwipe)
+                        {
+                            exc_index=-1;
                         }
                     }
                     else if (currentImageIndex == 4)
