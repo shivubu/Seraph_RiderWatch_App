@@ -28,7 +28,7 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 
 public class HeiseiRiders2 extends AppCompatActivity {
-    int i=0,flag=0,grand=0,kiwami=0,hazard,w,kiwamicounter,kiwami1,tricounter,triflag;
+    int i=0,flag=0,kiwami=0,hazard,w,kiwamicounter,kiwami1,tricounter,triflag;
     MediaPlayer mp,mp1,end;
     ImageView imageView;
     @SuppressLint("ClickableViewAccessibility")
@@ -57,7 +57,7 @@ public class HeiseiRiders2 extends AppCompatActivity {
         int[] sounds = {R.raw.doublecjex, R.raw.oooputo,R.raw.fourzecosmic,R.raw.wizardinfinity,R.raw.gaimkiwami,R.raw.drivetrideron,R.raw.ghostmugen,R.raw.exaidmuteki,R.raw.buildgenius,R.raw.grandzio};
         int[] henshinsounds={R.raw.henshindoublecjx,R.raw.henshinoooputo,R.raw.henshinfourzecosmic,R.raw.henshinwizardinfinity,R.raw.henshingaimkiwami1,R.raw.henshindrivetrideron,R.raw.henshinghostmugen,R.raw.henshinexaidmuteki,R.raw.henshinbuildgenius,R.raw.henshingrandzio};
         int[] longpresssounds={R.raw.lpdouble,R.raw.lpooo,R.raw.lpfourze,R.raw.lpwizard,R.raw.lpgaim,R.raw.lpdrive,R.raw.lpghost,R.raw.lpexaid,R.raw.lpbuild,R.raw.lpzio};
-        int[] finishersounds={R.raw.finisher_doublecjex,R.raw.finisher_oooputo,R.raw.finisher_fourzecosmic,R.raw.finisher_wizardinfinity,R.raw.finisher_gaimkiwami,R.raw.finisher_drivetrideron,R.raw.finisher_ghostmugen,R.raw.finisher_exaidmuteki,R.raw.finisher_buildgenius,R.raw.finisher_grandzio};
+        int[] finishersounds={R.raw.finisher_doublecjex,R.raw.finisher_oooputo,R.raw.finisher_fourzecosmic,R.raw.finisher_wizardinfinity,R.raw.finisher_gaimkiwami_3,R.raw.finisher_drivetrideron,R.raw.finisher_ghostmugen,R.raw.finisher_exaidmuteki,R.raw.finisher_buildgenius,R.raw.finisher_grandzio_1};
         int[] kiwamisounds={R.raw.kiwami1,R.raw.kiwami2,R.raw.kiwami3,R.raw.kiwami4,R.raw.kiwami5,R.raw.kiwami6,R.raw.kiwami7,R.raw.kiwami8,R.raw.kiwami9,R.raw.kiwami10,R.raw.kiwami11,R.raw.kiwami12,R.raw.kiwami13,R.raw.kiwami14,R.raw.kiwami15,R.raw.kiwami16};
         int[] trideronhenshins={R.raw.henshin_trideron123,R.raw.henshin_trideronsaver,R.raw.henshin_triderondream,R.raw.henshin_triderongenbar,R.raw.henshin_trideronweather,R.raw.henshin_triderontough,R.raw.henshin_triderongrand};
         int[] trideronfinishers={R.raw.finisher_trideron123,R.raw.finisher_trideronsaver,R.raw.finisher_triderondream,R.raw.finisher_triderongenbar,R.raw.finisher_trideronweather,R.raw.finisher_triderontough,R.raw.finisher_triderongrand};
@@ -141,7 +141,6 @@ public class HeiseiRiders2 extends AppCompatActivity {
                         case 4: kiwami=0;kiwami1=0;kiwamicounter=-1;break;
                         case 5: tricounter=-1;triflag=0;break;
                         case 8: hazard=0;break;
-                        case 9: grand=0;break;
                     }
                 }
                 return true;
@@ -365,6 +364,25 @@ public class HeiseiRiders2 extends AppCompatActivity {
                         }
 
                     }
+                    else if(i==9)
+                    {
+                        imageView.clearAnimation();
+                        if(mp!=null)
+                        {
+                            mp.release();
+                            mp=null;
+                        }
+                        if(mp1!=null)
+                        {
+                            mp1.release();
+                            mp1=null;
+                        }
+                        if(leftSwipe || rightSwipe)
+                        {
+                            mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.finisher_grandzio);
+                            mp.start();
+                        }
+                    }
                     return super.onFling(e1, e2, velocityX, velocityY);
                 }
 
@@ -420,19 +438,6 @@ public class HeiseiRiders2 extends AppCompatActivity {
                         else if(i==8 && hazard==1)
                         {
                             mp1=MediaPlayer.create(HeiseiRiders2.this,R.raw.lpbuildgeniushazard);
-                        }
-                        else if(i==9) {
-                            switch (grand) {
-                                case 0:
-                                    mp1 = MediaPlayer.create(HeiseiRiders2.this, finishersound.get(i));
-                                    grand = 1;
-                                    break;
-                                case 1:
-                                    mp1 = MediaPlayer.create(HeiseiRiders2.this, R.raw.finisher_grandzio_1);
-                                    grand = 0;
-                                    break;
-
-                            }
                         }
                         else
                         {
