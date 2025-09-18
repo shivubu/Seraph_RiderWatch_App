@@ -864,4 +864,18 @@ public class MainActivity extends AppCompatActivity {
         imageView.setClickable(true);
         super.onPause();
     }
+    @Override
+    protected void onDestroy() {
+        if(mp!=null)
+        {
+            mp.release();
+            mp=null;
+        }
+        if(mp1!=null)
+        {
+            mp1.release();
+            mp1=null;
+        }
+        super.onDestroy();
+    }
 }

@@ -143,5 +143,14 @@ public class Menu extends AppCompatActivity {
         });
 
     }
+    @Override
+    protected void onDestroy() {
+        if(mp!=null)
+        {
+            mp.release();
+            mp=null;
+        }
+        super.onDestroy();
+    }
 
 }

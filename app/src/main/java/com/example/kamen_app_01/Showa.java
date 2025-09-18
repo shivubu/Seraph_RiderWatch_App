@@ -177,4 +177,13 @@ public class Showa extends AppCompatActivity {
         }
         super.onPause();
     }
+    @Override
+    protected void onDestroy() {
+        if(mp!=null)
+        {
+            mp.release();
+            mp=null;
+        }
+        super.onDestroy();
+    }
 }
