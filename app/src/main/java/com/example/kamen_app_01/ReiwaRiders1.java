@@ -28,7 +28,7 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 
 public class ReiwaRiders1 extends AppCompatActivity {
-    int i=0,gavvoverhenshin=0,flag=0,geatsflag=0,saber=0,gavvmode=0,hellrise=0,primitive=0,pdhenshin=0;
+    int i=0,gavvoverhenshin=0,flag=0,geatsflag=0,saber=0,gavvmode=0,hellrise=0,primitive=0,pdhenshin=0,pdfinisher;
     int overindex,masterindex;
     MediaPlayer mp,mp1,end;
     ImageView imageView;
@@ -125,7 +125,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
                     switch(i)
                     {
                         case 0: hellrise=0;break;
-                        case 1: saber=0;primitive=0;pdhenshin=0;break;
+                        case 1: saber=0;primitive=0;pdhenshin=0;pdfinisher=0;break;
                         case 3: geatsflag=0; break;
                         case 5: gavvmode=0;gavvoverhenshin=0; overindex=-1; masterindex=-1; break;
                     }
@@ -165,7 +165,11 @@ public class ReiwaRiders1 extends AppCompatActivity {
                         {
                             if(primitive==1)
                             {
-                                mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_saberprimitivedragon);
+                                switch(pdfinisher)
+                                {
+                                    case 0:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_saberprimitivedragon);pdfinisher=1;break;
+                                    case 1:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_saberprimitivedragon1);pdfinisher=0;break;
+                                }
                             }
                             else
                             {
