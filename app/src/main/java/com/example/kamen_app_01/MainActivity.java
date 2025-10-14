@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         int[] longpresssounds={R.raw.finisher_seraph,R.raw.exceedcharge,R.raw.finisher_decadecomplete,R.raw.lpoootajadoreternity,R.raw.finisher_drivespecial,R.raw.lpexaidnovel,R.raw.lpgenmmusou,R.raw.lpcrossbuild,R.raw.finisher_evolblackhole,R.raw.finisher_zioohma,R.raw.lpzerothree,R.raw.finisher_saberwa1,R.raw.finisher_geatsdea,R.raw.lpgotchardultima};
         int[] zt_sounds={R.raw.zt_create,R.raw.zt_singularity,R.raw.zt_ability,R.raw.zt_there_ark_ability,R.raw.zt_outsiders_ability};
         int[] ztweap_sounds={R.raw.attache_calibur,R.raw.attache_shotgun,R.raw.attache_arrow,R.raw.shotriser,R.raw.slashriser,R.raw.thousand_jacker,R.raw.authorise_blaster,R.raw.hopper_blade};
-        int[] phblade_sounds={R.raw.dockingrise,R.raw.gigantslash,R.raw.ultimaterise};
+        int[] phblade_sounds={R.raw.progrisingslash,R.raw.dockingrise,R.raw.gigantslash,R.raw.ultimaterise};
         int[] rampage_sounds={R.raw.rampagegattling,R.raw.powerrampage,R.raw.speedrampage,R.raw.elementrampage,R.raw.allrampage};
         int[] faiz_weaps={R.raw.faiz_shot,R.raw.faiz_pointer,R.raw.faiz_edge,R.raw.faiz_blaster,R.raw.faiz_edgeandblaster};
         int[] exceed_sounds={R.raw.ec_faizshot,R.raw.ec_pointer,R.raw.ec_edge,R.raw.ec_blaster,R.raw.ec_edgeandblaster};
