@@ -664,6 +664,14 @@ public class MainActivity extends AppCompatActivity {
                                 mp.start();
                             }
                         }
+                        else if(ztweap_index==4)
+                        {
+                            if(leftSwipe||rightSwipe)
+                            {
+                                mp=MediaPlayer.create(MainActivity.this,R.raw.finisher_slashriser);
+                                mp.start();
+                            }
+                        }
                         else if(ztweap_index==5)
                         {
                             if(leftSwipe||rightSwipe)
