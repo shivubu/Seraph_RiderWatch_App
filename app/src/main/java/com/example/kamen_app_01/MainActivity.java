@@ -471,6 +471,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         if(downSwipe)
                         {
+                            mp= MediaPlayer.create(MainActivity.this,R.raw.predictiveai);
+                            mp.start();
                             exc_index=-1;
                         }
                     }
