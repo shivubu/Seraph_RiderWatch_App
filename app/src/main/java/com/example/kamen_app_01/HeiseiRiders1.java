@@ -135,7 +135,37 @@ public class HeiseiRiders1 extends AppCompatActivity {
                     boolean upSwipe = diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE;
                     boolean rightSwipe = diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
                     boolean leftSwipe= diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
-                    if(i==6)
+                    if(i==4)
+                    {
+                        imageView.clearAnimation();
+                        if(mp!=null)
+                        {
+                            mp.release();
+                            mp=null;
+                        }
+                        if(mp1!=null)
+                        {
+                            mp1.release();
+                            mp1=null;
+                        }
+                        if(upSwipe)
+                        {
+                            blade=0;
+                        }
+                        else if(rightSwipe)
+                        {
+                            blade=1;
+                        }
+                        else if(downSwipe)
+                        {
+                            blade=2;
+                        }
+                        else if(leftSwipe)
+                        {
+                            blade=3;
+                        }
+                    }
+                    else if(i==6)
                     {
                         imageView.clearAnimation();
                         if(mp!=null)
@@ -219,8 +249,10 @@ public class HeiseiRiders1 extends AppCompatActivity {
                         {
                             switch(blade)
                             {
-                                case 0:mp1=MediaPlayer.create(HeiseiRiders1.this,R.raw.finisher_bladeking_1);blade=1;break;
-                                case 1:mp1=MediaPlayer.create(HeiseiRiders1.this,R.raw.finisher_bladeking_2);blade=0;break;
+                                case 0:mp1=MediaPlayer.create(HeiseiRiders1.this,R.raw.finisher_bladeking_1);break;
+                                case 1:mp1=MediaPlayer.create(HeiseiRiders1.this,R.raw.finisher_bladeking_2);break;
+                                case 2:mp1=MediaPlayer.create(HeiseiRiders1.this,R.raw.finisher_bladeking_3);break;
+                                case 3:mp1=MediaPlayer.create(HeiseiRiders1.this,R.raw.finisher_bladeking_4);break;
                             }
                         }
                         else if(i==6 && kabuto!=0)
