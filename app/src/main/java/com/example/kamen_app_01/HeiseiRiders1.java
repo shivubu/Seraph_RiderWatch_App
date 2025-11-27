@@ -148,6 +148,8 @@ public class HeiseiRiders1 extends AppCompatActivity {
                             mp1.release();
                             mp1=null;
                         }
+                        mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.transition2);
+                        mp.start();
                         if(upSwipe)
                         {
                             blade=0;
@@ -185,6 +187,8 @@ public class HeiseiRiders1 extends AppCompatActivity {
                         }
                         if(leftSwipe)
                         {
+                            mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.transition2);
+                            mp.start();
                             switch(kabuto)
                             {
                                 case 0:kabuto=1;break;
@@ -193,6 +197,8 @@ public class HeiseiRiders1 extends AppCompatActivity {
                         }
                         if(rightSwipe)
                         {
+                            mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.transition2);
+                            mp.start();
                             switch(kabuto)
                             {
                                 case 0:kabuto=2;break;

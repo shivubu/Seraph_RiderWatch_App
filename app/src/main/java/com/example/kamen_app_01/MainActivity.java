@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     MediaPlayer mp,mp1,end;
     private Drawable[] backgroundImages;
-    private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,zt_flag=0,hazard_flag=0,genmflag=0,fumetsuflag=0,bahamut=0,sabermode=0,flag1=0,ohmaflag=0,superherosenki1=0,superherosenki2=0,wonder1=0,wonder2=0,geatsflag=0,fumetsu=0,dea,rampage_index,phblade_index,exc_index,drivemode,sru;
+    private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,hazard_flag=0,genmflag=0,fumetsuflag=0,bahamut=0,sabermode=0,flag1=0,ohmaflag=0,superherosenki1=0,superherosenki2=0,wonder1=0,wonder2=0,geatsflag=0,fumetsu=0,dea,rampage_index,phblade_index,exc_index,drivemode,sru;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         int[] henshinsounds={R.raw.henshinseraph_ver1,R.raw.henshinkuugasru,R.raw.henshinfaiznext,R.raw.henshindecadecomplete21,R.raw.henshinoootajadoreternity,R.raw.henshindrivespecial,R.raw.henshinexaidnovel,R.raw.henshingenmmusou,R.raw.henshincrossbuild,R.raw.henshinevolblackhole,R.raw.henshinzioohma,R.raw.henshinzerothree,R.raw.henshinsaberwa,R.raw.henshingeatsdea_0,R.raw.henshingotchardultima};
         int[] longpresssounds={R.raw.finisher_seraph,R.raw.finisher_kuugasru_1,R.raw.exceedcharge,R.raw.finisher_decadecomplete,R.raw.lpoootajadoreternity,R.raw.finisher_drivespecial,R.raw.lpexaidnovel,R.raw.lpgenmmusou,R.raw.lpcrossbuild,R.raw.finisher_evolblackhole,R.raw.finisher_zioohma,R.raw.lpzerothree,R.raw.finisher_saberwa1,R.raw.finisher_geatsdea,R.raw.lpgotchardultima};
         int[] zt_sounds={R.raw.zt_create,R.raw.zt_singularity,R.raw.zt_ability,R.raw.zt_there_ark_ability,R.raw.zt_outsiders_ability};
-        int[] ztweap_sounds={R.raw.attache_calibur,R.raw.attache_shotgun,R.raw.attache_arrow,R.raw.shotriser,R.raw.slashriser,R.raw.thousand_jacker,R.raw.authorise_blaster,R.raw.hopper_blade};
+        int[] ztweap_sounds={R.raw.attache_calibur,R.raw.attache_shotgun,R.raw.attache_arrow,R.raw.shotriser,R.raw.slashriser,R.raw.thousand_jacker,R.raw.authorise_blaster,R.raw.hopper_blade,R.raw.zerothree_lifeon};
         int[] phblade_sounds={R.raw.progrisingslash,R.raw.dockingrise,R.raw.gigantslash,R.raw.ultimaterise};
         int[] rampage_sounds={R.raw.rampagegattling,R.raw.powerrampage,R.raw.speedrampage,R.raw.elementrampage,R.raw.allrampage};
         int[] faiz_weaps={R.raw.faiz_shot,R.raw.faiz_pointer,R.raw.faiz_edge,R.raw.faiz_blaster,R.raw.faiz_edgeandblaster};
@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
                         {
                             mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_drivenext);
                         }
-                        else if(currentImageIndex==7 && flag==1 || currentImageIndex==8 && hazard_flag==1 || currentImageIndex==10 && ohmaflag==1 || currentImageIndex==11 && zt_flag==1)
+                        else if(currentImageIndex==7 && flag==1 || currentImageIndex==8 && hazard_flag==1 || currentImageIndex==10 && ohmaflag==1 || currentImageIndex==11 && ztweap_index==8)
                         {
                             if(currentImageIndex==7)
                             {
@@ -216,7 +216,6 @@ public class MainActivity extends AppCompatActivity {
                             if(currentImageIndex==11)
                             {
                                 mp1 = MediaPlayer.create(MainActivity.this, R.raw.lpzerothreealt);
-                                zt_flag=0;
                             }
                         }
                         else if(currentImageIndex==7 && fumetsuflag==1)
@@ -234,25 +233,25 @@ public class MainActivity extends AppCompatActivity {
                             {
                                 switch(wonder2)
                                 {
-                                    case 0 : mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_saberwa1);wonder2=1;break;
-                                    case 1 : mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_saberwa2);wonder2=2;break;
-                                    case 2 : mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_saberwa3);wonder2=0;break;
+                                    case 0 : mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_saberwa1);break;
+                                    case 1 : mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_saberwa2);break;
+                                    case 2 : mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_saberwa3);break;
                                 }
                             }
                             else if(sabermode==1)
                             {
                                 switch(bahamut)
                                 {
-                                    case 0 : mp1=MediaPlayer.create(MainActivity.this,R.raw.lpsaberub1);bahamut=1;break;
-                                    case 1 : mp1=MediaPlayer.create(MainActivity.this,R.raw.lpsaberub2);bahamut=0;break;
+                                    case 0 : mp1=MediaPlayer.create(MainActivity.this,R.raw.lpsaberub1);break;
+                                    case 1 : mp1=MediaPlayer.create(MainActivity.this,R.raw.lpsaberub2);break;
                                 }
                             }
                             else if(sabermode==2)
                             {
                                 switch(superherosenki2)
                                 {
-                                    case 0 : mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_sabershs1);superherosenki2=1;break;
-                                    case 1 : mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_sabershs2);superherosenki2=0;break;
+                                    case 0 : mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_sabershs1);break;
+                                    case 1 : mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_sabershs2);break;
                                 }
                             }
                         }
@@ -268,9 +267,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             mp1 = MediaPlayer.create(MainActivity.this, longpress.get(currentImageIndex));
-                            if (currentImageIndex == 11 && zt_flag == 0) {
-                                zt_flag = 1;
-                            }
                         }
                         mp1.start();
                         mp1.setOnCompletionListener(mp2 -> imageView.clearAnimation());
@@ -798,6 +794,56 @@ public class MainActivity extends AppCompatActivity {
                                 imageView.setImageResource(R.drawable.sabershs);
                                 superherosenki1=0;
                                 superherosenki2=0;
+                            }
+                        }
+                        if(leftSwipe)
+                        {
+                            mp=MediaPlayer.create(MainActivity.this,R.raw.transition2);
+                            mp.start();
+                            if(sabermode==0)
+                            {
+                                if(wonder2==0)
+                                {
+                                    wonder2=1;
+                                }
+                                else if(wonder2==2)
+                                {
+                                    wonder2=0;
+                                }
+                            }
+                            else if(sabermode==1)
+                            {
+                                if(bahamut==0)
+                                {
+                                    bahamut=1;
+                                }
+                            }
+                            else if(sabermode==2)
+                            {
+                                if(superherosenki2==0)
+                                {
+                                    superherosenki2=1;
+                                }
+                            }
+
+                        }
+                        if(rightSwipe) {
+                            mp=MediaPlayer.create(MainActivity.this,R.raw.transition2);
+                            mp.start();
+                            if (sabermode == 0) {
+                                if (wonder2 == 0) {
+                                    wonder2 = 2;
+                                } else if (wonder2 == 1) {
+                                    wonder2 = 0;
+                                }
+                            } else if (sabermode == 1) {
+                                if (bahamut == 1) {
+                                    bahamut = 0;
+                                }
+                            } else if (sabermode == 2) {
+                                if (superherosenki2 == 1) {
+                                    superherosenki2 = 0;
+                                }
                             }
                         }
                     }
