@@ -28,7 +28,7 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 
 public class HeiseiRiders2 extends AppCompatActivity {
-    int i=0,flag=0,kiwami=0,hazard,w,kiwamicounter,kiwami1,tricounter,triflag;
+    int i=0,flag=0,kiwami=0,hazard,w,kiwamicounter,kiwami1,tricounter,triflag,mugen,mighty;
     MediaPlayer mp,mp1,end;
     ImageView imageView;
     @SuppressLint("ClickableViewAccessibility")
@@ -61,6 +61,7 @@ public class HeiseiRiders2 extends AppCompatActivity {
         int[] kiwamisounds={R.raw.kiwami1,R.raw.kiwami2,R.raw.kiwami3,R.raw.kiwami4,R.raw.kiwami5,R.raw.kiwami6,R.raw.kiwami7,R.raw.kiwami8,R.raw.kiwami9,R.raw.kiwami10,R.raw.kiwami11,R.raw.kiwami12,R.raw.kiwami13,R.raw.kiwami14,R.raw.kiwami15,R.raw.kiwami16};
         int[] trideronhenshins={R.raw.henshin_trideron123,R.raw.henshin_trideronsaver,R.raw.henshin_triderondream,R.raw.henshin_triderongenbar,R.raw.henshin_trideronweather,R.raw.henshin_triderontough,R.raw.henshin_triderongrand};
         int[] trideronfinishers={R.raw.finisher_trideron123,R.raw.finisher_trideronsaver,R.raw.finisher_triderondream,R.raw.finisher_triderongenbar,R.raw.finisher_trideronweather,R.raw.finisher_triderontough,R.raw.finisher_triderongrand};
+        int[] ghostmugenfinishers={R.raw.mugen_yorokobi,R.raw.mugen_tanoshii,R.raw.mugen_shinnen,R.raw.mugen_isama,R.raw.mugen_ikari,R.raw.mugen_kanashimi,R.raw.mugen_love};
         ArrayList<Integer> screen = new ArrayList<>();
         for (int j : rw) {
             screen.add(j);
@@ -92,6 +93,10 @@ public class HeiseiRiders2 extends AppCompatActivity {
         ArrayList<Integer> trideronfinisher = new ArrayList<>();
         for (int j : trideronfinishers) {
             trideronfinisher.add(j);
+        }
+        ArrayList<Integer> mugenfinishers=new ArrayList<>();
+        for(int j: ghostmugenfinishers){
+            mugenfinishers.add(j);
         }
         imageView = findViewById(R.id.imageView7);
         imageView.setImageResource(screen.get(i));
@@ -140,6 +145,8 @@ public class HeiseiRiders2 extends AppCompatActivity {
                         case 0:w=0;break;
                         case 4: kiwami=0;kiwami1=0;kiwamicounter=-1;break;
                         case 5: tricounter=-1;triflag=0;break;
+                        case 6: mugen=-1;break;
+                        case 7: mighty=0;break;
                         case 8: hazard=0;break;
                     }
                 }
@@ -322,7 +329,7 @@ public class HeiseiRiders2 extends AppCompatActivity {
                             triflag=1;
                         }
                     }
-                    else if(i==8)
+                    else if(i==6)
                     {
                         imageView.clearAnimation();
                         if(mp!=null)
@@ -335,29 +342,90 @@ public class HeiseiRiders2 extends AppCompatActivity {
                             mp1.release();
                             mp1=null;
                         }
-                        if(leftSwipe)
+                        if(rightSwipe)
                         {
-                            switch(hazard)
+                            mugen++;
+                            if(mugen>=ghostmugenfinishers.length)
                             {
-                                case 0:mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.oneside);mp.start();break;
-                                case 1:mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.onesidehazard);mp.start();break;
+                                mugen=0;
                             }
-                        }
-                        else if(rightSwipe)
-                        {
-                            switch (hazard)
-                            {
-                                case 0:mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.otherside);mp.start();break;
-                                case 1:mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.othersidehazard);mp.start();break;
-                            }
-                        }
-                        if(downSwipe)
-                        {
-                            hazard=1;
-                            mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.hazardon);
+                            mp=MediaPlayer.create(HeiseiRiders2.this,mugenfinishers.get(mugen));
                             mp.start();
                         }
-                        if(upSwipe){
+                        if(leftSwipe)
+                        {
+                            mugen--;
+                            if(mugen<0)
+                            {
+                                mugen=ghostmugenfinishers.length-1;
+                            }
+                            mp=MediaPlayer.create(HeiseiRiders2.this,mugenfinishers.get(mugen));
+                            mp.start();
+                        }
+                    }
+                    else if(i==7)
+                    {
+                        imageView.clearAnimation();
+                        if(mp!=null)
+                        {
+                            mp.release();
+                            mp=null;
+                        }
+                        if(mp1!=null)
+                        {
+                            mp1.release();
+                            mp1=null;
+                        }
+                        if(rightSwipe)
+                        {
+                            mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.maxmightycritfinish);
+                            mp.start();
+                        }
+                        if(leftSwipe)
+                        {
+                            mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.doctormightycritfinish);
+                            mp.start();
+                        }
+                    }
+                    else if(i==8) {
+                        imageView.clearAnimation();
+                        if (mp != null) {
+                            mp.release();
+                            mp = null;
+                        }
+                        if (mp1 != null) {
+                            mp1.release();
+                            mp1 = null;
+                        }
+                        if (leftSwipe) {
+                            switch (hazard) {
+                                case 0:
+                                    mp = MediaPlayer.create(HeiseiRiders2.this, R.raw.oneside);
+                                    mp.start();
+                                    break;
+                                case 1:
+                                    mp = MediaPlayer.create(HeiseiRiders2.this, R.raw.onesidehazard);
+                                    mp.start();
+                                    break;
+                            }
+                        } else if (rightSwipe) {
+                            switch (hazard) {
+                                case 0:
+                                    mp = MediaPlayer.create(HeiseiRiders2.this, R.raw.otherside);
+                                    mp.start();
+                                    break;
+                                case 1:
+                                    mp = MediaPlayer.create(HeiseiRiders2.this, R.raw.othersidehazard);
+                                    mp.start();
+                                    break;
+                            }
+                        }
+                        if (downSwipe) {
+                            hazard = 1;
+                            mp = MediaPlayer.create(HeiseiRiders2.this, R.raw.hazardon);
+                            mp.start();
+                        }
+                        if (upSwipe) {
                             hazard = 0;
                             mp = MediaPlayer.create(HeiseiRiders2.this, R.raw.hazardoff);
                             mp.start();
