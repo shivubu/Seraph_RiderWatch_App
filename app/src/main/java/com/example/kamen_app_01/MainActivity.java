@@ -631,6 +631,12 @@ public class MainActivity extends AppCompatActivity {
                             mp.setOnCompletionListener(MediaPlayer::release);
                             ohmaflag=0;
                         }
+                        if(upSwipe)
+                        {
+                            mp=MediaPlayer.create(MainActivity.this,R.raw.king_girigirislash);
+                            mp.start();
+                            mp.setOnCompletionListener(MediaPlayer::release);
+                        }
 
                     }
                     else if(currentImageIndex==11)
