@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     MediaPlayer mp,mp1,end;
     private Drawable[] backgroundImages;
-    private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,hazard_flag=0,genmflag=0,fumetsuflag=0,bahamut=0,sabermode=0,flag1=0,ohmaflag=0,superherosenki1=0,superherosenki2=0,wonder1=0,wonder2=0,geatsflag=0,fumetsu=0,dea,rampage_index,phblade_index,exc_index,drivemode,sru;
+    private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,hazard_flag=0,genmflag=0,fumetsuflag=0,bahamut=0,sabermode=0,flag1=0,ohmaflag=0,superherosenki1=0,superherosenki2=0,wonder1=0,wonder2=0,geatsflag=0,fumetsu=0,dea,rampage_index,phblade_index,exc_index,drivemode,sru,finalForm;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 AppCompatResources.getDrawable(this,R.drawable.gotchard)
         };
         int[] sounds = {R.raw.seraph0,R.raw.kuugasru,R.raw.faiznext,R.raw.decadecomplete21,R.raw.oootajadoreternity,R.raw.drivespecial,R.raw.exaidnovel,R.raw.genmmusou,R.raw.crossbuild,R.raw.evolblackhole,R.raw.omazio,R.raw.zerothree,R.raw.saberwa,R.raw.geatsdea,R.raw.gotchardultima};
-        int[] henshinsounds={R.raw.henshinseraph_ver1,R.raw.henshinkuugasru,R.raw.henshinfaiznext,R.raw.henshindecadecomplete21,R.raw.henshinoootajadoreternity,R.raw.henshindrivespecial,R.raw.henshinexaidnovel,R.raw.henshingenmmusou,R.raw.henshincrossbuild,R.raw.henshinevolblackhole,R.raw.henshinzioohma,R.raw.henshinzerothree,R.raw.henshinsaberwa,R.raw.henshingeatsdea_0,R.raw.henshingotchardultima};
+        int[] henshinsounds={R.raw.henshin_seraph_prime,R.raw.henshinkuugasru,R.raw.henshinfaiznext,R.raw.henshindecadecomplete21,R.raw.henshinoootajadoreternity,R.raw.henshindrivespecial,R.raw.henshinexaidnovel,R.raw.henshingenmmusou,R.raw.henshincrossbuild,R.raw.henshinevolblackhole,R.raw.henshinzioohma,R.raw.henshinzerothree,R.raw.henshinsaberwa,R.raw.henshingeatsdea_0,R.raw.henshingotchardultima};
         int[] longpresssounds={R.raw.finisher_seraph,R.raw.finisher_kuugasru_1,R.raw.exceedcharge,R.raw.finisher_decadecomplete,R.raw.lpoootajadoreternity,R.raw.finisher_drivespecial,R.raw.lpexaidnovel,R.raw.lpgenmmusou,R.raw.lpcrossbuild,R.raw.finisher_evolblackhole,R.raw.finisher_zioohma,R.raw.lpzerothree,R.raw.finisher_saberwa1,R.raw.finisher_geatsdea,R.raw.lpgotchardultima};
         int[] zt_sounds={R.raw.zt_create,R.raw.zt_singularity,R.raw.zt_ability,R.raw.zt_there_ark_ability,R.raw.zt_outsiders_ability};
         int[] ztweap_sounds={R.raw.attache_calibur,R.raw.attache_shotgun,R.raw.attache_arrow,R.raw.shotriser,R.raw.slashriser,R.raw.thousand_jacker,R.raw.authorise_blaster,R.raw.hopper_blade,R.raw.zerothree_lifeon};
@@ -149,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
                     imageView.setImageDrawable(backgroundImages[currentImageIndex]);
                     switch(currentImageIndex)
                     {
+                        case 0:finalForm=0;
                         case 1:sru=0;break;
                         case 2:exc_index=-1;break;
                         case 5:drivemode=0;break;
@@ -182,7 +183,11 @@ public class MainActivity extends AppCompatActivity {
                     mp=MediaPlayer.create(MainActivity.this,R.raw.judgement_finishtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
-                        if(currentImageIndex==1)
+                        if(currentImageIndex==0 && finalForm==1)
+                        {
+                            mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_seraphsupreme);
+                        }
+                        else if(currentImageIndex==1)
                         {
                             switch (sru)
                             {
@@ -287,7 +292,11 @@ public class MainActivity extends AppCompatActivity {
                         mp1=null;
                     }
                     imageView.startAnimation(fade);
-                    if(currentImageIndex==5 && drivemode==1)
+                    if(currentImageIndex==0 && finalForm==1)
+                    {
+                        mp=MediaPlayer.create(MainActivity.this,R.raw.henshin_seraphsupreme_prime);
+                    }
+                    else if(currentImageIndex==5 && drivemode==1)
                     {
                         mp=MediaPlayer.create(MainActivity.this,R.raw.henshindrivenext);
                     }
@@ -341,7 +350,11 @@ public class MainActivity extends AppCompatActivity {
                         mp1=null;
                     }
                     imageView.startAnimation(fade);
-                    if(currentImageIndex==5 && drivemode==1)
+                    if(currentImageIndex==0 && finalForm==1)
+                    {
+                        mp=MediaPlayer.create(MainActivity.this,R.raw.seraphsupremeridewatch);
+                    }
+                    else if(currentImageIndex==5 && drivemode==1)
                     {
                         mp=MediaPlayer.create(MainActivity.this,R.raw.drivenext);
                     }
@@ -415,7 +428,34 @@ public class MainActivity extends AppCompatActivity {
                     boolean upSwipe = diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE;
                     boolean rightSwipe = diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
                     boolean leftSwipe = diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
-                    if(currentImageIndex==1)
+                    if(currentImageIndex==0)
+                    {
+                        imageView.clearAnimation();
+                        if (mp != null) {
+                            mp.release();
+                            mp = null;
+                        }
+                        if (mp1 != null) {
+                            mp1.release();
+                            mp1 = null;
+                        }
+                        if(downSwipe && finalForm==0)
+                        {
+                            imageView.setImageResource(R.drawable.finalform);
+                            finalForm=1;
+                            mp=MediaPlayer.create(MainActivity.this,R.raw.transition2);
+                            mp.start();
+                        }
+                        if(upSwipe && finalForm==1)
+                        {
+                            imageView.setImageResource(R.drawable.seraph);
+                            finalForm=0;
+                            mp=MediaPlayer.create(MainActivity.this,R.raw.transition2);
+                            mp.start();
+                        }
+
+                    }
+                    else if(currentImageIndex==1)
                     {
                         imageView.clearAnimation();
                         if (mp != null) {
