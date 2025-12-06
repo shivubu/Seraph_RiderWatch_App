@@ -31,6 +31,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     MediaPlayer mp,mp1,end;
+    PerfectLoopMediaPlayer standby;
     private Drawable[] backgroundImages;
     private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,hazard_flag=0,genmflag=0,fumetsuflag=0,bahamut=0,sabermode=0,flag1=0,ohmaflag=0,superherosenki1=0,superherosenki2=0,wonder1=0,wonder2=0,geatsflag=0,fumetsu=0,dea,rampage_index,phblade_index,exc_index,drivemode,sru,finalForm;
     @SuppressLint("ClickableViewAccessibility")
@@ -124,6 +125,11 @@ public class MainActivity extends AppCompatActivity {
                     mp1 = null;
                     imageView.clearAnimation();
                 }
+                if(standby!=null)
+                {
+                    standby.release();
+                    standby=null;
+                }
                 flag1=0;
                 float delta = -motionEvent.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
                         ViewConfigurationCompat.getScaledHorizontalScrollFactor(ViewConfiguration.get(getApplicationContext()), getApplicationContext());
@@ -178,6 +184,11 @@ public class MainActivity extends AppCompatActivity {
                     {
                         mp1.release();
                         mp1=null;
+                    }
+                    if(standby!=null)
+                    {
+                        standby.release();
+                        standby=null;
                     }
                     imageView.startAnimation(fade);
                     mp=MediaPlayer.create(MainActivity.this,R.raw.judgement_finishtime);
@@ -291,6 +302,11 @@ public class MainActivity extends AppCompatActivity {
                         mp1.release();
                         mp1=null;
                     }
+                    if(standby!=null)
+                    {
+                        standby.release();
+                        standby=null;
+                    }
                     imageView.startAnimation(fade);
                     if(currentImageIndex==0 && finalForm==1)
                     {
@@ -348,6 +364,11 @@ public class MainActivity extends AppCompatActivity {
                     {
                         mp1.release();
                         mp1=null;
+                    }
+                    if(standby!=null)
+                    {
+                        standby.release();
+                        standby=null;
                     }
                     imageView.startAnimation(fade);
                     if(currentImageIndex==0 && finalForm==1)
@@ -452,6 +473,11 @@ public class MainActivity extends AppCompatActivity {
                             finalForm=0;
                             mp=MediaPlayer.create(MainActivity.this,R.raw.transition2);
                             mp.start();
+                        }
+                        if(leftSwipe && standby==null)
+                        {
+                            standby=PerfectLoopMediaPlayer.create(MainActivity.this,R.raw.standby);
+                            standby.start();
                         }
 
                     }
@@ -965,6 +991,10 @@ public class MainActivity extends AppCompatActivity {
             {
                 mp1.release();
             }
+            if(standby!=null)
+            {
+                standby.release();
+            }
             end = MediaPlayer.create(this,R.raw.transition);
             end.start();
             end.setOnCompletionListener(mp -> {
@@ -989,6 +1019,11 @@ public class MainActivity extends AppCompatActivity {
             mp1.release();
             mp1=null;
         }
+        if(standby!=null)
+        {
+            standby.release();
+            standby=null;
+        }
         imageView.clearAnimation();
         imageView.setClickable(true);
         super.onPause();
@@ -1004,6 +1039,11 @@ public class MainActivity extends AppCompatActivity {
         {
             mp1.release();
             mp1=null;
+        }
+        if(standby!=null)
+        {
+            standby.release();
+            standby=null;
         }
         super.onDestroy();
     }

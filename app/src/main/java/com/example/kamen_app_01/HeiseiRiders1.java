@@ -26,7 +26,8 @@ import java.util.ArrayList;
 
 public class HeiseiRiders1 extends AppCompatActivity {
     int i=0,flag=0,kabuto=0,hculoop=0,blade;
-    MediaPlayer mp,mp1,end,hyperclockup;
+    MediaPlayer mp,mp1,end;
+    PerfectLoopMediaPlayer hyperclockup;
     ImageView imageView;
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -220,8 +221,7 @@ public class HeiseiRiders1 extends AppCompatActivity {
                             mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.hyperclockup);
                             mp.start();
                             mp.setOnCompletionListener(mp -> {
-                                hyperclockup=MediaPlayer.create(HeiseiRiders1.this,R.raw.hyperclockuploop);
-                                hyperclockup.setLooping(true);
+                                hyperclockup=PerfectLoopMediaPlayer.create(HeiseiRiders1.this,R.raw.hyperclockuploop);
                                 hyperclockup.start();
                                 hculoop=1;
                             });
@@ -399,6 +399,11 @@ public class HeiseiRiders1 extends AppCompatActivity {
         {
             mp1.release();
             mp1=null;
+        }
+        if(hyperclockup!=null)
+        {
+            hyperclockup.release();
+            hyperclockup=null;
         }
         super.onDestroy();
     }
