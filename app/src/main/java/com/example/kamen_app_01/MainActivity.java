@@ -191,102 +191,106 @@ public class MainActivity extends AppCompatActivity {
                         standby=null;
                     }
                     imageView.startAnimation(fade);
-                    mp=MediaPlayer.create(MainActivity.this,R.raw.judgement_finishtime);
-                    mp.start();
-                    mp.setOnCompletionListener(mp -> {
-                        if(currentImageIndex==0 && finalForm==1)
-                        {
-                            mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_seraphsupreme);
-                        }
-                        else if(currentImageIndex==1)
-                        {
-                            switch (sru)
+                    if(currentImageIndex==0 && finalForm==1)
+                    {
+                        mp=MediaPlayer.create(MainActivity.this,R.raw.finisher_seraphsupreme);
+                        mp.start();
+                    }
+                    else
+                    {
+                        mp=MediaPlayer.create(MainActivity.this,R.raw.judgement_finishtime);
+                        mp.start();
+                        mp.setOnCompletionListener(mp -> {
+                            if(currentImageIndex==1)
                             {
-                                case 0:mp1=MediaPlayer.create(MainActivity.this,longpress.get(currentImageIndex));sru=1;break;
-                                case 1:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_kuugasru_2);sru=0;break;
-                            }
-                        }
-                        else if(currentImageIndex==2 && exc_index!=-1)
-                        {
-                            mp1=MediaPlayer.create(MainActivity.this,exceed_sound.get(exc_index));
-                        }
-                        else if(currentImageIndex==5 && drivemode==1)
-                        {
-                            mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_drivenext);
-                        }
-                        else if(currentImageIndex==7 && flag==1 || currentImageIndex==8 && hazard_flag==1 || currentImageIndex==10 && ohmaflag==1 || currentImageIndex==11 && ztweap_index==8)
-                        {
-                            if(currentImageIndex==7)
-                            {
-                                mp1=MediaPlayer.create(MainActivity.this,R.raw.lpgenmmusoualt);
-                                genmflag=1;
-                            }
-                            if(currentImageIndex==8)
-                            {
-                                mp1=MediaPlayer.create(MainActivity.this,R.raw.lpcrossbuildhazard);
-                            }
-                            if(currentImageIndex==10)
-                            {
-                                mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_ohmazio);
-                            }
-                            if(currentImageIndex==11)
-                            {
-                                mp1 = MediaPlayer.create(MainActivity.this, R.raw.lpzerothreealt);
-                            }
-                        }
-                        else if(currentImageIndex==7 && fumetsuflag==1)
-                        {
-                            switch (fumetsu)
-                            {
-                                case 0:mp1=MediaPlayer.create(MainActivity.this,R.raw.lpgenmhyperfumetsu1);break;
-                                case 1:mp1=MediaPlayer.create(MainActivity.this,R.raw.lpgenmhyperfumetsu2);break;
-                                case 2:mp1=MediaPlayer.create(MainActivity.this,R.raw.lpgenmhyperfumetsu3);break;
-                            }
-                        }
-                        else if(currentImageIndex==12)
-                        {
-                            if(sabermode==0)
-                            {
-                                switch(wonder2)
+                                switch (sru)
                                 {
-                                    case 0 : mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_saberwa1);break;
-                                    case 1 : mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_saberwa2);break;
-                                    case 2 : mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_saberwa3);break;
+                                    case 0:mp1=MediaPlayer.create(MainActivity.this,longpress.get(currentImageIndex));sru=1;break;
+                                    case 1:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_kuugasru_2);sru=0;break;
                                 }
                             }
-                            else if(sabermode==1)
+                            else if(currentImageIndex==2 && exc_index!=-1)
                             {
-                                switch(bahamut)
+                                mp1=MediaPlayer.create(MainActivity.this,exceed_sound.get(exc_index));
+                            }
+                            else if(currentImageIndex==5 && drivemode==1)
+                            {
+                                mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_drivenext);
+                            }
+                            else if(currentImageIndex==7 && flag==1 || currentImageIndex==8 && hazard_flag==1 || currentImageIndex==10 && ohmaflag==1 || currentImageIndex==11 && ztweap_index==8)
+                            {
+                                if(currentImageIndex==7)
                                 {
-                                    case 0 : mp1=MediaPlayer.create(MainActivity.this,R.raw.lpsaberub1);break;
-                                    case 1 : mp1=MediaPlayer.create(MainActivity.this,R.raw.lpsaberub2);break;
+                                    mp1=MediaPlayer.create(MainActivity.this,R.raw.lpgenmmusoualt);
+                                    genmflag=1;
+                                }
+                                if(currentImageIndex==8)
+                                {
+                                    mp1=MediaPlayer.create(MainActivity.this,R.raw.lpcrossbuildhazard);
+                                }
+                                if(currentImageIndex==10)
+                                {
+                                    mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_ohmazio);
+                                }
+                                if(currentImageIndex==11)
+                                {
+                                    mp1 = MediaPlayer.create(MainActivity.this, R.raw.lpzerothreealt);
                                 }
                             }
-                            else if(sabermode==2)
+                            else if(currentImageIndex==7 && fumetsuflag==1)
                             {
-                                switch(superherosenki2)
+                                switch (fumetsu)
                                 {
-                                    case 0 : mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_sabershs1);break;
-                                    case 1 : mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_sabershs2);break;
+                                    case 0:mp1=MediaPlayer.create(MainActivity.this,R.raw.lpgenmhyperfumetsu1);break;
+                                    case 1:mp1=MediaPlayer.create(MainActivity.this,R.raw.lpgenmhyperfumetsu2);break;
+                                    case 2:mp1=MediaPlayer.create(MainActivity.this,R.raw.lpgenmhyperfumetsu3);break;
                                 }
                             }
-                        }
-                        else if(currentImageIndex==13 && geatsflag!=0)
-                        {
-                            switch(geatsflag)
+                            else if(currentImageIndex==12)
                             {
-                                case 1:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_geatsdea_1);break;
-                                case 2:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_geatsdea_2);break;
-                                case 3:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_geatsdea_3);break;
-                                case 4:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_geatsdea_4);break;
+                                if(sabermode==0)
+                                {
+                                    switch(wonder2)
+                                    {
+                                        case 0 : mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_saberwa1);break;
+                                        case 1 : mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_saberwa2);break;
+                                        case 2 : mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_saberwa3);break;
+                                    }
+                                }
+                                else if(sabermode==1)
+                                {
+                                    switch(bahamut)
+                                    {
+                                        case 0 : mp1=MediaPlayer.create(MainActivity.this,R.raw.lpsaberub1);break;
+                                        case 1 : mp1=MediaPlayer.create(MainActivity.this,R.raw.lpsaberub2);break;
+                                    }
+                                }
+                                else if(sabermode==2)
+                                {
+                                    switch(superherosenki2)
+                                    {
+                                        case 0 : mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_sabershs1);break;
+                                        case 1 : mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_sabershs2);break;
+                                    }
+                                }
                             }
-                        }
-                        else {
-                            mp1 = MediaPlayer.create(MainActivity.this, longpress.get(currentImageIndex));
-                        }
-                        mp1.start();
-                        mp1.setOnCompletionListener(mp2 -> imageView.clearAnimation());
-                    });
+                            else if(currentImageIndex==13 && geatsflag!=0)
+                            {
+                                switch(geatsflag)
+                                {
+                                    case 1:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_geatsdea_1);break;
+                                    case 2:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_geatsdea_2);break;
+                                    case 3:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_geatsdea_3);break;
+                                    case 4:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_geatsdea_4);break;
+                                }
+                            }
+                            else {
+                                mp1 = MediaPlayer.create(MainActivity.this, longpress.get(currentImageIndex));
+                            }
+                            mp1.start();
+                            mp1.setOnCompletionListener(mp2 -> imageView.clearAnimation());
+                        });
+                    }
 
                     super.onLongPress(e);
                 }
