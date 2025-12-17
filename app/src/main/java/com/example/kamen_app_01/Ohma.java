@@ -92,11 +92,11 @@ public class Ohma extends AppCompatActivity {
         {
             originalvolume=audiomanager.getStreamVolume(AudioManager.STREAM_MUSIC);
             maxvolume=audiomanager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-            if(originalvolume==maxvolume)
+            if(originalvolume==0)
             {
-                targetvolume=maxvolume;
+                targetvolume=0;
             }
-            else
+            else if(originalvolume<=maxvolume)
             {
                 targetvolume=(int)(originalvolume+(0.40*maxvolume));
             }
