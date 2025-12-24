@@ -195,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
                     {
                         mp=MediaPlayer.create(MainActivity.this,R.raw.finisher_seraphsupreme);
                         mp.start();
+                        mp1.setOnCompletionListener(mp2 -> imageView.clearAnimation());
                     }
                     else
                     {
