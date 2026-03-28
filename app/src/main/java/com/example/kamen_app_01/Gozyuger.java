@@ -45,7 +45,8 @@ public class Gozyuger extends AppCompatActivity {
             return insets;
         });
         Animation fade= AnimationUtils.loadAnimation(this,R.anim.customfade);
-        int[] rw = {R.drawable.g01, R.drawable.g02,R.drawable.g03,R.drawable.g04,R.drawable.g05,R.drawable.g06,R.drawable.g07,R.drawable.g08,R.drawable.g09,R.drawable.g10,R.drawable.g11};
+        int[] rw = {R.drawable.g01, R.drawable.g02,R.drawable.g03,R.drawable.g04,R.drawable.g05,R.drawable.g06,R.drawable.g07,R.drawable.g08,R.drawable.g09,R.drawable.g10,
+                    R.drawable.g11,R.drawable.g12,R.drawable.g13,R.drawable.g14};
         ArrayList<Integer> screen = new ArrayList<>();
         for (int j : rw) {
             screen.add(j);
@@ -110,7 +111,6 @@ public class Gozyuger extends AppCompatActivity {
                         mp.release();
                         mp=null;
                     }
-                    imageView.startAnimation(fade);
                     super.onLongPress(e);
                 }
                 @Override
@@ -120,7 +120,6 @@ public class Gozyuger extends AppCompatActivity {
                         mp.release();
                         mp=null;
                     }
-                    imageView.startAnimation(fade);
                     return super.onSingleTapConfirmed(e);
                 }
 
@@ -160,7 +159,6 @@ public class Gozyuger extends AppCompatActivity {
                         mp.release();
                         mp=null;
                     }
-                    imageView.startAnimation(fade);
                     super.onLongPress(e);
                 }
                 @Override
@@ -170,7 +168,6 @@ public class Gozyuger extends AppCompatActivity {
                         mp.release();
                         mp=null;
                     }
-                    imageView.startAnimation(fade);
                     return super.onSingleTapConfirmed(e);
                 }
 
