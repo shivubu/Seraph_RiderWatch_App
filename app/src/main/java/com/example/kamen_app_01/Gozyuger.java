@@ -46,7 +46,8 @@ public class Gozyuger extends AppCompatActivity {
         });
         Animation fade= AnimationUtils.loadAnimation(this,R.anim.customfade);
         int[] rw = {R.drawable.g01, R.drawable.g02,R.drawable.g03,R.drawable.g04,R.drawable.g05,R.drawable.g06,R.drawable.g07,R.drawable.g08,R.drawable.g09,R.drawable.g10,
-                    R.drawable.g11,R.drawable.g12,R.drawable.g13,R.drawable.g14};
+                    R.drawable.g11,R.drawable.g12,R.drawable.g13,R.drawable.g14,R.drawable.g15,R.drawable.g16,R.drawable.g17,R.drawable.g18,R.drawable.g19,R.drawable.g20
+                    };
         ArrayList<Integer> screen = new ArrayList<>();
         for (int j : rw) {
             screen.add(j);
