@@ -1050,6 +1050,7 @@ public class MainActivity extends AppCompatActivity {
             standby.release();
             standby=null;
         }
+        finishAndRemoveTask();
         super.onDestroy();
     }
 }

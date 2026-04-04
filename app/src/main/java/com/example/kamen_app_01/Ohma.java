@@ -249,6 +249,7 @@ public class Ohma extends AppCompatActivity {
             belt_text.stopPlayback();
         }
         audiomanager.setStreamVolume(AudioManager.STREAM_MUSIC,originalvolume,0);
+        finishAndRemoveTask();
         super.onDestroy();
     }
 }

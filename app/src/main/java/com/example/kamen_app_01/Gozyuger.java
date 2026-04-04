@@ -224,9 +224,9 @@ public class Gozyuger extends AppCompatActivity {
         {
             mp.release();
             mp=null;
-            imageView.clearAnimation();
-            imageView.setClickable(true);
         }
+        imageView.clearAnimation();
+        imageView.setClickable(true);
         super.onPause();
     }
     @Override
@@ -236,6 +236,7 @@ public class Gozyuger extends AppCompatActivity {
             mp.release();
             mp=null;
         }
+        finishAndRemoveTask();
         super.onDestroy();
     }
 }

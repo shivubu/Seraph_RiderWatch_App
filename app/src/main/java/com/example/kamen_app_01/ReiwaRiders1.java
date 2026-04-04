@@ -625,6 +625,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
             mp1.release();
             mp1=null;
         }
+        finishAndRemoveTask();
         super.onDestroy();
     }
 }

@@ -77,6 +77,7 @@ public class LauncherActivity extends AppCompatActivity {
             mp.release();
             mp=null;
         }
+        finishAndRemoveTask();
         super.onDestroy();
     }
 

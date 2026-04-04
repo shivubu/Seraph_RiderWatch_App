@@ -172,10 +172,11 @@ public class Showa extends AppCompatActivity {
         {
             mp.release();
             mp=null;
-            imageView.clearAnimation();
-            imageView.setClickable(true);
         }
+        imageView.clearAnimation();
+        imageView.setClickable(true);
         super.onPause();
+
     }
     @Override
     protected void onDestroy() {
@@ -184,6 +185,7 @@ public class Showa extends AppCompatActivity {
             mp.release();
             mp=null;
         }
+        finishAndRemoveTask();
         super.onDestroy();
     }
 }

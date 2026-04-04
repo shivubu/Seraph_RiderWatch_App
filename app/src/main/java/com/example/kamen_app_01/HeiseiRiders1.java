@@ -405,6 +405,7 @@ public class HeiseiRiders1 extends AppCompatActivity {
             hyperclockup.release();
             hyperclockup=null;
         }
+        finishAndRemoveTask();
         super.onDestroy();
     }
 }

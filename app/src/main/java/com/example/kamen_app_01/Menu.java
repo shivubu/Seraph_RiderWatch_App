@@ -191,6 +191,7 @@ public class Menu extends AppCompatActivity {
             mp.release();
             mp=null;
         }
+        finishAndRemoveTask();
         super.onDestroy();
     }
 
