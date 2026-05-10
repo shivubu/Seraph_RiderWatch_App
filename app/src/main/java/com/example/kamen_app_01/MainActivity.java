@@ -985,29 +985,11 @@ public class MainActivity extends BaseKamenActivity{
         });
     }
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (mp != null) {
-                mp.release();
-            }
-            if(mp1!=null)
-            {
-                mp1.release();
-            }
-            if(standby!=null)
-            {
-                standby.release();
-            }
-            end = MediaPlayer.create(this,R.raw.transition);
-            end.start();
-            Intent i = new Intent(MainActivity.this,Menu.class);
-            startActivity(i);
-            finish();
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-    @Override
     protected ImageView getLocalImageView() {
         return myLocalImage;}
+    protected Class<?> getBackTargetClass() {
+        // This tells the Base class togo to the Menu when back is pressed
+        return Menu.class;
+    }
 
 }

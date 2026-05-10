@@ -21,7 +21,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class Menu extends AppCompatActivity {
+public class Menu extends BaseKamenActivity {
     ImageView heiseigen1,heiseigen2,custom,reiwagen1,showa,ohma;
     MediaPlayer mp,end;
     Animation fade;
@@ -127,24 +127,6 @@ public class Menu extends AppCompatActivity {
 
     }
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (mp != null) {
-                mp.release();
-            }
-            end = MediaPlayer.create(this,R.raw.transition);
-            end.start();
-            end.setOnCompletionListener(mp -> {
-                end.release();
-                end=null;
-            });
-            Intent i = new Intent(Menu.this, LauncherActivity.class);
-            startActivity(i);
-            finish();
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-    @Override
     protected void onPause() {
         if(mp!=null)
         {
@@ -185,14 +167,12 @@ public class Menu extends AppCompatActivity {
 
     }
     @Override
-    protected void onDestroy() {
-        if(mp!=null)
-        {
-            mp.release();
-            mp=null;
-        }
-        finishAndRemoveTask();
-        super.onDestroy();
+    protected ImageView getLocalImageView() {return heiseigen1;
     }
+
+    @Override
+    protected Class<?> getBackTargetClass() {
+        // This tells the Base class to go to LauncherActivity when back is pressed
+        return LauncherActivity.class;}
 
 }

@@ -202,20 +202,35 @@ public class Ohma extends BaseKamenActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            audiomanager.setStreamVolume(AudioManager.STREAM_MUSIC,originalvolume,0);
-            end = MediaPlayer.create(this,R.raw.transition);
+            //1. Stop any current gameplay sound immediately
+            if (mp != null) {
+                mp.stop();
+                mp.release();
+                mp = null;
+            }
+
+            // 2. Initialize the transition sound
+            end= MediaPlayer.create(this, R.raw.transition);
             end.start();
+
+            // 3. WAIT for the sound to finish before moving and closing
+            end.setOnCompletionListener(mediaPlayer -> {mediaPlayer.release();
+                end = null;
+
+                // 4. Now that sound is done, moveto the next screen
+
+            });
             if(belt_text.isPlaying())
             {
                 belt_text.stopPlayback();
             }
-            Intent i = new Intent(Ohma.this,Menu.class);
+            Intent i = new Intent(Ohma.this, Menu.class);
             startActivity(i);
             finish();
 
+            return true; // Tells the system "I amhandling this, don't close yet"
         }
-        return super.onKeyDown(keyCode, event);
-    }
+        return super.onKeyDown(keyCode, event);}
     @Override
     protected void onPause() {
         if(belt_text.isPlaying())
@@ -247,5 +262,9 @@ public class Ohma extends BaseKamenActivity {
         super.onDestroy();
     }
     protected ImageView getLocalImageView() {return ridewatch;
+    }
+    protected Class<?> getBackTargetClass() {
+        // This tells the Base class togo to the Menu when back is pressed
+        return Menu.class;
     }
 }

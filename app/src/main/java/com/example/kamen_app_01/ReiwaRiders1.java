@@ -1,11 +1,9 @@
 package com.example.kamen_app_01;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.GestureDetector;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -578,24 +576,13 @@ public class ReiwaRiders1 extends BaseKamenActivity {
         });
     }
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (mp != null) {
-                mp.release();
-            }
-            if (mp1 != null) {
-                mp1.release();
-            }
-            end = MediaPlayer.create(this,R.raw.transition);
-            end.start();
-            Intent i = new Intent(ReiwaRiders1.this,Menu.class);
-            startActivity(i);
-            finish();
-
-        }
-        return super.onKeyDown(keyCode, event);
+    protected ImageView getLocalImageView() {
+        return myLocalImage;
     }
     @Override
-    protected ImageView getLocalImageView() {
-        return myLocalImage;}
+    protected Class<?> getBackTargetClass() {
+        // This tells the Base class togo to the Menu when back is pressed
+        return Menu.class;
+    }
+
 }
