@@ -40,7 +40,7 @@ public class LauncherActivity extends AppCompatActivity {
             im2.setClickable(false);
             mp=MediaPlayer.create(this,R.raw.transition);
             mp.start();
-            new Handler(Looper.getMainLooper()).postDelayed(() -> im2.startAnimation(rotate), 300);
+            new Handler(Looper.getMainLooper()).postDelayed(() -> im2.startAnimation(rotate), 250);
             mp.setOnCompletionListener(mp -> {
                 startActivity(new Intent(LauncherActivity.this, Menu.class));
                 finish();
