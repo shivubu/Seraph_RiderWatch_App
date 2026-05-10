@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.InputDeviceCompat;
 import androidx.core.view.MotionEventCompat;
@@ -27,17 +26,17 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 
-public class ReiwaRiders1 extends AppCompatActivity {
+public class ReiwaRiders1 extends BaseKamenActivity {
     int i=0,gavvoverhenshin=0,flag=0,geatsflag=0,saber=0,gavvmode=0,hellrise=0,primitive=0,pdhenshin=0,pdfinisher;
     int overindex,masterindex;
-    MediaPlayer mp,mp1,end;
-    ImageView imageView;
+    ImageView myLocalImage;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_reiwa_riders1);
+        myLocalImage = findViewById(R.id.imageView8);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -81,23 +80,23 @@ public class ReiwaRiders1 extends AppCompatActivity {
             gavvmastersounds.add(j);
         }
 
-        imageView = findViewById(R.id.imageView8);
-        imageView.setImageResource(screen.get(i));
-        imageView.setFocusable(true);
-        imageView.requestFocus();
-        imageView.setOnGenericMotionListener((view, motionEvent) -> {
+        myLocalImage = findViewById(R.id.imageView8);
+        myLocalImage.setImageResource(screen.get(i));
+        myLocalImage.setFocusable(true);
+        myLocalImage.requestFocus();
+        myLocalImage.setOnGenericMotionListener((view, motionEvent) -> {
             if (motionEvent.getAction() == MotionEvent.ACTION_SCROLL &&
                     motionEvent.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)){
                 if(mp!=null)
                 {
                     mp.release();
                     mp=null;
-                    imageView.clearAnimation();
+                    myLocalImage.clearAnimation();
                 }
                 if(mp1!=null) {
                     mp1.release();
                     mp1 = null;
-                    imageView.clearAnimation();
+                    myLocalImage.clearAnimation();
                 }
                 flag=0;
                 float delta = -motionEvent.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
@@ -121,7 +120,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
                 }
                 // Update the background image
                 if (!screen.isEmpty()) {
-                    imageView.setImageResource(screen.get(i));
+                    myLocalImage.setImageResource(screen.get(i));
                     switch(i)
                     {
                         case 0: hellrise=0;break;
@@ -134,7 +133,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
             }
             return false;
         });
-        imageView.setOnTouchListener(new View.OnTouchListener() {
+        myLocalImage.setOnTouchListener(new View.OnTouchListener() {
             final GestureDetector gestureDetector=new GestureDetector(getApplicationContext(),new GestureDetector.SimpleOnGestureListener()
             {
                 @Override
@@ -149,7 +148,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
                         mp1.release();
                         mp1=null;
                     }
-                    imageView.startAnimation(fade);
+                    myLocalImage.startAnimation(fade);
                     mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.judgement_finishtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
@@ -206,7 +205,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
                             mp1 = MediaPlayer.create(ReiwaRiders1.this, finishersound.get(i));
                         }
                         mp1.start();
-                        mp1.setOnCompletionListener(mp2 -> imageView.clearAnimation());
+                        mp1.setOnCompletionListener(mp2 -> myLocalImage.clearAnimation());
                     });
 
                     super.onLongPress(e);
@@ -223,7 +222,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
                         mp1.release();
                         mp1=null;
                     }
-                    imageView.startAnimation(fade);
+                    myLocalImage.startAnimation(fade);
                     if(i==0 && hellrise==1)
                     {
                         mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.henshinzeronehellrise);
@@ -258,7 +257,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
                         }
                     }
                     mp.start();
-                    mp.setOnCompletionListener(mp -> imageView.clearAnimation());
+                    mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
                     return super.onDoubleTap(e);
                 }
 
@@ -274,7 +273,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
                         mp1.release();
                         mp1=null;
                     }
-                    imageView.startAnimation(fade);
+                    myLocalImage.startAnimation(fade);
                     if(i==0)
                     {
                         switch(hellrise)
@@ -325,7 +324,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
                         }
                     }
                     mp.start();
-                    mp.setOnCompletionListener(mp -> imageView.clearAnimation());
+                    mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
                     return super.onSingleTapConfirmed(e);
                 }
                 @Override
@@ -345,23 +344,23 @@ public class ReiwaRiders1 extends AppCompatActivity {
                         {
                             mp.release();
                             mp=null;
-                            imageView.clearAnimation();
+                            myLocalImage.clearAnimation();
                         }
                         if(mp1!=null)
                         {
                             mp1.release();
                             mp1=null;
-                            imageView.clearAnimation();
+                            myLocalImage.clearAnimation();
                         }
                         if(upSwipe && hellrise==0)
                         {
                             hellrise=1;
-                            imageView.setImageResource(R.drawable.zeroonehellrise);
+                            myLocalImage.setImageResource(R.drawable.zeroonehellrise);
                         }
                         if(downSwipe && hellrise==1)
                         {
                             hellrise=0;
-                            imageView.setImageResource(R.drawable.zerotwo);
+                            myLocalImage.setImageResource(R.drawable.zerotwo);
                         }
                     }
                     else if(i==1)
@@ -370,23 +369,23 @@ public class ReiwaRiders1 extends AppCompatActivity {
                         {
                             mp.release();
                             mp=null;
-                            imageView.clearAnimation();
+                            myLocalImage.clearAnimation();
                         }
                         if(mp1!=null)
                         {
                             mp1.release();
                             mp1=null;
-                            imageView.clearAnimation();
+                            myLocalImage.clearAnimation();
                         }
                         if(upSwipe && primitive==0)
                         {
                             primitive=1;
-                            imageView.setImageResource(R.drawable.saberprimitivedragon);
+                            myLocalImage.setImageResource(R.drawable.saberprimitivedragon);
                         }
                         if(downSwipe && primitive==1)
                         {
                             primitive=0;
-                            imageView.setImageResource(R.drawable.sabercross);
+                            myLocalImage.setImageResource(R.drawable.sabercross);
                         }
                         if(leftSwipe)
                         {
@@ -434,7 +433,7 @@ public class ReiwaRiders1 extends AppCompatActivity {
                     }
                     else if(i==3)
                     {
-                        imageView.clearAnimation();
+                        myLocalImage.clearAnimation();
                         if(mp!=null)
                         {
                             mp.release();
@@ -491,13 +490,13 @@ public class ReiwaRiders1 extends AppCompatActivity {
                         {
                             mp.release();
                             mp=null;
-                            imageView.clearAnimation();
+                            myLocalImage.clearAnimation();
                         }
                         if(mp1!=null)
                         {
                             mp1.release();
                             mp1=null;
-                            imageView.clearAnimation();
+                            myLocalImage.clearAnimation();
                         }
                         if(gavvmode==0 && gavvoverhenshin==1)
                         {
@@ -551,16 +550,20 @@ public class ReiwaRiders1 extends AppCompatActivity {
                         {
                             switch(gavvmode)
                             {
-                                case 0: gavvmode=1;masterindex=-1;imageView.setImageResource(R.drawable.gavvmaster);break;
-                                case 2: gavvmode=0;overindex=-1;gavvoverhenshin=0;imageView.setImageResource(R.drawable.gavvover);break;
+                                case 0: gavvmode=1;masterindex=-1;
+                                    myLocalImage.setImageResource(R.drawable.gavvmaster);break;
+                                case 2: gavvmode=0;overindex=-1;gavvoverhenshin=0;
+                                    myLocalImage.setImageResource(R.drawable.gavvover);break;
                             }
                         }
                         if (upSwipe)
                         {
                             switch(gavvmode)
                             {
-                                case 0: gavvmode=2;imageView.setImageResource(R.drawable.gavvamazing);break;
-                                case 1: gavvmode=0;overindex=-1;gavvoverhenshin=0;imageView.setImageResource(R.drawable.gavvover);break;
+                                case 0: gavvmode=2;
+                                    myLocalImage.setImageResource(R.drawable.gavvamazing);break;
+                                case 1: gavvmode=0;overindex=-1;gavvoverhenshin=0;
+                                    myLocalImage.setImageResource(R.drawable.gavvover);break;
                             }
                         }
 
@@ -585,10 +588,6 @@ public class ReiwaRiders1 extends AppCompatActivity {
             }
             end = MediaPlayer.create(this,R.raw.transition);
             end.start();
-            end.setOnCompletionListener(mp -> {
-                end.release();
-                end=null;
-            });
             Intent i = new Intent(ReiwaRiders1.this,Menu.class);
             startActivity(i);
             finish();
@@ -597,35 +596,6 @@ public class ReiwaRiders1 extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
     @Override
-    protected void onPause() {
-        if(mp!=null)
-        {
-            mp.release();
-            mp=null;
-            imageView.clearAnimation();
-            imageView.setClickable(true);
-        }
-        if(mp1!=null) {
-            mp1.release();
-            mp1 = null;
-            imageView.clearAnimation();
-            imageView.setClickable(true);
-        }
-        super.onPause();
-    }
-    @Override
-    protected void onDestroy() {
-        if(mp!=null)
-        {
-            mp.release();
-            mp=null;
-        }
-        if(mp1!=null)
-        {
-            mp1.release();
-            mp1=null;
-        }
-        finishAndRemoveTask();
-        super.onDestroy();
-    }
+    protected ImageView getLocalImageView() {
+        return myLocalImage;}
 }

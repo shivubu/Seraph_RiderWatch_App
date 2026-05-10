@@ -19,7 +19,6 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.Insets;
 import androidx.core.view.InputDeviceCompat;
@@ -30,9 +29,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 
-public class Ohma extends AppCompatActivity {
+public class Ohma extends BaseKamenActivity {
     VideoView belt_text;
-    MediaPlayer mp,end;
     ImageView ohmabelt, ridewatch,backgroundimage;
     private Drawable[] ridewatches;
     private int currentImageIndex = 0;
@@ -207,10 +205,6 @@ public class Ohma extends AppCompatActivity {
             audiomanager.setStreamVolume(AudioManager.STREAM_MUSIC,originalvolume,0);
             end = MediaPlayer.create(this,R.raw.transition);
             end.start();
-            end.setOnCompletionListener(mp -> {
-                end.release();
-                end=null;
-            });
             if(belt_text.isPlaying())
             {
                 belt_text.stopPlayback();
@@ -251,5 +245,7 @@ public class Ohma extends AppCompatActivity {
         audiomanager.setStreamVolume(AudioManager.STREAM_MUSIC,originalvolume,0);
         finishAndRemoveTask();
         super.onDestroy();
+    }
+    protected ImageView getLocalImageView() {return ridewatch;
     }
 }

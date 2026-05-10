@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.InputDeviceCompat;
 import androidx.core.view.MotionEventCompat;
@@ -24,11 +23,10 @@ import androidx.core.view.ViewConfigurationCompat;
 import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 
-public class HeiseiRiders1 extends AppCompatActivity {
+public class HeiseiRiders1 extends BaseKamenActivity {
     int i=0,flag=0,kabuto=0,hculoop=0,blade;
-    MediaPlayer mp,mp1,end;
     PerfectLoopMediaPlayer hyperclockup;
-    ImageView imageView;
+    ImageView myLocalImage;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,11 +65,11 @@ public class HeiseiRiders1 extends AppCompatActivity {
         for (int j : finishersounds) {
             finishersound.add(j);
         }
-        imageView = findViewById(R.id.imageView6);
-        imageView.setImageResource(screen.get(i));
-        imageView.setFocusable(true);
-        imageView.requestFocus();
-        imageView.setOnGenericMotionListener((view, motionEvent) -> {
+        myLocalImage = findViewById(R.id.imageView6);
+        myLocalImage.setImageResource(screen.get(i));
+        myLocalImage.setFocusable(true);
+        myLocalImage.requestFocus();
+        myLocalImage.setOnGenericMotionListener((view, motionEvent) -> {
             if (motionEvent.getAction() == MotionEvent.ACTION_SCROLL &&
                     motionEvent.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)){
                 if(mp!=null)
@@ -88,7 +86,7 @@ public class HeiseiRiders1 extends AppCompatActivity {
                     hyperclockup.release();
                     hyperclockup=null;
                 }
-                imageView.clearAnimation();
+                myLocalImage.clearAnimation();
                 flag=0;
                 float delta = -motionEvent.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
                         ViewConfigurationCompat.getScaledHorizontalScrollFactor(ViewConfiguration.get(getApplicationContext()), getApplicationContext());
@@ -111,7 +109,7 @@ public class HeiseiRiders1 extends AppCompatActivity {
                 }
                 // Update the background image
                 if (!screen.isEmpty()) {
-                    imageView.setImageResource(screen.get(i));
+                    myLocalImage.setImageResource(screen.get(i));
                     switch(i)
                     {
                         case 4:blade=0;
@@ -122,7 +120,7 @@ public class HeiseiRiders1 extends AppCompatActivity {
             }
             return false;
         });
-        imageView.setOnTouchListener(new View.OnTouchListener() {
+        myLocalImage.setOnTouchListener(new View.OnTouchListener() {
             final GestureDetector gestureDetector=new GestureDetector(getApplicationContext(),new GestureDetector.SimpleOnGestureListener()
             {
                 @Override
@@ -138,7 +136,7 @@ public class HeiseiRiders1 extends AppCompatActivity {
                     boolean leftSwipe= diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
                     if(i==4)
                     {
-                        imageView.clearAnimation();
+                        myLocalImage.clearAnimation();
                         if(mp!=null)
                         {
                             mp.release();
@@ -170,7 +168,7 @@ public class HeiseiRiders1 extends AppCompatActivity {
                     }
                     else if(i==6)
                     {
-                        imageView.clearAnimation();
+                        myLocalImage.clearAnimation();
                         if(mp!=null)
                         {
                             mp.release();
@@ -209,7 +207,7 @@ public class HeiseiRiders1 extends AppCompatActivity {
                         if (downSwipe) {
                             if(hculoop==1)
                             {
-                                imageView.clearAnimation();
+                                myLocalImage.clearAnimation();
                                 mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.hyperclockover);
                                 mp.start();
                                 hculoop=0;
@@ -217,7 +215,7 @@ public class HeiseiRiders1 extends AppCompatActivity {
                         }
                         if (upSwipe)
                         {
-                            imageView.startAnimation(fade);
+                            myLocalImage.startAnimation(fade);
                             mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.hyperclockup);
                             mp.start();
                             mp.setOnCompletionListener(mp -> {
@@ -247,7 +245,7 @@ public class HeiseiRiders1 extends AppCompatActivity {
                         hyperclockup.release();
                         hyperclockup=null;
                     }
-                    imageView.startAnimation(fade);
+                    myLocalImage.startAnimation(fade);
                     mp = MediaPlayer.create(HeiseiRiders1.this,R.raw.judgement_finishtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
@@ -273,7 +271,7 @@ public class HeiseiRiders1 extends AppCompatActivity {
                             mp1 = MediaPlayer.create(HeiseiRiders1.this, finishersound.get(i));
                         }
                         mp1.start();
-                        mp1.setOnCompletionListener(mp2 -> imageView.clearAnimation());
+                        mp1.setOnCompletionListener(mp2 -> myLocalImage.clearAnimation());
                     });
                     super.onLongPress(e);
                 }
@@ -294,10 +292,10 @@ public class HeiseiRiders1 extends AppCompatActivity {
                         hyperclockup.release();
                         hyperclockup=null;
                     }
-                    imageView.startAnimation(fade);
+                    myLocalImage.startAnimation(fade);
                     mp = MediaPlayer.create(HeiseiRiders1.this, henshinsound.get(i));
                     mp.start();
-                    mp.setOnCompletionListener(mp -> imageView.clearAnimation());
+                    mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
                     return super.onDoubleTap(e);
                 }
                 @Override
@@ -317,19 +315,19 @@ public class HeiseiRiders1 extends AppCompatActivity {
                         hyperclockup.release();
                         hyperclockup=null;
                     }
-                    imageView.startAnimation(fade);
+                    myLocalImage.startAnimation(fade);
                     if(flag==0){
                         flag=1;
                         mp = MediaPlayer.create(HeiseiRiders1.this, sound.get(i));
                         mp.start();
-                        mp.setOnCompletionListener(mp -> imageView.clearAnimation());
+                        mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
                     }
                     else if(flag==1)
                     {
                         flag=0;
                         mp = MediaPlayer.create(HeiseiRiders1.this, longpress.get(i));
                         mp.start();
-                        mp.setOnCompletionListener(mp -> imageView.clearAnimation());
+                        mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
                     }
                     return super.onSingleTapConfirmed(e);
                 }
@@ -356,11 +354,6 @@ public class HeiseiRiders1 extends AppCompatActivity {
             }
             end = MediaPlayer.create(this,R.raw.transition);
             end.start();
-            end.setOnCompletionListener(mp -> {
-                end.release();
-                end=null;
-
-            });
             Intent i = new Intent(HeiseiRiders1.this,Menu.class);
             startActivity(i);
             finish();
@@ -369,43 +362,9 @@ public class HeiseiRiders1 extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
     @Override
-    protected void onPause() {
-        if(mp!=null)
-        {
-            mp.release();
-            mp=null;
-        }
-        if(mp1!=null) {
-            mp1.release();
-            mp1 = null;
-        }
-        if(hyperclockup!=null)
-        {
-            hyperclockup.release();
-            hyperclockup=null;
-        }
-        imageView.clearAnimation();
-        imageView.setClickable(true);
-        super.onPause();
-    }
-    @Override
-    protected void onDestroy() {
-        if(mp!=null)
-        {
-            mp.release();
-            mp=null;
-        }
-        if(mp1!=null)
-        {
-            mp1.release();
-            mp1=null;
-        }
-        if(hyperclockup!=null)
-        {
-            hyperclockup.release();
-            hyperclockup=null;
-        }
-        finishAndRemoveTask();
-        super.onDestroy();
-    }
+    protected ImageView getLocalImageView() {
+        return myLocalImage;}
+
+
+
 }

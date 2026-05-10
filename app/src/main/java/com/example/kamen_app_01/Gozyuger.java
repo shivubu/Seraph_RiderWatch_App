@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.InputDeviceCompat;
 import androidx.core.view.MotionEventCompat;
@@ -27,11 +26,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 
-public class Gozyuger extends AppCompatActivity {
-
+public class Gozyuger extends BaseKamenActivity {
     int i=0,visible=0;
-    MediaPlayer mp,end;
-    ImageView imageView,faceplate;
+    ImageView myLocalImage,faceplate;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +49,8 @@ public class Gozyuger extends AppCompatActivity {
         for (int j : rw) {
             screen.add(j);
         }
-        imageView = findViewById(R.id.gozyuger);
-        imageView.setImageResource(R.drawable.ryo_tegasword);
+        myLocalImage = findViewById(R.id.gozyuger);
+        myLocalImage.setImageResource(R.drawable.ryo_tegasword);
         faceplate=findViewById(R.id.imageView17);
         faceplate.setVisibility(View.INVISIBLE);
         faceplate.setOnGenericMotionListener((view, motionEvent) -> {
@@ -63,7 +60,7 @@ public class Gozyuger extends AppCompatActivity {
                 {
                     mp.release();
                     mp=null;
-                    imageView.clearAnimation();
+                    myLocalImage.clearAnimation();
                 }
                 float delta = -motionEvent.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
                         ViewConfigurationCompat.getScaledHorizontalScrollFactor(ViewConfiguration.get(getApplicationContext()), getApplicationContext());
@@ -102,7 +99,7 @@ public class Gozyuger extends AppCompatActivity {
             }
             return false;
         });
-        imageView.setOnTouchListener(new View.OnTouchListener() {
+        myLocalImage.setOnTouchListener(new View.OnTouchListener() {
             final GestureDetector gestureDetector=new GestureDetector(getApplicationContext(),new GestureDetector.SimpleOnGestureListener()
             {
                 @Override
@@ -206,11 +203,6 @@ public class Gozyuger extends AppCompatActivity {
             }
             end = MediaPlayer.create(this,R.raw.transition);
             end.start();
-            end.setOnCompletionListener(mp -> {
-                end.release();
-                end=null;
-
-            });
             Intent i = new Intent(Gozyuger.this,Menu.class);
             startActivity(i);
             finish();
@@ -219,24 +211,6 @@ public class Gozyuger extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
     @Override
-    protected void onPause() {
-        if(mp!=null)
-        {
-            mp.release();
-            mp=null;
-        }
-        imageView.clearAnimation();
-        imageView.setClickable(true);
-        super.onPause();
-    }
-    @Override
-    protected void onDestroy() {
-        if(mp!=null)
-        {
-            mp.release();
-            mp=null;
-        }
-        finishAndRemoveTask();
-        super.onDestroy();
-    }
+    protected ImageView getLocalImageView() {
+        return myLocalImage;}
 }

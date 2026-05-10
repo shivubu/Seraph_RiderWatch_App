@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.Insets;
 import androidx.core.view.InputDeviceCompat;
@@ -28,9 +27,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
-    ImageView imageView;
-    MediaPlayer mp,mp1,end;
+public class MainActivity extends BaseKamenActivity{
+    ImageView myLocalImage;
     PerfectLoopMediaPlayer standby;
     private Drawable[] backgroundImages;
     private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,hazard_flag=0,genmflag=0,fumetsuflag=0,bahamut=0,sabermode=0,flag1=0,ohmaflag=0,superherosenki1=0,superherosenki2=0,wonder1=0,wonder2=0,geatsflag=0,fumetsu=0,dea,rampage_index,phblade_index,exc_index,drivemode,sru,finalForm;
@@ -108,22 +106,22 @@ public class MainActivity extends AppCompatActivity {
         for (int j : exceed_sounds) {
             exceed_sound.add(j);
         }
-        imageView = findViewById(R.id.imageView);
-        imageView.setFocusable(true);
-        imageView.requestFocus();
-        imageView.setOnGenericMotionListener((view, motionEvent) -> {
+        myLocalImage = findViewById(R.id.imageView);
+        myLocalImage.setFocusable(true);
+        myLocalImage.requestFocus();
+        myLocalImage.setOnGenericMotionListener((view, motionEvent) -> {
             if (motionEvent.getAction() == MotionEvent.ACTION_SCROLL &&
                     motionEvent.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)){
                 if(mp!=null)
                 {
                     mp.release();
                     mp=null;
-                    imageView.clearAnimation();
+                    myLocalImage.clearAnimation();
                 }
                 if(mp1!=null) {
                     mp1.release();
                     mp1 = null;
-                    imageView.clearAnimation();
+                    myLocalImage.clearAnimation();
                 }
                 if(standby!=null)
                 {
@@ -152,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 // Update the background image
                 if (backgroundImages.length > 0) {
-                    imageView.setImageDrawable(backgroundImages[currentImageIndex]);
+                    myLocalImage.setImageDrawable(backgroundImages[currentImageIndex]);
                     switch(currentImageIndex)
                     {
                         case 0:finalForm=0;
@@ -170,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
-        imageView.setOnTouchListener(new View.OnTouchListener() {
+        myLocalImage.setOnTouchListener(new View.OnTouchListener() {
             final GestureDetector gestureDetector=new GestureDetector(getApplicationContext(),new GestureDetector.SimpleOnGestureListener()
             {
                 @Override
@@ -190,12 +188,12 @@ public class MainActivity extends AppCompatActivity {
                         standby.release();
                         standby=null;
                     }
-                    imageView.startAnimation(fade);
+                    myLocalImage.startAnimation(fade);
                     if(currentImageIndex==0 && finalForm==1)
                     {
                         mp=MediaPlayer.create(MainActivity.this,R.raw.finisher_seraphsupreme);
                         mp.start();
-                        mp.setOnCompletionListener(mp2 -> imageView.clearAnimation());
+                        mp.setOnCompletionListener(mp2 -> myLocalImage.clearAnimation());
                     }
                     else
                     {
@@ -289,7 +287,7 @@ public class MainActivity extends AppCompatActivity {
                                 mp1 = MediaPlayer.create(MainActivity.this, longpress.get(currentImageIndex));
                             }
                             mp1.start();
-                            mp1.setOnCompletionListener(mp2 -> imageView.clearAnimation());
+                            mp1.setOnCompletionListener(mp2 -> myLocalImage.clearAnimation());
                         });
                     }
 
@@ -312,7 +310,7 @@ public class MainActivity extends AppCompatActivity {
                         standby.release();
                         standby=null;
                     }
-                    imageView.startAnimation(fade);
+                    myLocalImage.startAnimation(fade);
                     if(currentImageIndex==0 && finalForm==1)
                     {
                         mp=MediaPlayer.create(MainActivity.this,R.raw.henshin_seraphsupreme_prime);
@@ -355,7 +353,7 @@ public class MainActivity extends AppCompatActivity {
                         mp = MediaPlayer.create(MainActivity.this, henshinsound.get(currentImageIndex));
                     }
                     mp.start();
-                    mp.setOnCompletionListener(mp -> imageView.clearAnimation());
+                    mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
                     return super.onDoubleTap(e);
                 }
                 @Override
@@ -375,7 +373,7 @@ public class MainActivity extends AppCompatActivity {
                         standby.release();
                         standby=null;
                     }
-                    imageView.startAnimation(fade);
+                    myLocalImage.startAnimation(fade);
                     if(currentImageIndex==0 && finalForm==1)
                     {
                         mp=MediaPlayer.create(MainActivity.this,R.raw.seraphsupremeridewatch);
@@ -439,7 +437,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                     mp.start();
-                    mp.setOnCompletionListener(mp -> imageView.clearAnimation());
+                    mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
                     return super.onSingleTapConfirmed(e);
                 }
 
@@ -456,7 +454,7 @@ public class MainActivity extends AppCompatActivity {
                     boolean leftSwipe = diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
                     if(currentImageIndex==0)
                     {
-                        imageView.clearAnimation();
+                        myLocalImage.clearAnimation();
                         if (mp != null) {
                             mp.release();
                             mp = null;
@@ -467,14 +465,14 @@ public class MainActivity extends AppCompatActivity {
                         }
                         if(downSwipe && finalForm==0)
                         {
-                            imageView.setImageResource(R.drawable.finalform);
+                            myLocalImage.setImageResource(R.drawable.finalform);
                             finalForm=1;
                             mp=MediaPlayer.create(MainActivity.this,R.raw.transition2);
                             mp.start();
                         }
                         if(upSwipe && finalForm==1)
                         {
-                            imageView.setImageResource(R.drawable.seraph);
+                            myLocalImage.setImageResource(R.drawable.seraph);
                             finalForm=0;
                             mp=MediaPlayer.create(MainActivity.this,R.raw.transition2);
                             mp.start();
@@ -488,7 +486,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else if(currentImageIndex==1)
                     {
-                        imageView.clearAnimation();
+                        myLocalImage.clearAnimation();
                         if (mp != null) {
                             mp.release();
                             mp = null;
@@ -504,7 +502,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                     else if (currentImageIndex == 2) {
-                        imageView.clearAnimation();
+                        myLocalImage.clearAnimation();
                         if (mp != null) {
                             mp.release();
                             mp = null;
@@ -533,8 +531,8 @@ public class MainActivity extends AppCompatActivity {
                         {
                             mp=MediaPlayer.create(MainActivity.this,R.raw.lpfaiznext);
                             mp.start();
-                            imageView.startAnimation(fade);
-                            mp.setOnCompletionListener(mp -> imageView.clearAnimation());
+                            myLocalImage.startAnimation(fade);
+                            mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
                         }
                         if(downSwipe)
                         {
@@ -545,7 +543,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else if (currentImageIndex == 5)
                     {
-                        imageView.clearAnimation();
+                        myLocalImage.clearAnimation();
                         if(mp!=null)
                         {
                             mp.release();
@@ -559,17 +557,17 @@ public class MainActivity extends AppCompatActivity {
                         if(downSwipe && drivemode==0)
                         {
                             drivemode=1;
-                            imageView.setImageResource(R.drawable.drivenext);
+                            myLocalImage.setImageResource(R.drawable.drivenext);
                         }
                         if(upSwipe && drivemode==1)
                         {
                             drivemode=0;
-                            imageView.setImageDrawable(backgroundImages[currentImageIndex]);
+                            myLocalImage.setImageDrawable(backgroundImages[currentImageIndex]);
                         }
                     }
                     else if(currentImageIndex==7)
                     {
-                        imageView.clearAnimation();
+                        myLocalImage.clearAnimation();
                         if(mp!=null)
                         {
                             mp.release();
@@ -584,30 +582,30 @@ public class MainActivity extends AppCompatActivity {
                         {
                             if(leftSwipe && flag==0)
                             {
-                                imageView.startAnimation(fade);
+                                myLocalImage.startAnimation(fade);
                                 mp=MediaPlayer.create(MainActivity.this,R.raw.genmpause);
                                 mp.start();
                                 flag=1;
-                                mp.setOnCompletionListener(mp -> imageView.clearAnimation());
+                                mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
                             }
                             if(rightSwipe)
                             {
                                 if(flag==1 && genmflag==0)
                                 {
-                                    imageView.startAnimation(fade);
+                                    myLocalImage.startAnimation(fade);
                                     mp=MediaPlayer.create(MainActivity.this,R.raw.genmrestart);
                                     mp.start();
                                     flag=0;
-                                    mp.setOnCompletionListener(mp -> imageView.clearAnimation());
+                                    mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
                                 }
                                 if(flag==1 && genmflag==1)
                                 {
-                                    imageView.startAnimation(fade);
+                                    myLocalImage.startAnimation(fade);
                                     mp=MediaPlayer.create(MainActivity.this,R.raw.genmrestartalt);
                                     mp.start();
                                     flag=0;
                                     genmflag=0;
-                                    mp.setOnCompletionListener(mp -> imageView.clearAnimation());
+                                    mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
                                 }
 
                             }
@@ -638,21 +636,21 @@ public class MainActivity extends AppCompatActivity {
                         {
                             fumetsuflag=1;
                             fumetsu=0;
-                            imageView.setImageResource(R.drawable.genmfumetsu);
+                            myLocalImage.setImageResource(R.drawable.genmfumetsu);
                             flag=0;
                             genmflag=0;
                         }
                         if (upSwipe && fumetsuflag==1)
                         {
                             fumetsuflag=0;
-                            imageView.setImageResource(R.drawable.genmmusou);
+                            myLocalImage.setImageResource(R.drawable.genmmusou);
 
                         }
 
                     }
                     else if(currentImageIndex==8)
                     {
-                        imageView.clearAnimation();
+                        myLocalImage.clearAnimation();
                         if(mp!=null)
                         {
                             mp.release();
@@ -678,7 +676,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     if(currentImageIndex==10)
                     {
-                        imageView.clearAnimation();
+                        myLocalImage.clearAnimation();
                         if(mp!=null) {
                             mp.release();
                             mp = null;
@@ -712,7 +710,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else if(currentImageIndex==11)
                     {
-                        imageView.clearAnimation();
+                        myLocalImage.clearAnimation();
                         if(mp!=null)
                         {
                             mp.release();
@@ -832,7 +830,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else if(currentImageIndex==12)
                     {
-                        imageView.clearAnimation();
+                        myLocalImage.clearAnimation();
                         if(mp!=null) {
                             mp.release();
                             mp = null;
@@ -846,13 +844,13 @@ public class MainActivity extends AppCompatActivity {
                             if(sabermode==0)
                             {
                                 sabermode=1;
-                                imageView.setImageResource(R.drawable.saberub);
+                                myLocalImage.setImageResource(R.drawable.saberub);
                                 bahamut=0;
                             }
                             else if(sabermode==2)
                             {
                                 sabermode=0;
-                                imageView.setImageResource(R.drawable.saber);
+                                myLocalImage.setImageResource(R.drawable.saber);
                                 wonder1=0;
                                 wonder2=0;
                             }
@@ -862,13 +860,13 @@ public class MainActivity extends AppCompatActivity {
                             if(sabermode==1)
                             {
                                 sabermode=0;
-                                imageView.setImageResource(R.drawable.saber);
+                                myLocalImage.setImageResource(R.drawable.saber);
                                 wonder1=0;
                             }
                             else if(sabermode==0)
                             {
                                 sabermode=2;
-                                imageView.setImageResource(R.drawable.sabershs);
+                                myLocalImage.setImageResource(R.drawable.sabershs);
                                 superherosenki1=0;
                                 superherosenki2=0;
                             }
@@ -926,7 +924,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else if(currentImageIndex==13)
                     {
-                        imageView.clearAnimation();
+                        myLocalImage.clearAnimation();
                         if(mp!=null)
                         {
                             mp.release();
@@ -1002,10 +1000,6 @@ public class MainActivity extends AppCompatActivity {
             }
             end = MediaPlayer.create(this,R.raw.transition);
             end.start();
-            end.setOnCompletionListener(mp -> {
-                end.release();
-                end=null;
-            });
             Intent i = new Intent(MainActivity.this,Menu.class);
             startActivity(i);
             finish();
@@ -1013,44 +1007,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
     @Override
-    protected void onPause() {
-        if(mp!=null)
-        {
-            mp.release();
-            mp=null;
-        }
-        if(mp1!=null)
-        {
-            mp1.release();
-            mp1=null;
-        }
-        if(standby!=null)
-        {
-            standby.release();
-            standby=null;
-        }
-        imageView.clearAnimation();
-        imageView.setClickable(true);
-        super.onPause();
-    }
-    @Override
-    protected void onDestroy() {
-        if(mp!=null)
-        {
-            mp.release();
-            mp=null;
-        }
-        if(mp1!=null)
-        {
-            mp1.release();
-            mp1=null;
-        }
-        if(standby!=null)
-        {
-            standby.release();
-            standby=null;
-        }
-        finishAndRemoveTask();
-        super.onDestroy();
-    }
+    protected ImageView getLocalImageView() {
+        return myLocalImage;}
+
 }

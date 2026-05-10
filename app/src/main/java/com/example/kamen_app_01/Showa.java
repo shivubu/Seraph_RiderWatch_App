@@ -16,7 +16,6 @@ import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.InputDeviceCompat;
 import androidx.core.view.MotionEventCompat;
@@ -26,10 +25,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 
-public class Showa extends AppCompatActivity {
+public class Showa extends BaseKamenActivity {
     int i=0;
-    MediaPlayer mp,end;
-    ImageView imageView;
+    ImageView myLocalImage;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,18 +56,18 @@ public class Showa extends AppCompatActivity {
         for (int longprsssound : longprsssounds) {
             longpress.add(longprsssound);
         }
-        imageView = findViewById(R.id.imageView11);
-        imageView.setImageResource(screen.get(i));
-        imageView.setFocusable(true);
-        imageView.requestFocus();
-        imageView.setOnGenericMotionListener((view, motionEvent) -> {
+        myLocalImage = findViewById(R.id.imageView11);
+        myLocalImage.setImageResource(screen.get(i));
+        myLocalImage.setFocusable(true);
+        myLocalImage.requestFocus();
+        myLocalImage.setOnGenericMotionListener((view, motionEvent) -> {
             if (motionEvent.getAction() == MotionEvent.ACTION_SCROLL &&
                     motionEvent.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)){
                 if(mp!=null)
                 {
                     mp.release();
                     mp=null;
-                    imageView.clearAnimation();
+                    myLocalImage.clearAnimation();
                 }
                 float delta = -motionEvent.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
                         ViewConfigurationCompat.getScaledHorizontalScrollFactor(ViewConfiguration.get(getApplicationContext()), getApplicationContext());
@@ -102,13 +100,13 @@ public class Showa extends AppCompatActivity {
                 }
                 // Update the background image
                 if (!screen.isEmpty()) {
-                    imageView.setImageResource(screen.get(i));
+                    myLocalImage.setImageResource(screen.get(i));
                 }
                 return true;
             }
             return false;
         });
-        imageView.setOnTouchListener(new View.OnTouchListener() {
+        myLocalImage.setOnTouchListener(new View.OnTouchListener() {
             final GestureDetector gestureDetector=new GestureDetector(getApplicationContext(),new GestureDetector.SimpleOnGestureListener()
             {
                 @Override
@@ -118,10 +116,10 @@ public class Showa extends AppCompatActivity {
                         mp.release();
                         mp=null;
                     }
-                    imageView.startAnimation(fade);
+                    myLocalImage.startAnimation(fade);
                     mp = MediaPlayer.create(Showa.this, longpress.get(i));
                     mp.start();
-                    mp.setOnCompletionListener(mp -> imageView.clearAnimation());
+                    mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
                     super.onLongPress(e);
                 }
                 @Override
@@ -131,10 +129,10 @@ public class Showa extends AppCompatActivity {
                         mp.release();
                         mp=null;
                     }
-                    imageView.startAnimation(fade);
+                    myLocalImage.startAnimation(fade);
                     mp = MediaPlayer.create(Showa.this, sound.get(i));
                     mp.start();
-                    mp.setOnCompletionListener(mp -> imageView.clearAnimation());
+                    mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
                     return super.onSingleTapConfirmed(e);
                 }
 
@@ -154,11 +152,6 @@ public class Showa extends AppCompatActivity {
             }
             end = MediaPlayer.create(this,R.raw.transition);
             end.start();
-            end.setOnCompletionListener(mp -> {
-                end.release();
-                end=null;
-
-            });
             Intent i = new Intent(Showa.this,Menu.class);
             startActivity(i);
             finish();
@@ -167,25 +160,6 @@ public class Showa extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
     @Override
-    protected void onPause() {
-        if(mp!=null)
-        {
-            mp.release();
-            mp=null;
-        }
-        imageView.clearAnimation();
-        imageView.setClickable(true);
-        super.onPause();
-
-    }
-    @Override
-    protected void onDestroy() {
-        if(mp!=null)
-        {
-            mp.release();
-            mp=null;
-        }
-        finishAndRemoveTask();
-        super.onDestroy();
-    }
+    protected ImageView getLocalImageView() {
+        return myLocalImage;}
 }
