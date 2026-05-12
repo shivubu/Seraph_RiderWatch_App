@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -16,9 +17,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class LauncherActivity extends AppCompatActivity {
+public class LauncherActivity extends BaseKamenActivity {
     ImageView im2;
-    MediaPlayer mp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,45 +40,24 @@ public class LauncherActivity extends AppCompatActivity {
             im2.setClickable(false);
             mp=MediaPlayer.create(this,R.raw.transition);
             mp.start();
-            new Handler(Looper.getMainLooper()).postDelayed(() -> im2.startAnimation(rotate), 250);
-            mp.setOnCompletionListener(mp -> {
+            handler.postDelayed(() -> im2.startAnimation(rotate), 250);
+            mp.setOnCompletionListener(mediaPlayer -> {
                 startActivity(new Intent(LauncherActivity.this, Menu.class));
-                finish();
-            });
+                finish();});
         });
 
     }
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (mp != null) {
-                mp.release();
-            }
-            im2.clearAnimation();
-            finish();
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-    @Override
-    protected void onPause() {
-        if(mp!=null)
-        {
-            mp.release();
-            mp=null;
-            im2.clearAnimation();
-            im2.setClickable(true);
-        }
-        super.onPause();
-    }
-    @Override
-    protected void onDestroy() {
-        if(mp!=null)
-        {
-            mp.release();
-            mp=null;
-        }
-        finishAndRemoveTask();
-        super.onDestroy();
+    protected ImageView getLocalImageView() {return im2;
     }
 
+    @Override
+    protected Class<?> getBackTargetClass() {return null;
+    }
+
+    @Override
+    protected View getRotaryView() {
+        return null;
+    }
 }
+

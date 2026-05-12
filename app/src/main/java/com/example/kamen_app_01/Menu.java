@@ -174,5 +174,9 @@ public class Menu extends BaseKamenActivity {
     protected Class<?> getBackTargetClass() {
         // This tells the Base class to go to LauncherActivity when back is pressed
         return LauncherActivity.class;}
+    @Override
+    protected View getRotaryView() {// This tells the base class to unbind the listener from the imageView
+        return heiseigen1;
+    }
 
 }

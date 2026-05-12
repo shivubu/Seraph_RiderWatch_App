@@ -267,4 +267,8 @@ public class Ohma extends BaseKamenActivity {
         // This tells the Base class togo to the Menu when back is pressed
         return Menu.class;
     }
+    @Override
+    protected View getRotaryView() {// This tells the base class to unbind the listener from the imageView
+        return ridewatch;
+    }
 }
