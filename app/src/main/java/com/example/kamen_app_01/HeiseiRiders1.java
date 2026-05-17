@@ -1,10 +1,8 @@
 package com.example.kamen_app_01;
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.GestureDetector;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -25,7 +23,6 @@ import java.util.ArrayList;
 
 public class HeiseiRiders1 extends BaseKamenActivity {
     int i=0,flag=0,kabuto=0,hculoop=0,blade;
-    PerfectLoopMediaPlayer hyperclockup;
     ImageView myLocalImage;
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -81,10 +78,10 @@ public class HeiseiRiders1 extends BaseKamenActivity {
                     mp1.release();
                     mp1 = null;
                 }
-                if(hyperclockup!=null)
+                if(loopPlayer!=null)
                 {
-                    hyperclockup.release();
-                    hyperclockup=null;
+                    loopPlayer.release();
+                    loopPlayer=null;
                 }
                 myLocalImage.clearAnimation();
                 flag=0;
@@ -179,10 +176,10 @@ public class HeiseiRiders1 extends BaseKamenActivity {
                             mp1.release();
                             mp1=null;
                         }
-                        if(hyperclockup!=null)
+                        if(loopPlayer!=null)
                         {
-                            hyperclockup.release();
-                            hyperclockup=null;
+                            loopPlayer.release();
+                            loopPlayer=null;
                         }
                         if(leftSwipe)
                         {
@@ -219,8 +216,8 @@ public class HeiseiRiders1 extends BaseKamenActivity {
                             mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.hyperclockup);
                             mp.start();
                             mp.setOnCompletionListener(mp -> {
-                                hyperclockup=PerfectLoopMediaPlayer.create(HeiseiRiders1.this,R.raw.hyperclockuploop);
-                                hyperclockup.start();
+                                loopPlayer=PerfectLoopMediaPlayer.create(HeiseiRiders1.this,R.raw.hyperclockuploop);
+                                loopPlayer.start();
                                 hculoop=1;
                             });
                         }
@@ -240,10 +237,10 @@ public class HeiseiRiders1 extends BaseKamenActivity {
                         mp1.release();
                         mp1=null;
                     }
-                    if(hyperclockup!=null)
+                    if(loopPlayer!=null)
                     {
-                        hyperclockup.release();
-                        hyperclockup=null;
+                        loopPlayer.release();
+                        loopPlayer=null;
                     }
                     myLocalImage.startAnimation(fade);
                     mp = MediaPlayer.create(HeiseiRiders1.this,R.raw.judgement_finishtime);
@@ -287,10 +284,10 @@ public class HeiseiRiders1 extends BaseKamenActivity {
                         mp1.release();
                         mp1=null;
                     }
-                    if(hyperclockup!=null)
+                    if(loopPlayer!=null)
                     {
-                        hyperclockup.release();
-                        hyperclockup=null;
+                        loopPlayer.release();
+                        loopPlayer=null;
                     }
                     myLocalImage.startAnimation(fade);
                     mp = MediaPlayer.create(HeiseiRiders1.this, henshinsound.get(i));
@@ -310,10 +307,10 @@ public class HeiseiRiders1 extends BaseKamenActivity {
                         mp1.release();
                         mp1=null;
                     }
-                    if(hyperclockup!=null)
+                    if(loopPlayer!=null)
                     {
-                        hyperclockup.release();
-                        hyperclockup=null;
+                        loopPlayer.release();
+                        loopPlayer=null;
                     }
                     myLocalImage.startAnimation(fade);
                     if(flag==0){

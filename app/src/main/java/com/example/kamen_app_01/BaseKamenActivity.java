@@ -4,58 +4,52 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.KeyEvent;
-import android.view.WindowManager;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public abstract class BaseKamenActivity extends AppCompatActivity {
 
     protected MediaPlayer mp, mp1, end;
-    protected Handler handler = new Handler(); // Shared handler for all activities
+    protected PerfectLoopMediaPlayer loopPlayer;
+    protected Handler handler = new Handler(Looper.getMainLooper());
 
     protected abstract ImageView getLocalImageView();
     protected abstract Class<?> getBackTargetClass();
+    protected abstract View getRotaryView();
 
-    // New contract: Return the view that has the Rotary/Scroll listener
-    // Return null if the activity doesn't use one.
-    protected abstract View getRotaryView();@Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-    }
+        super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);}
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (mp != null) {
-                mp.release();
-                mp = null;
-            }
+        if (keyCode== KeyEvent.KEYCODE_BACK) {
+            releaseResources();
 
             end = MediaPlayer.create(this, R.raw.transition);
             if (end != null) {
                 end.start();
-            }
-
-            Class<?> target = getBackTargetClass();
+            }Class<?> target = getBackTargetClass();
             if (target != null) {
-                Intent i = new Intent(this, target);startActivity(i);
+                startActivity(new Intent(this, target));
                 finish();
-            }
+            } else {
+                finishAffinity();}
             return true;
         }
         return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    protected void onPause() {super.onPause();
-        if (mp != null && mp.isPlaying()) mp.pause();if (mp1 != null && mp1.isPlaying()) mp1.pause();
-
-        // Stop any pending handlertasks immediately when screen is partially covered
-        if (handler != null) {
-            handler.removeCallbacksAndMessages(null);
-        }
+    }@Override
+    protected void onPause() {
+        super.onPause();
+        if (loopPlayer != null) loopPlayer.pause();
+        if (mp != null && mp.isPlaying()) mp.pause();
+        if (mp1 != null && mp1.isPlaying()) mp1.pause();
+        if (handler != null) handler.removeCallbacksAndMessages(null);
     }
 
     @Override
@@ -64,40 +58,37 @@ public abstract class BaseKamenActivity extends AppCompatActivity {
         releaseResources();
     }
 
-    @Override
-    protected void onDestroy() {
+    @Override protected void onDestroy() {
         super.onDestroy();
         releaseResources();
     }
 
-    private void releaseResources() {
-        // 1. MediaPlayers
-        if (mp != null) { mp.release(); mp = null; }
-        if (mp1!= null) { mp1.release(); mp1 = null; }
-        if (end != null) {if (end.isPlaying()) {
-            end.setOnCompletionListener(MediaPlayer::release);
-        }else {
-            end.release();
-            end = null;
-        }
+    protected void releaseResources(){
+        if (loopPlayer != null) {
+            loopPlayer.stop();
+            loopPlayer.release();
+            loopPlayer = null;
         }
 
-        //2. Animations
+        if (mp != null) { mp.release();mp = null; }
+        if (mp1 != null) { mp1.release(); mp1 = null; }
+
+        if (end != null) {
+            if (end.isPlaying()) {
+                end.setOnCompletionListener(MediaPlayer::release);
+            } else {
+                end.release();
+                end = null;
+            }
+        }
+
         ImageView imageView = getLocalImageView();
-        if (imageView != null) {
-            imageView.clearAnimation();
-        }
+        if (imageView != null)imageView.clearAnimation();
 
-        // 3. Unbind Rotary/Scroll Listener
-        View rotaryView =getRotaryView();
-        if (rotaryView != null) {
-            rotaryView.setOnGenericMotionListener(null);
-        }
+        View rotaryView = getRotaryView();
+        if (rotaryView !=null) rotaryView.setOnGenericMotionListener(null);
 
-        // 4. Kill all Handler tasks (prevents memory leaks and background CPU usage)
-        if (handler != null) {
-            handler.removeCallbacksAndMessages(null);
-        }// 5. Allow watch to sleep
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-    }
+        if (handler != null) handler.removeCallbacksAndMessages(null);
+
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);}
 }
