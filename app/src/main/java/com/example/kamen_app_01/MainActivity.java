@@ -29,7 +29,7 @@ public class MainActivity extends BaseKamenActivity{
     ImageView myLocalImage;
     PerfectLoopMediaPlayer standby;
     private Drawable[] backgroundImages;
-    private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,hazard_flag=0,genmflag=0,fumetsuflag=0,bahamut=0,sabermode=0,flag1=0,ohmaflag=0,superherosenki1=0,superherosenki2=0,wonder1=0,wonder2=0,geatsflag=0,fumetsu=0,dea,rampage_index,phblade_index,exc_index,drivemode,sru,finalForm;
+    private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,hazard_flag=0,genmflag=0,fumetsuflag=0,bahamut=0,sabermode=0,flag1=0,ohmaflag=0,superherosenki1=0,superherosenki2=0,wonder1=0,wonder2=0,geatsflag=0,fumetsu=0,dea,rampage_index,phblade_index,exc_index,drivemode,sru,finalForm,gotchard;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,6 +161,7 @@ public class MainActivity extends BaseKamenActivity{
                         case 11: zt_index=-1;ztweap_index=-1;phblade_index=-1;rampage_index=-1;break;
                         case 12: sabermode=0;bahamut=0;superherosenki1=superherosenki2=0;wonder1=wonder2=0;break;
                         case 13: geatsflag=0;dea=0;break;
+                        case 14: gotchard=0;break;
                     }
                 }
                 return true;
@@ -282,6 +283,16 @@ public class MainActivity extends BaseKamenActivity{
                                     case 4:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_geatsdea_4);break;
                                 }
                             }
+                            else if(currentImageIndex==14 && gotchard!=0) {
+                                switch (gotchard) {
+                                    case 1:
+                                        mp1 = MediaPlayer.create(MainActivity.this, R.raw.finisher_miraclegotchard);
+                                        break;
+                                    case 2:
+                                        mp1 = MediaPlayer.create(MainActivity.this, R.raw.finisher_shiningdaybreak);
+                                        break;
+                                }
+                            }
                             else {
                                 mp1 = MediaPlayer.create(MainActivity.this, longpress.get(currentImageIndex));
                             }
@@ -345,6 +356,16 @@ public class MainActivity extends BaseKamenActivity{
                         {
                             case 0:mp=MediaPlayer.create(MainActivity.this,R.raw.henshingeatsdea_0);dea=1;break;
                             case 1:mp=MediaPlayer.create(MainActivity.this,R.raw.henshingeatsdea_1);dea=0;break;
+                        }
+                    }
+                    else if(currentImageIndex==14 && gotchard!=0) {
+                        switch (gotchard) {
+                            case 1:
+                                mp = MediaPlayer.create(MainActivity.this, R.raw.henshin_miraclegotchard);
+                                break;
+                            case 2:
+                                mp = MediaPlayer.create(MainActivity.this, R.raw.henshin_shiningdaybreak);
+                                break;
                         }
                     }
                     else
@@ -428,7 +449,18 @@ public class MainActivity extends BaseKamenActivity{
                             }
                         }
                     }
-                    else{
+                    else if(currentImageIndex==14 && gotchard!=0) {
+                        switch (gotchard) {
+                            case 1:
+                                mp = MediaPlayer.create(MainActivity.this, R.raw.miraclegotchard);
+                                break;
+                            case 2:
+                                mp = MediaPlayer.create(MainActivity.this, R.raw.gotchardshiningdaybreak);
+                                break;
+                        }
+                    }
+                    else
+                    {
                         mp = MediaPlayer.create(MainActivity.this, sound.get(currentImageIndex));
                         if(currentImageIndex==3 || currentImageIndex==9 || currentImageIndex==10 )
                         {
@@ -971,6 +1003,40 @@ public class MainActivity extends BaseKamenActivity{
                             {
                                 case 0:geatsflag=4;break;
                                 case 3:geatsflag=0;break;
+                            }
+                        }
+                    }
+                    else if(currentImageIndex==14)
+                    {
+                        myLocalImage.clearAnimation();
+                        if(mp!=null)
+                        {
+                            mp.release();
+                            mp=null;
+                        }
+                        if(mp1!=null)
+                        {
+                            mp1.release();
+                            mp1=null;
+                        }
+                        if(downSwipe)
+                        {
+                            switch(gotchard)
+                            {
+                                case 0: gotchard=1;myLocalImage.setImageResource(R.drawable.miracle_gotchard);break;
+                                case 2: gotchard=0;myLocalImage.setImageResource(R.drawable.gotchard);break;
+                            }
+                        }
+                        if(upSwipe) {
+                            switch (gotchard) {
+                                case 0:
+                                    gotchard = 2;
+                                    myLocalImage.setImageResource(R.drawable.gotchard_daybreak);
+                                    break;
+                                case 1:
+                                    gotchard = 0;
+                                    myLocalImage.setImageResource(R.drawable.gotchard);
+                                    break;
                             }
                         }
                     }
