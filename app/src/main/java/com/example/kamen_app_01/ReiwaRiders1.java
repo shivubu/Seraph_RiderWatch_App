@@ -42,11 +42,11 @@ public class ReiwaRiders1 extends BaseKamenActivity {
             return insets;
         });
         Animation fade= AnimationUtils.loadAnimation(this,R.anim.customfade);
-        int[] rw = {R.drawable.zerotwo,R.drawable.sabercross,R.drawable.reviultimate,R.drawable.geats9,R.drawable.gotchardrainbow,R.drawable.gavvover};
-        int[] sounds = {R.raw.zerotwo,R.raw.sabercross,R.raw.reviultimate,R.raw.geats9,R.raw.gotchardrainbow,R.raw.gavvover};
-        int[] henshinsounds={R.raw.henshinzerotwo,R.raw.henshincrosssaber,R.raw.henshinrevicerex,R.raw.henshingeats9,R.raw.henshingotchardrainbow,R.raw.henshingavvover};
+        int[] rw = {R.drawable.zerotwo,R.drawable.sabercross,R.drawable.reviultimate,R.drawable.geats9,R.drawable.gotchardrainbow,R.drawable.gavvover,R.drawable.zeztz_exdream};
+        int[] sounds = {R.raw.zerotwo,R.raw.sabercross,R.raw.reviultimate,R.raw.geats9,R.raw.gotchardrainbow,R.raw.gavvover,R.raw.zeztzexdream};
+        int[] henshinsounds={R.raw.henshinzerotwo,R.raw.henshincrosssaber,R.raw.henshinrevicerex,R.raw.henshingeats9,R.raw.henshingotchardrainbow,R.raw.henshingavvover,R.raw.henshin_zeztzexdream};
         int[] longpress={R.raw.lpzeroone,R.raw.lpsaber,R.raw.lprevi,R.raw.lpgeats,R.raw.lpgotchard};
-        int[] finishersounds={R.raw.finisher_zerotwo,R.raw.finisher_crosssaber,R.raw.finisher_reviultimate,R.raw.finisher_geats9_1,R.raw.finisher_gotchardrainbow,R.raw.lpgavvover};
+        int[] finishersounds={R.raw.finisher_zerotwo,R.raw.finisher_crosssaber,R.raw.finisher_reviultimate,R.raw.finisher_geats9_1,R.raw.finisher_gotchardrainbow,R.raw.lpgavvover,R.raw.finisher_zeztzexdream};
         int[] gavvover={R.raw.gavvover0,R.raw.gavvover1,R.raw.gavvover2,R.raw.gavvover3};
         int[] gavvmaster={R.raw.mastergummy,R.raw.mastersnack,R.raw.mastermarsh,R.raw.masterchoco,R.raw.mastercandy,R.raw.masterdonuts,R.raw.mastercake};
         ArrayList<Integer> screen = new ArrayList<>();
@@ -565,6 +565,26 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                             }
                         }
 
+                    }
+                    else if (i==6)
+                    {
+                        if(mp!=null)
+                        {
+                            mp.release();
+                            mp=null;
+                            myLocalImage.clearAnimation();
+                        }
+                        if(mp1!=null)
+                        {
+                            mp1.release();
+                            mp1=null;
+                            myLocalImage.clearAnimation();
+                        }
+                        if(leftSwipe || rightSwipe)
+                        {
+                            mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.zeztzexdreamfullrise);
+                            mp.start();
+                        }
                     }
                     return super.onFling(e1, e2, velocityX, velocityY);
                 }
