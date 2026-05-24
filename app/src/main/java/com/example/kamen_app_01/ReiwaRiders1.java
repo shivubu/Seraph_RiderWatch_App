@@ -25,7 +25,7 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 
 public class ReiwaRiders1 extends BaseKamenActivity {
-    int i=0,gavvoverhenshin=0,flag=0,geatsflag=0,saber=0,gavvmode=0,hellrise=0,primitive=0,pdhenshin=0,pdfinisher;
+    int i=0,gavvoverhenshin=0,flag=0,geatsflag=0,saber=0,gavvmode=0,hellrise=0,primitive=0,pdhenshin=0,pdfinisher,zeztzfinisher;
     int overindex,masterindex;
     ImageView myLocalImage;
     @SuppressLint("ClickableViewAccessibility")
@@ -46,7 +46,7 @@ public class ReiwaRiders1 extends BaseKamenActivity {
         int[] sounds = {R.raw.zerotwo,R.raw.sabercross,R.raw.reviultimate,R.raw.geats9,R.raw.gotchardrainbow,R.raw.gavvover,R.raw.zeztzexdream};
         int[] henshinsounds={R.raw.henshinzerotwo,R.raw.henshincrosssaber,R.raw.henshinrevicerex,R.raw.henshingeats9,R.raw.henshingotchardrainbow,R.raw.henshingavvover,R.raw.henshin_zeztzexdream};
         int[] longpress={R.raw.lpzeroone,R.raw.lpsaber,R.raw.lprevi,R.raw.lpgeats,R.raw.lpgotchard};
-        int[] finishersounds={R.raw.finisher_zerotwo,R.raw.finisher_crosssaber,R.raw.finisher_reviultimate,R.raw.finisher_geats9_1,R.raw.finisher_gotchardrainbow,R.raw.lpgavvover,R.raw.finisher_zeztzexdream};
+        int[] finishersounds={R.raw.finisher_zerotwo,R.raw.finisher_crosssaber,R.raw.finisher_reviultimate,R.raw.finisher_geats9_1,R.raw.finisher_gotchardrainbow,R.raw.lpgavvover,R.raw.finisher_zeztzexdream_1};
         int[] gavvover={R.raw.gavvover0,R.raw.gavvover1,R.raw.gavvover2,R.raw.gavvover3};
         int[] gavvmaster={R.raw.mastergummy,R.raw.mastersnack,R.raw.mastermarsh,R.raw.masterchoco,R.raw.mastercandy,R.raw.masterdonuts,R.raw.mastercake};
         ArrayList<Integer> screen = new ArrayList<>();
@@ -125,6 +125,7 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                         case 1: saber=0;primitive=0;pdhenshin=0;pdfinisher=0;break;
                         case 3: geatsflag=0; break;
                         case 5: gavvmode=0;gavvoverhenshin=0; overindex=-1; masterindex=-1; break;
+                        case 6: zeztzfinisher=0;break;
                     }
                 }
                 return true;
@@ -196,6 +197,14 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                             {
                                 case 1:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.lpgavvmaster);break;
                                 case 2:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_amazinggummy);break;
+                            }
+                        }
+                        else if(i==6)
+                        {
+                            switch(zeztzfinisher)
+                            {
+                                case 0:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_zeztzexdream_1);zeztzfinisher=1;break;
+                                case 1:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_zeztzexdream_2);zeztzfinisher=0;break;
                             }
                         }
                         else
