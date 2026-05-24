@@ -1,11 +1,9 @@
 package com.example.kamen_app_01;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.GestureDetector;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;

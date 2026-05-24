@@ -63,16 +63,19 @@ public abstract class BaseKamenActivity extends AppCompatActivity {
         releaseResources();
     }
 
-    protected void releaseResources(){
-        if (loopPlayer != null) {
+    private void releaseResources() {
+        //1. Stop the loop first to prevent it from spawning a 'NextPlayer'
+        if (loopPlayer != null) {try {
             loopPlayer.stop();
             loopPlayer.release();
-            loopPlayer = null;
+        } catch (Exception e) {
+            // Prevent crash if already released
         }
+            loopPlayer = null;
+        }// 2. Standard players
+        if (mp != null) { mp.release(); mp = null; }if (mp1 != null) { mp1.release(); mp1 = null; }
 
-        if (mp != null) { mp.release();mp = null; }
-        if (mp1 != null) { mp1.release(); mp1 = null; }
-
+        // 3. Transition sound (allow it to finish)
         if (end != null) {
             if (end.isPlaying()) {
                 end.setOnCompletionListener(MediaPlayer::release);
@@ -82,13 +85,21 @@ public abstract class BaseKamenActivity extends AppCompatActivity {
             }
         }
 
-        ImageView imageView = getLocalImageView();
-        if (imageView != null)imageView.clearAnimation();
-
+        // 4. Hardware Sensors & UI
         View rotaryView = getRotaryView();
-        if (rotaryView !=null) rotaryView.setOnGenericMotionListener(null);
+        if (rotaryView != null) {
+            rotaryView.setOnGenericMotionListener(null);
+        }
 
-        if (handler != null) handler.removeCallbacksAndMessages(null);
+        ImageView imageView = getLocalImageView();
+        if (imageView != null) {
+            imageView.clearAnimation();
+        }
 
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);}
+        // 5. CPU & Battery
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
 }

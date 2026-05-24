@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.GestureDetector;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -16,14 +15,12 @@ import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class Menu extends BaseKamenActivity {
     ImageView heiseigen1,heiseigen2,custom,reiwagen1,showa,ohma;
-    MediaPlayer mp,end;
     Animation fade;
     int custom_flag=0;
     @SuppressLint("ClickableViewAccessibility")
