@@ -1,225 +1,158 @@
-package com.example.kamen_app_01;
-
-import android.content.Context;
+package com.example.kamen_app_01;import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.util.Log;
-
 import java.io.IOException;
 
-/**
- * Created by viksaaskool on 13-04-2017.
- */
-
 public class PerfectLoopMediaPlayer {
-
-
     private static final String TAG = PerfectLoopMediaPlayer.class.getName();
-    private Context mContext = null;
-    private int mResId = 0;
+    private Context mContext = null;private int mResId = 0;
     private String mPath = null;
-
     private MediaPlayer mCurrentPlayer = null;
     private MediaPlayer mNextPlayer = null;
 
-    /**
-     * Creating instance of the player with given context and raw resource
-     *
-     * @param context - context
-     * @param resId   - raw resource
-     * @return new instance
-     */
     public static PerfectLoopMediaPlayer create(Context context, int resId) {
-        return new PerfectLoopMediaPlayer(context, resId);
+        return new PerfectLoopMediaPlayer(context, resId);}
+
+    public static PerfectLoopMediaPlayer create(Context context, String path) {
+        return new PerfectLoopMediaPlayer(context, path);
     }
 
-
-    private PerfectLoopMediaPlayer(Context context, int resId) {
-        mContext = context;
+    private PerfectLoopMediaPlayer(Context context, int resId) {mContext = context;
         mResId = resId;
         try {
             AssetFileDescriptor afd = context.getResources().openRawResourceFd(mResId);
             mCurrentPlayer = new MediaPlayer();
             mCurrentPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
             mCurrentPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mediaPlayer) {
+                @Override public void onPrepared(MediaPlayer mediaPlayer) {
                     mCurrentPlayer.start();
                 }
-            });
-            mCurrentPlayer.prepareAsync();
+            });mCurrentPlayer.prepareAsync();
             createNextMediaPlayerRaw();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException e){
+            Log.e(TAG, "Error", e);
         }
-    }
-
-    private void createNextMediaPlayerRaw() {
-        AssetFileDescriptor afd = mContext.getResources().openRawResourceFd(mResId);
-        mNextPlayer = new MediaPlayer();
-        try {
-            mNextPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
-            mNextPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                    mNextPlayer.seekTo(0);
-                    mCurrentPlayer.setNextMediaPlayer(mNextPlayer);
-                    mCurrentPlayer.setOnCompletionListener(onCompletionListener);
-                }
-            });
-            mNextPlayer.prepareAsync();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    /**
-     * Creating instance of the player with given context
-     * and internal memory/SD path resource
-     *
-     * @param context - context
-     * @param path    - internal memory/SD path to sound resource
-     * @return new instance
-     */
-    public static PerfectLoopMediaPlayer create(Context context, String path) {
-        return new PerfectLoopMediaPlayer(context, path);
     }
 
     private PerfectLoopMediaPlayer(Context context, String path) {
         mContext = context;
-        mPath = path;
-        try {
+        mPath = path;try {
+            mCurrentPlayer = new MediaPlayer();
             mCurrentPlayer.setDataSource(mPath);
             mCurrentPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mediaPlayer) {
+                @Override public void onPrepared(MediaPlayer mediaPlayer) {
                     mCurrentPlayer.start();
                 }
-            });
-            mCurrentPlayer.prepareAsync();
+            });mCurrentPlayer.prepareAsync();
             createNextMediaPlayerPath();
+        } catch (IOException e){
+            Log.e(TAG, "Error", e);
+        }
+    }
+
+    private void createNextMediaPlayerRaw() {
+        if (mCurrentPlayer == null) return;
+        try {AssetFileDescriptor afd = mContext.getResources().openRawResourceFd(mResId);
+            mNextPlayer = new MediaPlayer();
+            mNextPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+            mNextPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    if (mCurrentPlayer !=null) {
+                        mNextPlayer.seekTo(0);
+                        mCurrentPlayer.setNextMediaPlayer(mNextPlayer);
+                        mCurrentPlayer.setOnCompletionListener(onCompletionListener);
+                    }
+                }});
+            mNextPlayer.prepareAsync();
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Error", e);
         }
     }
 
     private void createNextMediaPlayerPath() {
-        mNextPlayer = new MediaPlayer();
+        if (mCurrentPlayer == null) return;
         try {
+            mNextPlayer =new MediaPlayer();
             mNextPlayer.setDataSource(mPath);
             mNextPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
-                public void onPrepared(MediaPlayer mp) {
-                    mNextPlayer.seekTo(0);
-                    mCurrentPlayer.setNextMediaPlayer(mNextPlayer);
+                public void onPrepared(MediaPlayer mp) {if (mCurrentPlayer != null) {
+                    mNextPlayer.seekTo(0);mCurrentPlayer.setNextMediaPlayer(mNextPlayer);
                     mCurrentPlayer.setOnCompletionListener(onCompletionListener);
+                }
                 }
             });
             mNextPlayer.prepareAsync();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch(IOException e) {
+            Log.e(TAG, "Error", e);
         }
-
-    }
-
-
-    private final MediaPlayer.OnCompletionListener onCompletionListener =
-            new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mediaPlayer) {
+    }private final MediaPlayer.OnCompletionListener onCompletionListener =
+            new MediaPlayer.OnCompletionListener() {@Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                if (mCurrentPlayer != null){
                     mCurrentPlayer = mNextPlayer;
-                    createNextMediaPlayerRaw();
-                    mediaPlayer.release();
-                }
+                    if (mPath != null) {
+                        createNextMediaPlayerPath();
+                    } else {
+                        createNextMediaPlayerRaw();
+                    }
+                }mediaPlayer.release();
+            }
             };
 
+    public boolean isPlaying() {
+        return mCurrentPlayer != null && mCurrentPlayer.isPlaying();
+    }
 
-    public boolean isPlaying() throws IllegalStateException {
+    public void start() {
         if (mCurrentPlayer != null) {
-            return mCurrentPlayer.isPlaying();
-        } else {
-            return false;
+            mCurrentPlayer.start();
         }
     }
+
+    public void stop() {
+        if (mCurrentPlayer != null && mCurrentPlayer.isPlaying()) {
+            mCurrentPlayer.stop();
+        }
+    }
+
+    public void pause() {
+        if (mCurrentPlayer != null && mCurrentPlayer.isPlaying()) {
+            mCurrentPlayer.pause();
+        }}
 
     public void setVolume(float leftVolume, float rightVolume) {
-        if (mCurrentPlayer != null) {
+        if (mCurrentPlayer!= null) {
             mCurrentPlayer.setVolume(leftVolume, rightVolume);
-        } else {
-            Log.d(TAG, "setVolume()");
-        }
-
-    }
-
-    public void start() throws IllegalStateException {
-        if (mCurrentPlayer != null) {
-            Log.d(TAG, "start()");
-            mCurrentPlayer.start();
-        } else {
-            Log.d(TAG, "start() | mCurrentPlayer is NULL");
-        }
-
-    }
-
-    public void stop() throws IllegalStateException {
-        if (mCurrentPlayer != null && mCurrentPlayer.isPlaying()) {
-            Log.d(TAG, "stop()");
-            mCurrentPlayer.stop();
-        } else {
-            Log.d(TAG, "stop() | mCurrentPlayer " +
-                    "is NULL or not playing");
-        }
-
-    }
-
-    public void pause() throws IllegalStateException {
-        if (mCurrentPlayer != null && mCurrentPlayer.isPlaying()) {
-            Log.d(TAG, "pause()");
-            mCurrentPlayer.pause();
-        } else {
-            Log.d(TAG, "pause() | mCurrentPlayer " +
-                    "is NULL or not playing");
-        }
-
-    }
+        }}
 
     public void setWakeMode(Context c, int mode) {
-        if (mCurrentPlayer != null) {
+        if (mCurrentPlayer !=null) {
             mCurrentPlayer.setWakeMode(c, mode);
-            Log.d(TAG, "setWakeMode() | ");
-        } else {
-            Log.d(TAG, "setWakeMode() | " +
-                    "mCurrentPlayer is NULL");
         }
-    }
-
-    public void setAudioStreamType(int audioStreamType) {
-        if (mCurrentPlayer != null) {
+    }public void setAudioStreamType(int audioStreamType) {
+        if (mCurrentPlayer != null){
             mCurrentPlayer.setAudioStreamType(audioStreamType);
-        } else {
-            Log.d(TAG, "setAudioStreamType() | " +
-                    "mCurrentPlayer is NULL");
         }
+    }public void reset() {
+        if (mCurrentPlayer != null) {
+            mCurrentPlayer.reset();}
     }
 
     public void release() {
-        Log.d(TAG, "release()");
-        if (mCurrentPlayer != null)
+        if (mCurrentPlayer != null) {mCurrentPlayer.setOnCompletionListener(null);
+            mCurrentPlayer.setNextMediaPlayer(null);try {
+                if (mCurrentPlayer.isPlaying()) mCurrentPlayer.stop();
+            } catch(Exception ignored) {}
             mCurrentPlayer.release();
-        if (mNextPlayer != null)
-            mNextPlayer.release();
-    }
-
-    public void reset() {
-        if (mCurrentPlayer != null) {
-            Log.d(TAG, "reset()");
-            mCurrentPlayer.reset();
-        } else {
-            Log.d(TAG, "reset() | " +
-                    "mCurrentPlayer is NULL");
+            mCurrentPlayer = null;
+        }if (mNextPlayer != null) {
+            try {
+                if (mNextPlayer.isPlaying()) mNextPlayer.stop();
+            } catch (Exception ignored) {}
+            mNextPlayer.release();mNextPlayer = null;
         }
-
     }
-
 }

@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <uses-feature android:name="android.hardware.type.watch" />
 
     <application
@@ -13,61 +12,25 @@
         android:roundIcon="@mipmap/ic_launcher_faceplate_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".Gozyuger"
-            android:exported="false" />
-        <activity
-            android:name=".Ohma"
-            android:exported="false"
-            android:taskAffinity="" />
-        <activity
-            android:name=".Showa"
-            android:exported="false"
-            android:taskAffinity="" />
-        <activity
-            android:name=".ReiwaRiders1"
-            android:exported="false"
-            android:taskAffinity="" />
-        <activity
-            android:name=".HeiseiRiders2"
-            android:exported="false"
-            android:taskAffinity="" />
-        <activity
-            android:name=".Menu"
-            android:exported="false"
-            android:taskAffinity="" />
+
+        <!-- Launcher:The only one that should have taskAffinity if any -->
         <activity
             android:name=".LauncherActivity"
-            android:exported="true"
-            android:taskAffinity="">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" /></intent-filter>
         </activity>
-        <activity
-            android:name=".HeiseiRiders1"
-            android:exported="false"
-            android:taskAffinity=""
-            android:theme="@style/AppTheme" />
 
-        <uses-library
-            android:name="com.google.android.wearable"
-            android:required="true" />
-        <!--
-               Set to true if your app is Standalone, that is, it does not require the handheld
-               app to run.
-        -->
-        <meta-data
-            android:name="com.google.android.wearable.standalone"
-            android:value="true" />
-
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:taskAffinity=""
-            android:theme="@style/AppTheme" />
+        <!-- All other activities: Removed taskAffinity so they stayin ONE stack -->
+        <activity android:name=".Menu" android:exported="false" />
+        <activity android:name=".HeiseiRiders1" android:exported="false" />
+        <activity android:name=".HeiseiRiders2" android:exported="false" />
+        <activity android:name=".ReiwaRiders1" android:exported="false" />
+        <activity android:name=".Showa" android:exported="false" />
+        <activity android:name=".Ohma" android:exported="false" />
+        <activity android:name=".Gozyuger" android:exported="false" />
+        <activity android:name=".MainActivity" android:exported="true" />
 
         <uses-library
             android:name="com.google.android.wearable"
@@ -75,7 +38,6 @@
 
         <meta-data
             android:name="com.google.android.wearable.standalone"
-            android:value="true" />
-    </application>
+            android:value="true" /></application>
 
 </manifest>
