@@ -25,7 +25,7 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 
 public class ReiwaRiders1 extends BaseKamenActivity {
-    int i=0,gavvoverhenshin=0,flag=0,geatsflag=0,saber=0,gavvmode=0,hellrise=0,primitive=0,pdhenshin=0,pdfinisher,zeztzfinisher;
+    int i=0,gavvoverhenshin=0,flag=0,geatsflag=0,saber=0,gavvmode=0,hellrise=0,primitive=0,pdhenshin=0,pdfinisher,zeztzfinisher,gotchardfinisher;
     int overindex,masterindex;
     ImageView myLocalImage;
     @SuppressLint("ClickableViewAccessibility")
@@ -124,6 +124,7 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                         case 0: hellrise=0;break;
                         case 1: saber=0;primitive=0;pdhenshin=0;pdfinisher=0;break;
                         case 3: geatsflag=0; break;
+                        case 4: gotchardfinisher=0;break;
                         case 5: gavvmode=0;gavvoverhenshin=0; overindex=-1; masterindex=-1; break;
                         case 6: zeztzfinisher=0;break;
                     }
@@ -188,6 +189,15 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                                 case 2:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9_2);break;
                                 case 3:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9_3);break;
                                 case 4:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9_4);break;
+
+                            }
+                        }
+                        else if(i==4)
+                        {
+                            switch(gotchardfinisher)
+                            {
+                                case 0:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_gotchardrainbow);gotchardfinisher=1;break;
+                                case 1:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_miraclegotchard);gotchardfinisher=0;break;
 
                             }
                         }

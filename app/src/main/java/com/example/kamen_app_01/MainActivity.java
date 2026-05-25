@@ -29,7 +29,7 @@ public class MainActivity extends BaseKamenActivity{
     ImageView myLocalImage;
     PerfectLoopMediaPlayer standby;
     private Drawable[] backgroundImages;
-    private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,hazard_flag=0,genmflag=0,fumetsuflag=0,bahamut=0,sabermode=0,flag1=0,ohmaflag=0,superherosenki1=0,superherosenki2=0,wonder1=0,wonder2=0,geatsflag=0,fumetsu=0,dea,rampage_index,phblade_index,exc_index,drivemode,sru,finalForm,gotchard;
+    private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,hazard_flag=0,genmflag=0,fumetsuflag=0,bahamut=0,sabermode=0,flag1=0,ohmaflag=0,superherosenki1=0,superherosenki2=0,wonder1=0,wonder2=0,geatsflag=0,fumetsu=0,dea,rampage_index,phblade_index,exc_index,drivemode,sru,finalForm,gotchard,gotchardfinisher;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,7 +161,7 @@ public class MainActivity extends BaseKamenActivity{
                         case 11: zt_index=-1;ztweap_index=-1;phblade_index=-1;rampage_index=-1;break;
                         case 12: sabermode=0;bahamut=0;superherosenki1=superherosenki2=0;wonder1=wonder2=0;break;
                         case 13: geatsflag=0;dea=0;break;
-                        case 14: gotchard=0;break;
+                        case 14: gotchard=0;gotchardfinisher=0;break;
                     }
                 }
                 return true;
@@ -286,8 +286,11 @@ public class MainActivity extends BaseKamenActivity{
                             else if(currentImageIndex==14 && gotchard!=0) {
                                 switch (gotchard) {
                                     case 1:
-                                        mp1 = MediaPlayer.create(MainActivity.this, R.raw.finisher_miraclegotchard);
-                                        break;
+                                        switch (gotchardfinisher)
+                                        {
+                                            case 0 : mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_gotchardrainbow);gotchardfinisher=1;break;
+                                            case 1 : mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_miraclegotchard);gotchardfinisher=0;break;
+                                        }break;
                                     case 2:
                                         mp1 = MediaPlayer.create(MainActivity.this, R.raw.finisher_shiningdaybreak);
                                         break;
