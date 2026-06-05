@@ -5,8 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -14,7 +12,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -22,7 +19,6 @@ import androidx.core.view.WindowInsetsCompat;
 public class Menu extends BaseKamenActivity {
     ImageView heiseigen1,heiseigen2,custom,reiwagen1,showa,ohma;
     Animation fade;
-    int custom_flag=0;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,45 +52,11 @@ public class Menu extends BaseKamenActivity {
                 throw new RuntimeException(e);
             }
         });
-        custom.setOnTouchListener(new View.OnTouchListener() {
-            final GestureDetector gestureDetector=new GestureDetector(getApplicationContext(),new GestureDetector.SimpleOnGestureListener()
-            {
-                @Override
-                public void onLongPress(@NonNull MotionEvent e) {
-                    switch(custom_flag) {
-                        case 0:
-                            custom_flag = 1;
-                            custom.setImageResource(R.drawable.ryo_tegasword);
-                            break;
-                        case 1:
-                            custom_flag = 0;
-                            custom.setImageResource(R.drawable.seraph);
-                            break;
-                    }
-                    super.onLongPress(e);
-                }
-                @Override
-                public boolean onSingleTapConfirmed(@NonNull MotionEvent e) {
-                    switch (custom_flag)
-                    {
-                        case 0:try {
-                            onClickButton(custom, MainActivity.class.newInstance());
-                        } catch (IllegalAccessException | InstantiationException e1) {
-                            throw new RuntimeException(e1);
-                        }break;
-                        case 1:try {
-                            onClickButton(custom, Gozyuger.class.newInstance());
-                        } catch (IllegalAccessException | InstantiationException e1) {
-                            throw new RuntimeException(e1);
-                        }break;
-                    }
-                    return super.onSingleTapConfirmed(e);
-                }
-
-            });
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return gestureDetector.onTouchEvent(event);
+        custom.setOnClickListener(v -> {
+            try {
+                onClickButton(custom, MainActivity.class.newInstance());
+            } catch (IllegalAccessException | InstantiationException e) {
+                throw new RuntimeException(e);
             }
         });
         reiwagen1.setOnClickListener(v -> {
