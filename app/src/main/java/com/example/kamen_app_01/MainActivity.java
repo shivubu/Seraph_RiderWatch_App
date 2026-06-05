@@ -591,11 +591,16 @@ public class MainActivity extends BaseKamenActivity{
                         if(downSwipe && drivemode==0)
                         {
                             drivemode=1;
+                            mp=MediaPlayer.create(MainActivity.this,R.raw.transition2);
+                            mp.start();
                             myLocalImage.setImageResource(R.drawable.drivenext);
+
                         }
                         if(upSwipe && drivemode==1)
                         {
                             drivemode=0;
+                            mp=MediaPlayer.create(MainActivity.this,R.raw.transition2);
+                            mp.start();
                             myLocalImage.setImageDrawable(backgroundImages[currentImageIndex]);
                         }
                     }
@@ -670,6 +675,8 @@ public class MainActivity extends BaseKamenActivity{
                         {
                             fumetsuflag=1;
                             fumetsu=0;
+                            mp=MediaPlayer.create(MainActivity.this,R.raw.transition2);
+                            mp.start();
                             myLocalImage.setImageResource(R.drawable.genmfumetsu);
                             flag=0;
                             genmflag=0;
@@ -677,6 +684,8 @@ public class MainActivity extends BaseKamenActivity{
                         if (upSwipe && fumetsuflag==1)
                         {
                             fumetsuflag=0;
+                            mp=MediaPlayer.create(MainActivity.this,R.raw.transition2);
+                            mp.start();
                             myLocalImage.setImageResource(R.drawable.genmmusou);
 
                         }
@@ -878,12 +887,16 @@ public class MainActivity extends BaseKamenActivity{
                             if(sabermode==0)
                             {
                                 sabermode=1;
+                                mp=MediaPlayer.create(MainActivity.this,R.raw.transition2);
+                                mp.start();
                                 myLocalImage.setImageResource(R.drawable.saberub);
                                 bahamut=0;
                             }
                             else if(sabermode==2)
                             {
                                 sabermode=0;
+                                mp=MediaPlayer.create(MainActivity.this,R.raw.transition2);
+                                mp.start();
                                 myLocalImage.setImageResource(R.drawable.saber);
                                 wonder1=0;
                                 wonder2=0;
@@ -894,12 +907,16 @@ public class MainActivity extends BaseKamenActivity{
                             if(sabermode==1)
                             {
                                 sabermode=0;
+                                mp=MediaPlayer.create(MainActivity.this,R.raw.transition2);
+                                mp.start();
                                 myLocalImage.setImageResource(R.drawable.saber);
                                 wonder1=0;
                             }
                             else if(sabermode==0)
                             {
                                 sabermode=2;
+                                mp=MediaPlayer.create(MainActivity.this,R.raw.transition2);
+                                mp.start();
                                 myLocalImage.setImageResource(R.drawable.sabershs);
                                 superherosenki1=0;
                                 superherosenki2=0;
@@ -1024,6 +1041,8 @@ public class MainActivity extends BaseKamenActivity{
                         }
                         if(downSwipe)
                         {
+                            mp=MediaPlayer.create(MainActivity.this,R.raw.transition2);
+                            mp.start();
                             switch(gotchard)
                             {
                                 case 0: gotchard=1;myLocalImage.setImageResource(R.drawable.miracle_gotchard);break;
@@ -1031,6 +1050,8 @@ public class MainActivity extends BaseKamenActivity{
                             }
                         }
                         if(upSwipe) {
+                            mp=MediaPlayer.create(MainActivity.this,R.raw.transition2);
+                            mp.start();
                             switch (gotchard) {
                                 case 0:
                                     gotchard = 2;

@@ -372,11 +372,15 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                         if(upSwipe && hellrise==0)
                         {
                             hellrise=1;
+                            mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.transition2);
+                            mp.start();
                             myLocalImage.setImageResource(R.drawable.zeroonehellrise);
                         }
                         if(downSwipe && hellrise==1)
                         {
                             hellrise=0;
+                            mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.transition2);
+                            mp.start();
                             myLocalImage.setImageResource(R.drawable.zerotwo);
                         }
                     }
@@ -397,11 +401,15 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                         if(upSwipe && primitive==0)
                         {
                             primitive=1;
+                            mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.transition2);
+                            mp.start();
                             myLocalImage.setImageResource(R.drawable.saberprimitivedragon);
                         }
                         if(downSwipe && primitive==1)
                         {
                             primitive=0;
+                            mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.transition2);
+                            mp.start();
                             myLocalImage.setImageResource(R.drawable.sabercross);
                         }
                         if(leftSwipe)
@@ -565,6 +573,8 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                         }
                         if (downSwipe)
                         {
+                            mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.transition2);
+                            mp.start();
                             switch(gavvmode)
                             {
                                 case 0: gavvmode=1;masterindex=-1;
@@ -575,6 +585,8 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                         }
                         if (upSwipe)
                         {
+                            mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.transition2);
+                            mp.start();
                             switch(gavvmode)
                             {
                                 case 0: gavvmode=2;
