@@ -44,20 +44,28 @@ public class Showa extends BaseKamenActivity {
                     R.drawable.v3,
                     R.drawable.riderman,
                     R.drawable.x,
-                    R.drawable.amazon
+                    R.drawable.amazon,
+                    R.drawable.rx_ridewatch_1,
+                    R.drawable.shin_ridewatch_1,
+                    R.drawable.zo_ridewatch_1,
+                    R.drawable.j_ridewatch_1
                     };
         int[] sounds = {R.raw.ichigo,
                         R.raw.nigo,
                         R.raw.v3,
                         R.raw.riderman,
                         R.raw.x,
-                        R.raw.amazon
+                        R.raw.amazon,
+                        R.raw.blackrx,
+                        R.raw.shin,
+                        R.raw.zo,
+                        R.raw.j
                         };
-        int[] longprsssounds={R.raw.lpichigo,R.raw.lpnigo,R.raw.lpv3,R.raw.lpriderman,R.raw.lpx,R.raw.lpamazon
+        int[] longprsssounds={R.raw.lpichigo,R.raw.lpnigo,R.raw.lpv3,R.raw.lpriderman,R.raw.lpx,R.raw.lpamazon,R.raw.lpblackrx,R.raw.lpshin,R.raw.lpzo,R.raw.lpj
         };
-        int[] henshinsounds={R.raw.henshin_ichigo,R.raw.henshin_nigo,R.raw.henshin_v3,R.raw.henshin_riderman,R.raw.henshin_x,R.raw.henshin_amazon
+        int[] henshinsounds={R.raw.henshin_ichigo,R.raw.henshin_nigo,R.raw.henshin_v3,R.raw.henshin_riderman,R.raw.henshin_x,R.raw.henshin_amazon,R.raw.henshin_blackrx,R.raw.henshin_shin,R.raw.henshin_zo,R.raw.henshin_j
         };
-        int[] finishersounds={R.raw.finisher_ichigo,R.raw.finisher_nigo,R.raw.finisher_v3,R.raw.finisher_riderman,R.raw.finisher_x,R.raw.finisher_amazon
+        int[] finishersounds={R.raw.finisher_ichigo,R.raw.finisher_nigo,R.raw.finisher_v3,R.raw.finisher_riderman,R.raw.finisher_x,R.raw.finisher_amazon,R.raw.finisher_blackrx,R.raw.finisher_shin,R.raw.finisher_zo,R.raw.finisher_j
         };
         ArrayList<Integer> screen = new ArrayList<>();
         for (int j : rw) {
