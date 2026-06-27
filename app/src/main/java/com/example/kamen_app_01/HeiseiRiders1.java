@@ -290,9 +290,13 @@ public class HeiseiRiders1 extends BaseKamenActivity {
                         loopPlayer=null;
                     }
                     myLocalImage.startAnimation(fade);
-                    mp = MediaPlayer.create(HeiseiRiders1.this, henshinsound.get(i));
+                    mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.judgementformtime);
                     mp.start();
-                    mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
+                    mp.setOnCompletionListener(mp -> {
+                        mp1=MediaPlayer.create(HeiseiRiders1.this,henshinsound.get(i));
+                        mp1.start();
+                        mp1.setOnCompletionListener(mp2 -> myLocalImage.clearAnimation());
+                    });
                     return super.onDoubleTap(e);
                 }
                 @Override

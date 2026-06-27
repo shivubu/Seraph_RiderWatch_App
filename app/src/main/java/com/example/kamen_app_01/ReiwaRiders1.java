@@ -240,41 +240,45 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                         mp1=null;
                     }
                     myLocalImage.startAnimation(fade);
-                    if(i==0 && hellrise==1)
-                    {
-                        mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.henshinzeronehellrise);
-                    }
-                    else if(i==1 && primitive==1)
-                    {
-                        if(pdhenshin==0)
+                    mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.judgementformtime);
+                    mp.start();
+                    mp.setOnCompletionListener(mp -> {
+                        if(i==0 && hellrise==1)
                         {
-                            mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.henshinsaberprimitivedragon);
-                            pdhenshin=1;
+                            mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.henshinzeronehellrise);
+                        }
+                        else if(i==1 && primitive==1)
+                        {
+                            if(pdhenshin==0)
+                            {
+                                mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.henshinsaberprimitivedragon);
+                                pdhenshin=1;
+                            }
+                            else
+                            {
+                                mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.henshinsaberprimitivedragonalt);
+                                pdhenshin=0;
+                            }
+                        }
+                        else if(i==5 && gavvmode!=0)
+                        {
+                            switch (gavvmode)
+                            {
+                                case 1: mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.henshingavvmaster);break;
+                                case 2: mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.henshinamazinggummy);break;
+                            }
                         }
                         else
                         {
-                            mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.henshinsaberprimitivedragonalt);
-                            pdhenshin=0;
+                            mp1 = MediaPlayer.create(ReiwaRiders1.this, henshinsound.get(i));
+                            if(i==5 && gavvmode==0)
+                            {
+                                gavvoverhenshin=1;
+                            }
                         }
-                    }
-                    else if(i==5 && gavvmode!=0)
-                    {
-                        switch (gavvmode)
-                        {
-                            case 1: mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.henshingavvmaster);break;
-                            case 2: mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.henshinamazinggummy);break;
-                        }
-                    }
-                    else
-                    {
-                        mp = MediaPlayer.create(ReiwaRiders1.this, henshinsound.get(i));
-                        if(i==5 && gavvmode==0)
-                        {
-                            gavvoverhenshin=1;
-                        }
-                    }
-                    mp.start();
-                    mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
+                        mp1.start();
+                        mp1.setOnCompletionListener(mp2 -> myLocalImage.clearAnimation());
+                    });
                     return super.onDoubleTap(e);
                 }
 

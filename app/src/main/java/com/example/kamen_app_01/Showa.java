@@ -164,9 +164,13 @@ public class Showa extends BaseKamenActivity {
                         mp1=null;
                     }
                     myLocalImage.startAnimation(fade);
-                    mp=MediaPlayer.create(Showa.this,henshin.get(i));
+                    mp=MediaPlayer.create(Showa.this,R.raw.judgementformtime);
                     mp.start();
-                    mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
+                    mp.setOnCompletionListener(mp -> {
+                        mp1=MediaPlayer.create(Showa.this,henshin.get(i));
+                        mp1.start();
+                        mp1.setOnCompletionListener(mp2 -> myLocalImage.clearAnimation());
+                    });
                     return super.onDoubleTap(e);
                 }
 

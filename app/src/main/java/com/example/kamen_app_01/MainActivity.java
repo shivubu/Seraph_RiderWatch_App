@@ -27,7 +27,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends BaseKamenActivity{
     ImageView myLocalImage;
-    PerfectLoopMediaPlayer standby;
     private Drawable[] backgroundImages;
     private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,hazard_flag=0,genmflag=0,fumetsuflag=0,bahamut=0,sabermode=0,flag1=0,ohmaflag=0,superherosenki1=0,superherosenki2=0,wonder1=0,wonder2=0,geatsflag=0,fumetsu=0,dea,rampage_index,phblade_index,exc_index,drivemode,sru,finalForm,gotchard,gotchardfinisher;
     @SuppressLint("ClickableViewAccessibility")
@@ -122,10 +121,10 @@ public class MainActivity extends BaseKamenActivity{
                     mp1 = null;
                     myLocalImage.clearAnimation();
                 }
-                if(standby!=null)
+                if(loopPlayer!=null)
                 {
-                    standby.release();
-                    standby=null;
+                    loopPlayer.release();
+                    loopPlayer=null;
                 }
                 flag1=0;
                 float delta = -motionEvent.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
@@ -183,10 +182,10 @@ public class MainActivity extends BaseKamenActivity{
                         mp1.release();
                         mp1=null;
                     }
-                    if(standby!=null)
+                    if(loopPlayer!=null)
                     {
-                        standby.release();
-                        standby=null;
+                        loopPlayer.release();
+                        loopPlayer=null;
                     }
                     myLocalImage.startAnimation(fade);
                     if(currentImageIndex==0 && finalForm==1)
@@ -318,65 +317,84 @@ public class MainActivity extends BaseKamenActivity{
                         mp1.release();
                         mp1=null;
                     }
-                    if(standby!=null)
+                    if(loopPlayer!=null)
                     {
-                        standby.release();
-                        standby=null;
+                        loopPlayer.release();
+                        loopPlayer=null;
                     }
                     myLocalImage.startAnimation(fade);
-                    if(currentImageIndex==0 && finalForm==1)
+                    if(currentImageIndex==0)
                     {
-                        mp=MediaPlayer.create(MainActivity.this,R.raw.henshin_seraphsupreme_prime);
-                    }
-                    else if(currentImageIndex==5 && drivemode==1)
-                    {
-                        mp=MediaPlayer.create(MainActivity.this,R.raw.henshindrivenext);
-                    }
-                    else if(currentImageIndex==7 && fumetsuflag==1)
-                    {
-                        mp=MediaPlayer.create(MainActivity.this,R.raw.henshingenmhyperfumetsu);
-                    }
-                    else if(currentImageIndex==8 && hazard_flag==1)
-                    {
-                        mp=MediaPlayer.create(MainActivity.this,R.raw.henshincrossbuildhazard);
-
-                    }
-                    else if(currentImageIndex==10 && ohmaflag==1)
-                    {
-                        mp=MediaPlayer.create(MainActivity.this,R.raw.henshinohmazio);
-                    }
-                    else if(currentImageIndex==12 && sabermode!=0)
-                    {
-                        switch(sabermode)
-                        {
-                            case 1:mp=MediaPlayer.create(MainActivity.this,R.raw.henshinsaberub);break;
-                            case 2:mp=MediaPlayer.create(MainActivity.this,R.raw.henshinsabershs);break;
-                        }
-                    }
-                    else if(currentImageIndex==13)
-                    {
-                        switch(dea)
-                        {
-                            case 0:mp=MediaPlayer.create(MainActivity.this,R.raw.henshingeatsdea_0);dea=1;break;
-                            case 1:mp=MediaPlayer.create(MainActivity.this,R.raw.henshingeatsdea_1);dea=0;break;
-                        }
-                    }
-                    else if(currentImageIndex==14 && gotchard!=0) {
-                        switch (gotchard) {
+                        switch(finalForm) {
+                            case 0:
+                                mp = MediaPlayer.create(MainActivity.this, henshinsound.get(currentImageIndex));
+                                break;
                             case 1:
-                                mp = MediaPlayer.create(MainActivity.this, R.raw.henshin_miraclegotchard);
-                                break;
-                            case 2:
-                                mp = MediaPlayer.create(MainActivity.this, R.raw.henshin_shiningdaybreak);
+                                mp = MediaPlayer.create(MainActivity.this, R.raw.henshin_seraphsupreme_prime);
                                 break;
                         }
+                        mp.start();
+                        mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
                     }
-                    else
-                    {
-                        mp = MediaPlayer.create(MainActivity.this, henshinsound.get(currentImageIndex));
+                    else {
+                        mp=MediaPlayer.create(MainActivity.this,R.raw.judgementformtime);
+                        mp.start();
+                        mp.setOnCompletionListener(mp -> {
+                            if(currentImageIndex==0 && finalForm==1)
+                            {
+                                mp1=MediaPlayer.create(MainActivity.this,R.raw.henshin_seraphsupreme_prime);
+                            }
+                            else if(currentImageIndex==5 && drivemode==1)
+                            {
+                                mp1=MediaPlayer.create(MainActivity.this,R.raw.henshindrivenext);
+                            }
+                            else if(currentImageIndex==7 && fumetsuflag==1)
+                            {
+                                mp1=MediaPlayer.create(MainActivity.this,R.raw.henshingenmhyperfumetsu);
+                            }
+                            else if(currentImageIndex==8 && hazard_flag==1)
+                            {
+                                mp1=MediaPlayer.create(MainActivity.this,R.raw.henshincrossbuildhazard);
+
+                            }
+                            else if(currentImageIndex==10 && ohmaflag==1)
+                            {
+                                mp1=MediaPlayer.create(MainActivity.this,R.raw.henshinohmazio);
+                            }
+                            else if(currentImageIndex==12 && sabermode!=0)
+                            {
+                                switch(sabermode)
+                                {
+                                    case 1:mp1=MediaPlayer.create(MainActivity.this,R.raw.henshinsaberub);break;
+                                    case 2:mp1=MediaPlayer.create(MainActivity.this,R.raw.henshinsabershs);break;
+                                }
+                            }
+                            else if(currentImageIndex==13)
+                            {
+                                switch(dea)
+                                {
+                                    case 0:mp1=MediaPlayer.create(MainActivity.this,R.raw.henshingeatsdea_0);dea=1;break;
+                                    case 1:mp1=MediaPlayer.create(MainActivity.this,R.raw.henshingeatsdea_1);dea=0;break;
+                                }
+                            }
+                            else if(currentImageIndex==14 && gotchard!=0) {
+                                switch (gotchard) {
+                                    case 1:
+                                        mp1 = MediaPlayer.create(MainActivity.this, R.raw.henshin_miraclegotchard);
+                                        break;
+                                    case 2:
+                                        mp1 = MediaPlayer.create(MainActivity.this, R.raw.henshin_shiningdaybreak);
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                mp1 = MediaPlayer.create(MainActivity.this, henshinsound.get(currentImageIndex));
+                            }
+                            mp1.start();
+                            mp1.setOnCompletionListener(mp2 -> myLocalImage.clearAnimation());
+                        });
                     }
-                    mp.start();
-                    mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
                     return super.onDoubleTap(e);
                 }
                 @Override
@@ -391,10 +409,10 @@ public class MainActivity extends BaseKamenActivity{
                         mp1.release();
                         mp1=null;
                     }
-                    if(standby!=null)
+                    if(loopPlayer!=null)
                     {
-                        standby.release();
-                        standby=null;
+                        loopPlayer.release();
+                        loopPlayer=null;
                     }
                     myLocalImage.startAnimation(fade);
                     if(currentImageIndex==0 && finalForm==1)
@@ -511,10 +529,10 @@ public class MainActivity extends BaseKamenActivity{
                             mp=MediaPlayer.create(MainActivity.this,R.raw.transition2);
                             mp.start();
                         }
-                        if(leftSwipe && standby==null)
+                        if(leftSwipe && loopPlayer==null)
                         {
-                            standby=PerfectLoopMediaPlayer.create(MainActivity.this,R.raw.standby);
-                            standby.start();
+                            loopPlayer=PerfectLoopMediaPlayer.create(MainActivity.this,R.raw.standby);
+                            loopPlayer.start();
                         }
 
                     }
