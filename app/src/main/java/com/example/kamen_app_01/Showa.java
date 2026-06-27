@@ -24,7 +24,7 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 
 public class Showa extends BaseKamenActivity {
-    int i=0;
+    int i=0,flag=0;
     ImageView myLocalImage;
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -39,9 +39,26 @@ public class Showa extends BaseKamenActivity {
             return insets;
         });
         Animation fade= AnimationUtils.loadAnimation(this,R.anim.customfade);
-        int[] rw = {R.drawable.rx_ridewatch_1, R.drawable.robo_rider_ridewatch_1,R.drawable.bio_rider_ridewatch_1,R.drawable.shin_ridewatch_1,R.drawable.zo_ridewatch_1,R.drawable.j_ridewatch_1,R.drawable.amazon_alfa_1,R.drawable.amazon_omega_1,R.drawable.amazon_neo_ridewatch_1};
-        int[] sounds = {R.raw.blackrx,R.raw.roborider,R.raw.biorider,R.raw.shin,R.raw.zo,R.raw.j,R.raw.amazonalfa,R.raw.amazonomega,R.raw.amazonneo};
-        int[] longprsssounds={R.raw.lpblackrx,R.raw.lproborider,R.raw.lpbiorider,R.raw.lpshin,R.raw.lpzo,R.raw.lpj,R.raw.lpamazonalfa,R.raw.lpamazonomega,R.raw.lpamazonneo};
+        int[] rw = {R.drawable.ichigo,
+                    R.drawable.nigo,
+                    R.drawable.v3,
+                    R.drawable.riderman,
+                    R.drawable.x,
+                    R.drawable.amazon
+                    };
+        int[] sounds = {R.raw.ichigo,
+                        R.raw.nigo,
+                        R.raw.v3,
+                        R.raw.riderman,
+                        R.raw.x,
+                        R.raw.amazon
+                        };
+        int[] longprsssounds={R.raw.lpichigo,R.raw.lpnigo,R.raw.lpv3,R.raw.lpriderman,R.raw.lpx,R.raw.lpamazon
+        };
+        int[] henshinsounds={R.raw.henshin_ichigo,R.raw.henshin_nigo,R.raw.henshin_v3,R.raw.henshin_riderman,R.raw.henshin_x,R.raw.henshin_amazon
+        };
+        int[] finishersounds={R.raw.finisher_ichigo,R.raw.finisher_nigo,R.raw.finisher_v3,R.raw.finisher_riderman,R.raw.finisher_x,R.raw.finisher_amazon
+        };
         ArrayList<Integer> screen = new ArrayList<>();
         for (int j : rw) {
             screen.add(j);
@@ -54,6 +71,14 @@ public class Showa extends BaseKamenActivity {
         for (int longprsssound : longprsssounds) {
             longpress.add(longprsssound);
         }
+        ArrayList<Integer> henshin=new ArrayList<>();
+        for (int henshinsound : henshinsounds) {
+            henshin.add(henshinsound);
+        }
+        ArrayList<Integer> finisher=new ArrayList<>();
+        for (int finishersound : finishersounds) {
+            finisher.add(finishersound);
+        }
         myLocalImage = findViewById(R.id.imageView11);
         myLocalImage.setImageResource(screen.get(i));
         myLocalImage.setFocusable(true);
@@ -65,27 +90,22 @@ public class Showa extends BaseKamenActivity {
                 {
                     mp.release();
                     mp=null;
-                    myLocalImage.clearAnimation();
                 }
+                if(mp1!=null)
+                {
+                    mp1.release();
+                    mp1=null;
+                }
+                myLocalImage.clearAnimation();
                 float delta = -motionEvent.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
                         ViewConfigurationCompat.getScaledHorizontalScrollFactor(ViewConfiguration.get(getApplicationContext()), getApplicationContext());
                 if (delta > 0) {
                     // Rotate clockwise
-                    if(mp!=null)
-                    {
-                        mp.release();
-                        mp=null;
-                    }
                     mp=MediaPlayer.create(Showa.this,R.raw.transition2);
                     mp.start();
                     i++;
                 } else if (delta < 0) {
                     // Rotate counter-clockwise
-                    if(mp!=null)
-                    {
-                        mp.release();
-                        mp=null;
-                    }
                     mp=MediaPlayer.create(Showa.this,R.raw.transition2);
                     mp.start();
                     i--;
@@ -98,6 +118,7 @@ public class Showa extends BaseKamenActivity {
                 }
                 // Update the background image
                 if (!screen.isEmpty()) {
+                    flag=0;
                     myLocalImage.setImageResource(screen.get(i));
                 }
                 return true;
@@ -114,12 +135,41 @@ public class Showa extends BaseKamenActivity {
                         mp.release();
                         mp=null;
                     }
+                    if(mp1!=null)
+                    {
+                        mp1.release();
+                        mp1=null;
+                    }
                     myLocalImage.startAnimation(fade);
-                    mp = MediaPlayer.create(Showa.this, longpress.get(i));
+                    mp = MediaPlayer.create(Showa.this, R.raw.judgement_finishtime);
                     mp.start();
-                    mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
+                    mp.setOnCompletionListener(mp -> {
+                        mp1=MediaPlayer.create(Showa.this,finisher.get(i));
+                        mp1.start();
+                        mp1.setOnCompletionListener(mp2 -> myLocalImage.clearAnimation());
+                    });
                     super.onLongPress(e);
                 }
+
+                @Override
+                public boolean onDoubleTap(@NonNull MotionEvent e) {
+                    if(mp!=null)
+                    {
+                        mp.release();
+                        mp=null;
+                    }
+                    if(mp1!=null)
+                    {
+                        mp1.release();
+                        mp1=null;
+                    }
+                    myLocalImage.startAnimation(fade);
+                    mp=MediaPlayer.create(Showa.this,henshin.get(i));
+                    mp.start();
+                    mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
+                    return super.onDoubleTap(e);
+                }
+
                 @Override
                 public boolean onSingleTapConfirmed(@NonNull MotionEvent e) {
                     if(mp!=null)
@@ -128,7 +178,15 @@ public class Showa extends BaseKamenActivity {
                         mp=null;
                     }
                     myLocalImage.startAnimation(fade);
-                    mp = MediaPlayer.create(Showa.this, sound.get(i));
+                    if(flag==0)
+                    {
+                        flag=1;
+                        mp = MediaPlayer.create(Showa.this, sound.get(i));
+                    }
+                    else {
+                        flag=0;
+                        mp = MediaPlayer.create(Showa.this,longpress.get(i));
+                    }
                     mp.start();
                     mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
                     return super.onSingleTapConfirmed(e);

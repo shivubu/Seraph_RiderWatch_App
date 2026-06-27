@@ -206,7 +206,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline18"
         app:layout_constraintStart_toStartOf="@+id/guideline17"
         app:layout_constraintTop_toTopOf="@+id/guideline8"
-        app:srcCompat="@drawable/rx_ridewatch_1" />
+        app:srcCompat="@drawable/ichigo" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline27"
