@@ -14,6 +14,7 @@ import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.graphics.Insets;
 import androidx.core.view.InputDeviceCompat;
 import androidx.core.view.MotionEventCompat;
@@ -204,6 +205,40 @@ public class Showa extends BaseKamenActivity {
                     return super.onSingleTapConfirmed(e);
                 }
 
+                @Override
+                public boolean onFling(@Nullable MotionEvent e1, @NonNull MotionEvent e2, float velocityX, float velocityY) {
+                    assert e1 != null;
+                    float diffY = e2.getY() - e1.getY();
+                    float diffX = e2.getX() - e1.getX();
+                    float SWIPE_THRESHOLD_VELOCITY = 200;
+                    float SWIPE_THRESHOLD_DISTANCE = 100;
+                    boolean downSwipe = diffY > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE;
+                    boolean upSwipe = diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE;
+                    boolean rightSwipe = diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
+                    boolean leftSwipe= diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
+                    if(i==0)
+                    {
+                        myLocalImage.clearAnimation();
+                        if(mp!=null)
+                        {
+                            mp.release();
+                            mp=null;
+                        }
+                        if(mp1!=null)
+                        {
+                            mp1.release();
+                            mp1=null;
+                        }
+                        if(leftSwipe)
+                        {
+                            myLocalImage.startAnimation(fade);
+                            mp=MediaPlayer.create(Showa.this,R.raw.riderkick);
+                            mp.start();
+                            mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
+                        }
+                    }
+                    return super.onFling(e1, e2, velocityX, velocityY);
+                }
             });
             @Override
             public boolean onTouch(View v, MotionEvent event) {
