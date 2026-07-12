@@ -27,6 +27,7 @@ import java.util.ArrayList;
 public class ReiwaRiders1 extends BaseKamenActivity {
     int i=0,gavvoverhenshin=0,flag=0,geatsflag=0,saber=0,gavvmode=0,hellrise=0,primitive=0,pdhenshin=0,pdfinisher,zeztzfinisher,gotchardfinisher;
     int overindex,masterindex;
+    int zindex;
     ImageView myLocalImage;
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -49,6 +50,7 @@ public class ReiwaRiders1 extends BaseKamenActivity {
         int[] finishersounds={R.raw.finisher_zerotwo,R.raw.finisher_crosssaber,R.raw.finisher_reviultimate,R.raw.finisher_geats9_1,R.raw.finisher_gotchardrainbow,R.raw.lpgavvover,R.raw.finisher_zeztzexdream_1};
         int[] gavvover={R.raw.gavvover0,R.raw.gavvover1,R.raw.gavvover2,R.raw.gavvover3};
         int[] gavvmaster={R.raw.mastergummy,R.raw.mastersnack,R.raw.mastermarsh,R.raw.masterchoco,R.raw.mastercandy,R.raw.masterdonuts,R.raw.mastercake};
+        int[] zeztz={R.raw.impact,R.raw.transform,R.raw.wing,R.raw.recovery,R.raw.barrier,R.raw.stream,R.raw.machinery,R.raw.projection,R.raw.wonder,R.raw.gravity,R.raw.plasma,R.raw.booster,R.raw.catastrom,R.raw.orderm,R.raw.erase};
         ArrayList<Integer> screen = new ArrayList<>();
         for (int j : rw) {
             screen.add(j);
@@ -77,7 +79,10 @@ public class ReiwaRiders1 extends BaseKamenActivity {
         for (int j : gavvmaster) {
             gavvmastersounds.add(j);
         }
-
+        ArrayList<Integer> zeztzsound = new ArrayList<>();
+        for (int j : zeztz) {
+            zeztzsound.add(j);
+        }
         myLocalImage = findViewById(R.id.imageView8);
         myLocalImage.setImageResource(screen.get(i));
         myLocalImage.setFocusable(true);
@@ -126,7 +131,7 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                         case 3: geatsflag=0; break;
                         case 4: gotchardfinisher=0;break;
                         case 5: gavvmode=0;gavvoverhenshin=0; overindex=-1; masterindex=-1; break;
-                        case 6: zeztzfinisher=0;break;
+                        case 6: zeztzfinisher=0;zindex=-1;break;
                     }
                 }
                 return true;
@@ -615,10 +620,32 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                             mp1=null;
                             myLocalImage.clearAnimation();
                         }
-                        if(leftSwipe || rightSwipe)
+                        if(upSwipe || downSwipe)
                         {
                             mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.zeztzexdreamfullrise);
                             mp.start();
+                        }
+                        else if (rightSwipe)
+                        {
+                            zindex++;
+                            if(zindex==zeztzsound.size())
+                            {
+                                zindex=0;
+                            }
+                            mp=MediaPlayer.create(ReiwaRiders1.this,zeztzsound.get(zindex));
+                            mp.start();
+
+                        }
+                        else if (leftSwipe)
+                        {
+                            zindex--;
+                            if(zindex<0)
+                            {
+                                zindex=zeztzsound.size()-1;
+                            }
+                            mp=MediaPlayer.create(ReiwaRiders1.this,zeztzsound.get(zindex));
+                            mp.start();
+
                         }
                     }
                     return super.onFling(e1, e2, velocityX, velocityY);
