@@ -46,6 +46,11 @@ public class Showa extends BaseKamenActivity {
                     R.drawable.riderman,
                     R.drawable.x,
                     R.drawable.amazon,
+                    R.drawable.stronger,
+                    R.drawable.skyrider,
+                    R.drawable.super_1,
+                    R.drawable.zx,
+                    R.drawable.black,
                     R.drawable.rx_ridewatch_1,
                     R.drawable.shin_ridewatch_1,
                     R.drawable.zo_ridewatch_1,
@@ -57,16 +62,21 @@ public class Showa extends BaseKamenActivity {
                         R.raw.riderman,
                         R.raw.x,
                         R.raw.amazon,
+                        R.raw.stronger,
+                        R.raw.skyrider,
+                        R.raw.super1,
+                        R.raw.zx,
+                        R.raw.black,
                         R.raw.blackrx,
                         R.raw.shin,
                         R.raw.zo,
                         R.raw.j
                         };
-        int[] longprsssounds={R.raw.lpichigo,R.raw.lpnigo,R.raw.lpv3,R.raw.lpriderman,R.raw.lpx,R.raw.lpamazon,R.raw.lpblackrx,R.raw.lpshin,R.raw.lpzo,R.raw.lpj
+        int[] longprsssounds={R.raw.lpichigo,R.raw.lpnigo,R.raw.lpv3,R.raw.lpriderman,R.raw.lpx,R.raw.lpamazon,R.raw.lpstronger,R.raw.lpskyrider,R.raw.lpsuper1,R.raw.lpzx,R.raw.lpblack,R.raw.lpblackrx,R.raw.lpshin,R.raw.lpzo,R.raw.lpj
         };
-        int[] henshinsounds={R.raw.henshin_ichigo,R.raw.henshin_nigo,R.raw.henshin_v3,R.raw.henshin_riderman,R.raw.henshin_x,R.raw.henshin_amazon,R.raw.henshin_blackrx,R.raw.henshin_shin,R.raw.henshin_zo,R.raw.henshin_j
+        int[] henshinsounds={R.raw.henshin_ichigo,R.raw.henshin_nigo,R.raw.henshin_v3,R.raw.henshin_riderman,R.raw.henshin_x,R.raw.henshin_amazon,R.raw.henshin_stronger,R.raw.henshin_skyrider,R.raw.henshin_super1,R.raw.henshin_zx,R.raw.henshin_black,R.raw.henshin_blackrx,R.raw.henshin_shin,R.raw.henshin_zo,R.raw.henshin_j
         };
-        int[] finishersounds={R.raw.finisher_ichigo,R.raw.finisher_nigo,R.raw.finisher_v3,R.raw.finisher_riderman,R.raw.finisher_x,R.raw.finisher_amazon,R.raw.finisher_blackrx,R.raw.finisher_shin,R.raw.finisher_zo,R.raw.finisher_j
+        int[] finishersounds={R.raw.finisher_ichigo,R.raw.finisher_nigo,R.raw.finisher_v3,R.raw.finisher_riderman,R.raw.finisher_x,R.raw.finisher_amazon,R.raw.finisher_stronger,R.raw.finisher_skyrider,R.raw.finisher_super1,R.raw.finisher_zx,R.raw.finisher_black,R.raw.finisher_blackrx,R.raw.finisher_shin,R.raw.finisher_zo,R.raw.finisher_j
         };
         ArrayList<Integer> screen = new ArrayList<>();
         for (int j : rw) {
