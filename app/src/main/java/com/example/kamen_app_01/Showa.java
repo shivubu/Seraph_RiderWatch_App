@@ -25,7 +25,7 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 
 public class Showa extends BaseKamenActivity {
-    int i=0,flag=0;
+    int i=0,flag=0,amazon_mode,omega_finisher_index,neo_index,neo_finisher_index,blackrxmode;
     ImageView myLocalImage;
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -78,6 +78,7 @@ public class Showa extends BaseKamenActivity {
         };
         int[] finishersounds={R.raw.finisher_ichigo,R.raw.finisher_nigo,R.raw.finisher_v3,R.raw.finisher_riderman,R.raw.finisher_x,R.raw.finisher_amazon,R.raw.finisher_stronger,R.raw.finisher_skyrider,R.raw.finisher_super1,R.raw.finisher_zx,R.raw.finisher_black,R.raw.finisher_blackrx,R.raw.finisher_shin,R.raw.finisher_zo,R.raw.finisher_j
         };
+        int[] neo_sounds={R.raw.neo_blade,R.raw.neo_needle,R.raw.neo_claw};
         ArrayList<Integer> screen = new ArrayList<>();
         for (int j : rw) {
             screen.add(j);
@@ -97,6 +98,10 @@ public class Showa extends BaseKamenActivity {
         ArrayList<Integer> finisher=new ArrayList<>();
         for (int finishersound : finishersounds) {
             finisher.add(finishersound);
+        }
+        ArrayList<Integer> neo=new ArrayList<>();
+        for (int neosound : neo_sounds) {
+            neo.add(neosound);
         }
         myLocalImage = findViewById(R.id.imageView11);
         myLocalImage.setImageResource(screen.get(i));
@@ -139,6 +144,11 @@ public class Showa extends BaseKamenActivity {
                 if (!screen.isEmpty()) {
                     flag=0;
                     myLocalImage.setImageResource(screen.get(i));
+                    switch(i)
+                    {
+                        case 5: amazon_mode=omega_finisher_index=neo_finisher_index=0;neo_index=-1;break;
+                        case 11: blackrxmode=0;break;
+                    }
                 }
                 return true;
             }
@@ -163,7 +173,32 @@ public class Showa extends BaseKamenActivity {
                     mp = MediaPlayer.create(Showa.this, R.raw.judgement_finishtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
-                        mp1=MediaPlayer.create(Showa.this,finisher.get(i));
+                        if(i==5 && amazon_mode!=0)
+                        {
+                            switch (amazon_mode)
+                            {
+                                case 1: mp1=MediaPlayer.create(Showa.this,R.raw.finisher_amazon_alpha_slash);break;
+                                case 2:
+                                    switch (omega_finisher_index)
+                                    {
+                                        case 0:mp1=MediaPlayer.create(Showa.this,R.raw.finisher_amazon_omega_punish);omega_finisher_index=1;break;
+                                        case 1:mp1=MediaPlayer.create(Showa.this,R.raw.finisher_amazon_omega_break);omega_finisher_index=2;break;
+                                        case 2:mp1=MediaPlayer.create(Showa.this,R.raw.finisher_amazon_omega_strike);omega_finisher_index=0;break;
+                                    }break;
+                                case 3:
+                                    switch (neo_finisher_index)
+                                    {
+                                        case 0:mp1=MediaPlayer.create(Showa.this,R.raw.finisher_amazon_neo_break);neo_finisher_index=1;break;
+                                        case 1:mp1=MediaPlayer.create(Showa.this,R.raw.finisher_amazon_neo_strike);neo_finisher_index=2;break;
+                                        case 2:mp1=MediaPlayer.create(Showa.this,R.raw.finisher_amazon_neo_slash);neo_finisher_index=0;break;
+                                    }break;
+
+                            }
+                        }
+                        else
+                        {
+                            mp1=MediaPlayer.create(Showa.this,finisher.get(i));
+                        }
                         mp1.start();
                         mp1.setOnCompletionListener(mp2 -> myLocalImage.clearAnimation());
                     });
@@ -186,7 +221,26 @@ public class Showa extends BaseKamenActivity {
                     mp=MediaPlayer.create(Showa.this,R.raw.judgementformtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
-                        mp1=MediaPlayer.create(Showa.this,henshin.get(i));
+                        if(i==5 && amazon_mode!=0)
+                        {
+                            switch(amazon_mode)
+                            {
+                                case 1:mp1=MediaPlayer.create(Showa.this,R.raw.henshin_amazon_alpha);break;
+                                case 2:mp1=MediaPlayer.create(Showa.this,R.raw.henshin_amazon_omega);break;
+                                case 3:mp1=MediaPlayer.create(Showa.this,R.raw.henshin_amazon_neo);break;
+                            }
+                        }
+                        else if (i==11 && blackrxmode!=0) {
+                            switch(blackrxmode)
+                            {
+                                case 1:mp1=MediaPlayer.create(Showa.this,R.raw.henshin_roborider);break;
+                                case 2:mp1=MediaPlayer.create(Showa.this,R.raw.henshin_biorider);break;
+                            }
+                        }
+                        else
+                        {
+                            mp1=MediaPlayer.create(Showa.this,henshin.get(i));
+                        }
                         mp1.start();
                         mp1.setOnCompletionListener(mp2 -> myLocalImage.clearAnimation());
                     });
@@ -200,15 +254,60 @@ public class Showa extends BaseKamenActivity {
                         mp.release();
                         mp=null;
                     }
+                    if(mp1!=null)
+                    {
+                        mp1.release();
+                        mp1=null;
+                    }
                     myLocalImage.startAnimation(fade);
                     if(flag==0)
                     {
                         flag=1;
-                        mp = MediaPlayer.create(Showa.this, sound.get(i));
+                        if(i==5 && amazon_mode!=0)
+                        {
+                            switch(amazon_mode)
+                            {
+                                case 1:mp=MediaPlayer.create(Showa.this,R.raw.amazonalfa);break;
+                                case 2:mp=MediaPlayer.create(Showa.this,R.raw.amazonomega);break;
+                                case 3:mp=MediaPlayer.create(Showa.this,R.raw.amazonneo);break;
+                            }
+                        }
+                        else if (i==11 && blackrxmode!=0)
+                        {
+                            switch(blackrxmode)
+                            {
+                                case 1:mp=MediaPlayer.create(Showa.this,R.raw.roborider);break;
+                                case 2:mp=MediaPlayer.create(Showa.this,R.raw.biorider);break;
+                            }
+                        }
+                        else
+                        {
+                            mp = MediaPlayer.create(Showa.this, sound.get(i));
+                        }
                     }
                     else {
                         flag=0;
-                        mp = MediaPlayer.create(Showa.this,longpress.get(i));
+                        if(i==5 && amazon_mode!=0)
+                        {
+                            switch(amazon_mode)
+                            {
+                                case 1:mp=MediaPlayer.create(Showa.this,R.raw.lpamazonalfa);break;
+                                case 2:mp=MediaPlayer.create(Showa.this,R.raw.lpamazonomega);break;
+                                case 3:mp=MediaPlayer.create(Showa.this,R.raw.lpamazonneo);break;
+                            }
+                        }
+                        else if (i==11 && blackrxmode!=0)
+                        {
+                            switch(blackrxmode)
+                            {
+                                case 1:mp=MediaPlayer.create(Showa.this,R.raw.lproborider);break;
+                                case 2:mp=MediaPlayer.create(Showa.this,R.raw.lpbiorider);break;
+                            }
+                        }
+                        else
+                        {
+                            mp = MediaPlayer.create(Showa.this,longpress.get(i));
+                        }
                     }
                     mp.start();
                     mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
@@ -226,9 +325,9 @@ public class Showa extends BaseKamenActivity {
                     boolean upSwipe = diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE;
                     boolean rightSwipe = diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
                     boolean leftSwipe= diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
+                    myLocalImage.clearAnimation();
                     if(i==0)
                     {
-                        myLocalImage.clearAnimation();
                         if(mp!=null)
                         {
                             mp.release();
@@ -245,6 +344,102 @@ public class Showa extends BaseKamenActivity {
                             mp=MediaPlayer.create(Showa.this,R.raw.riderkick);
                             mp.start();
                             mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
+                        }
+                    }
+                    else if (i==5)
+                    {
+                        if(mp!=null)
+                        {
+                            mp.release();
+                            mp=null;
+                        }
+                        if(mp1!=null)
+                        {
+                            mp1.release();
+                            mp1=null;
+                        }
+                        if(upSwipe) {
+                            flag=0;
+                            mp=MediaPlayer.create(Showa.this,R.raw.transition2);
+                            mp.start();
+                            switch (amazon_mode)
+                            {
+                                case 0:myLocalImage.setImageResource(R.drawable.amazon_alfa_1);amazon_mode=1;break;
+                                case 1:myLocalImage.setImageResource(R.drawable.amazon_omega_1);amazon_mode=2;omega_finisher_index=0;break;
+                                case 2:myLocalImage.setImageResource(R.drawable.amazon_neo_ridewatch_1);amazon_mode=3;neo_index=-1;neo_finisher_index=0;break;
+                                case 3:myLocalImage.setImageResource(R.drawable.amazon);amazon_mode=0;break;
+                            }
+                        }
+                        else if(downSwipe)
+                        {
+                            flag=0;
+                            mp=MediaPlayer.create(Showa.this,R.raw.transition2);
+                            mp.start();
+                            switch (amazon_mode)
+                            {
+                                case 0:myLocalImage.setImageResource(R.drawable.amazon_neo_ridewatch_1);amazon_mode=3;neo_index=-1;neo_finisher_index=0;break;
+                                case 3:myLocalImage.setImageResource(R.drawable.amazon_omega_1);amazon_mode=2;omega_finisher_index=0;break;
+                                case 2:myLocalImage.setImageResource(R.drawable.amazon_alfa_1);amazon_mode=1;break;
+                                case 1:myLocalImage.setImageResource(R.drawable.amazon);amazon_mode=0;break;
+                            }
+                        }
+                        else if(rightSwipe && amazon_mode==3)
+                        {
+                            neo_index++;
+                            if(neo_index==3)
+                            {
+                                neo_index=0;
+                            }
+                            mp=MediaPlayer.create(Showa.this,neo.get(neo_index));
+                            mp.start();
+
+                        }
+                        else if(leftSwipe && amazon_mode==3)
+                        {
+                            neo_index--;
+                            if(neo_index<0)
+                            {
+                                neo_index=2;
+                            }
+                            mp=MediaPlayer.create(Showa.this,neo.get(neo_index));
+                            mp.start();
+                        }
+                    }
+                    else if(i==11)
+                    {
+                        if(mp!=null)
+                        {
+                            mp.release();
+                            mp=null;
+                        }
+                        if(mp1!=null)
+                        {
+                            mp1.release();
+                            mp1=null;
+                        }
+                        if(upSwipe)
+                        {
+                            flag=0;
+                            mp=MediaPlayer.create(Showa.this,R.raw.transition2);
+                            mp.start();
+                            switch (blackrxmode)
+                            {
+                                case 0:myLocalImage.setImageResource(R.drawable.robo_rider_ridewatch_1);blackrxmode=1;break;
+                                case 1:myLocalImage.setImageResource(R.drawable.bio_rider_ridewatch_1);blackrxmode=2;break;
+                                case 2:myLocalImage.setImageResource(R.drawable.rx_ridewatch_1);blackrxmode=0;break;
+                            }
+                        }
+                        else if(downSwipe)
+                        {
+                            flag=0;
+                            mp=MediaPlayer.create(Showa.this,R.raw.transition2);
+                            mp.start();
+                            switch (blackrxmode)
+                            {
+                                case 0:myLocalImage.setImageResource(R.drawable.bio_rider_ridewatch_1);blackrxmode=2;break;
+                                case 2:myLocalImage.setImageResource(R.drawable.robo_rider_ridewatch_1);blackrxmode=1;break;
+                                case 1:myLocalImage.setImageResource(R.drawable.rx_ridewatch_1);blackrxmode=0;break;
+                            }
                         }
                     }
                     return super.onFling(e1, e2, velocityX, velocityY);
