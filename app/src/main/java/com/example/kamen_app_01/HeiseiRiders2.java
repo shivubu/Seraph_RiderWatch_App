@@ -27,6 +27,7 @@ import java.util.ArrayList;
 public class HeiseiRiders2 extends BaseKamenActivity {
     int i=0,flag=0,kiwami=0,hazard,w,kiwamicounter,kiwami1,tricounter,triflag,mugen,mighty;
     ImageView myLocalImage;
+    int dcjx=0,wi=3,gk=4,dt=5,gm=6,exm=7,bg=8,gz=9;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,7 +165,7 @@ public class HeiseiRiders2 extends BaseKamenActivity {
                     boolean upSwipe = diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE;
                     boolean rightSwipe = diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
                     boolean leftSwipe= diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
-                    if(i==0)
+                    if(i==dcjx)
                     {
                         myLocalImage.clearAnimation();
                         if(mp!=null) {
@@ -200,7 +201,7 @@ public class HeiseiRiders2 extends BaseKamenActivity {
                             mp.start();
                         }
                     }
-                    else if(i==3)
+                    else if(i==wi)
                     {
                         myLocalImage.clearAnimation();
                         if(mp!=null) {
@@ -229,7 +230,7 @@ public class HeiseiRiders2 extends BaseKamenActivity {
                             myLocalImage.setImageResource(screen.get(i));
                         }
                     }
-                    else if(i==4)
+                    else if(i==gk)
                     {
                         myLocalImage.clearAnimation();
                         if(mp!=null)
@@ -281,7 +282,7 @@ public class HeiseiRiders2 extends BaseKamenActivity {
                             mp.start();
                         }
                     }
-                    else if(i==5)
+                    else if(i==dt)
                     {
                         myLocalImage.clearAnimation();
                         if(mp!=null)
@@ -325,7 +326,7 @@ public class HeiseiRiders2 extends BaseKamenActivity {
                             triflag=1;
                         }
                     }
-                    else if(i==6)
+                    else if(i==gm)
                     {
                         myLocalImage.clearAnimation();
                         if(mp!=null)
@@ -359,7 +360,7 @@ public class HeiseiRiders2 extends BaseKamenActivity {
                             mp.start();
                         }
                     }
-                    else if(i==7)
+                    else if(i==exm)
                     {
                         myLocalImage.clearAnimation();
                         if(mp!=null)
@@ -383,7 +384,7 @@ public class HeiseiRiders2 extends BaseKamenActivity {
                             mp.start();
                         }
                     }
-                    else if(i==8) {
+                    else if(i==bg) {
                         myLocalImage.clearAnimation();
                         if (mp != null) {
                             mp.release();
@@ -428,7 +429,7 @@ public class HeiseiRiders2 extends BaseKamenActivity {
                         }
 
                     }
-                    else if(i==9)
+                    else if(i==gz)
                     {
                         myLocalImage.clearAnimation();
                         if(mp!=null)
@@ -466,11 +467,11 @@ public class HeiseiRiders2 extends BaseKamenActivity {
                     mp = MediaPlayer.create(HeiseiRiders2.this,R.raw.judgement_finishtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
-                        if(i==0 && w!=0)
+                        if(i==dcjx && w!=0)
                         {
                             mp1=MediaPlayer.create(HeiseiRiders2.this,R.raw.xtrememaxdrive);
                         }
-                        else if(i==4 && kiwami!=0) {
+                        else if(i==gk && kiwami!=0) {
                             switch (kiwami) {
                                 case 1:
                                     mp1 = MediaPlayer.create(HeiseiRiders2.this, R.raw.finisher_gaimkiwami_1);kiwami=0;
@@ -483,7 +484,7 @@ public class HeiseiRiders2 extends BaseKamenActivity {
                                     break;
                             }
                         }
-                        else if(i==5)
+                        else if(i==dt)
                         {
                             if(tricounter==-1)
                             {
@@ -499,7 +500,7 @@ public class HeiseiRiders2 extends BaseKamenActivity {
                                 mp1.start();
                             }
                         }
-                        else if(i==8 && hazard==1)
+                        else if(i==bg && hazard==1)
                         {
                             mp1=MediaPlayer.create(HeiseiRiders2.this,R.raw.lpbuildgeniushazard);
                         }
@@ -529,7 +530,7 @@ public class HeiseiRiders2 extends BaseKamenActivity {
                     mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.judgementformtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
-                        if(i==8 && hazard==1)
+                        if(i==bg && hazard==1)
                         {
                             mp1=MediaPlayer.create(HeiseiRiders2.this,R.raw.henshinbuildgeniushazard);
                         }

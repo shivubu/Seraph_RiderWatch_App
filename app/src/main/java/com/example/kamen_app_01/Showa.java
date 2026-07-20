@@ -27,6 +27,7 @@ import java.util.ArrayList;
 public class Showa extends BaseKamenActivity {
     int i=0,flag=0,amazon_mode,omega_finisher_index,neo_index,neo_finisher_index,blackrxmode;
     ImageView myLocalImage;
+    int ichigo=0,amz=5,brx=11;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,7 +174,7 @@ public class Showa extends BaseKamenActivity {
                     mp = MediaPlayer.create(Showa.this, R.raw.judgement_finishtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
-                        if(i==5 && amazon_mode!=0)
+                        if(i==amz && amazon_mode!=0)
                         {
                             switch (amazon_mode)
                             {
@@ -221,7 +222,7 @@ public class Showa extends BaseKamenActivity {
                     mp=MediaPlayer.create(Showa.this,R.raw.judgementformtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
-                        if(i==5 && amazon_mode!=0)
+                        if(i==amz && amazon_mode!=0)
                         {
                             switch(amazon_mode)
                             {
@@ -230,7 +231,7 @@ public class Showa extends BaseKamenActivity {
                                 case 3:mp1=MediaPlayer.create(Showa.this,R.raw.henshin_amazon_neo);break;
                             }
                         }
-                        else if (i==11 && blackrxmode!=0) {
+                        else if (i==brx && blackrxmode!=0) {
                             switch(blackrxmode)
                             {
                                 case 1:mp1=MediaPlayer.create(Showa.this,R.raw.henshin_roborider);break;
@@ -263,7 +264,7 @@ public class Showa extends BaseKamenActivity {
                     if(flag==0)
                     {
                         flag=1;
-                        if(i==5 && amazon_mode!=0)
+                        if(i==amz && amazon_mode!=0)
                         {
                             switch(amazon_mode)
                             {
@@ -272,7 +273,7 @@ public class Showa extends BaseKamenActivity {
                                 case 3:mp=MediaPlayer.create(Showa.this,R.raw.amazonneo);break;
                             }
                         }
-                        else if (i==11 && blackrxmode!=0)
+                        else if (i==brx && blackrxmode!=0)
                         {
                             switch(blackrxmode)
                             {
@@ -287,7 +288,7 @@ public class Showa extends BaseKamenActivity {
                     }
                     else {
                         flag=0;
-                        if(i==5 && amazon_mode!=0)
+                        if(i==amz && amazon_mode!=0)
                         {
                             switch(amazon_mode)
                             {
@@ -296,7 +297,7 @@ public class Showa extends BaseKamenActivity {
                                 case 3:mp=MediaPlayer.create(Showa.this,R.raw.lpamazonneo);break;
                             }
                         }
-                        else if (i==11 && blackrxmode!=0)
+                        else if (i==brx && blackrxmode!=0)
                         {
                             switch(blackrxmode)
                             {
@@ -326,7 +327,7 @@ public class Showa extends BaseKamenActivity {
                     boolean rightSwipe = diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
                     boolean leftSwipe= diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
                     myLocalImage.clearAnimation();
-                    if(i==0)
+                    if(i==ichigo)
                     {
                         if(mp!=null)
                         {
@@ -346,7 +347,7 @@ public class Showa extends BaseKamenActivity {
                             mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
                         }
                     }
-                    else if (i==5)
+                    else if (i==amz)
                     {
                         if(mp!=null)
                         {
@@ -405,7 +406,7 @@ public class Showa extends BaseKamenActivity {
                             mp.start();
                         }
                     }
-                    else if(i==11)
+                    else if(i==brx)
                     {
                         if(mp!=null)
                         {

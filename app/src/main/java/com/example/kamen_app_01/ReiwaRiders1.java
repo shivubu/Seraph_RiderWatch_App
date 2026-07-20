@@ -28,6 +28,7 @@ public class ReiwaRiders1 extends BaseKamenActivity {
     int i=0,gavvoverhenshin=0,flag=0,geatsflag=0,saber=0,gavvmode=0,hellrise=0,primitive=0,pdhenshin=0,pdfinisher,zeztzfinisher,gotchardfinisher;
     int overindex,masterindex;
     int zindex;
+    int zt=0,cs=1,ur=2,gn=3,gr=4,gom=5,ze=6;
     ImageView myLocalImage;
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -157,7 +158,7 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                     mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.judgement_finishtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
-                        if(i==0)
+                        if(i==zt)
                         {
                             switch(hellrise)
                             {
@@ -165,7 +166,7 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                                 case 1:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_zeronehellrise);break;
                             }
                         }
-                        else if(i==1)
+                        else if(i==cs)
                         {
                             if(primitive==1)
                             {
@@ -185,7 +186,7 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                                 }
                             }
                         }
-                        else if(i==3 && geatsflag!=0)
+                        else if(i==gn && geatsflag!=0)
                         {
                             switch(geatsflag)
                             {
@@ -197,7 +198,7 @@ public class ReiwaRiders1 extends BaseKamenActivity {
 
                             }
                         }
-                        else if(i==4)
+                        else if(i==gr)
                         {
                             switch(gotchardfinisher)
                             {
@@ -206,7 +207,7 @@ public class ReiwaRiders1 extends BaseKamenActivity {
 
                             }
                         }
-                        else if(i==5 && gavvmode!=0)
+                        else if(i==gom && gavvmode!=0)
                         {
                             switch (gavvmode)
                             {
@@ -214,7 +215,7 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                                 case 2:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_amazinggummy);break;
                             }
                         }
-                        else if(i==6)
+                        else if(i==ze)
                         {
                             switch(zeztzfinisher)
                             {
@@ -248,11 +249,11 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                     mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.judgementformtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
-                        if(i==0 && hellrise==1)
+                        if(i==zt && hellrise==1)
                         {
                             mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.henshinzeronehellrise);
                         }
-                        else if(i==1 && primitive==1)
+                        else if(i==cs && primitive==1)
                         {
                             if(pdhenshin==0)
                             {
@@ -265,7 +266,7 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                                 pdhenshin=0;
                             }
                         }
-                        else if(i==5 && gavvmode!=0)
+                        else if(i==gom && gavvmode!=0)
                         {
                             switch (gavvmode)
                             {
@@ -276,7 +277,7 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                         else
                         {
                             mp1 = MediaPlayer.create(ReiwaRiders1.this, henshinsound.get(i));
-                            if(i==5 && gavvmode==0)
+                            if(i==gom && gavvmode==0)
                             {
                                 gavvoverhenshin=1;
                             }
@@ -300,7 +301,7 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                         mp1=null;
                     }
                     myLocalImage.startAnimation(fade);
-                    if(i==0)
+                    if(i==zt)
                     {
                         switch(hellrise)
                         {
@@ -317,17 +318,17 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                             case 1:mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.zeroonehellrise);break;
                         }
                     }
-                    else if(i==1 && primitive==1)
+                    else if(i==cs && primitive==1)
                     {
                         mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.saberprimitvedragon);
                     }
-                    else if(i<=4 && flag==1)
+                    else if(i<=gr && flag==1)
                     {
                         flag=0;
                         mp=MediaPlayer.create(ReiwaRiders1.this,longpresssound.get(i));
 
                     }
-                    else if(i==5)
+                    else if(i==gom)
                     {
                         switch(gavvmode)
                         {
@@ -344,7 +345,7 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                     else
                     {
                         mp=MediaPlayer.create(ReiwaRiders1.this,sound.get(i));
-                        if(i<=4)
+                        if(i<=gr)
                         {
                             flag=1;
                         }
@@ -364,7 +365,7 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                     boolean upSwipe = diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE;
                     boolean rightSwipe = diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
                     boolean leftSwipe= diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
-                    if(i==0)
+                    if(i==zt)
                     {
                         if(mp!=null)
                         {
@@ -393,7 +394,7 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                             myLocalImage.setImageResource(R.drawable.zerotwo);
                         }
                     }
-                    else if(i==1)
+                    else if(i==cs)
                     {
                         if(mp!=null)
                         {
@@ -465,7 +466,7 @@ public class ReiwaRiders1 extends BaseKamenActivity {
 
                         }
                     }
-                    else if(i==3)
+                    else if(i==gn)
                     {
                         myLocalImage.clearAnimation();
                         if(mp!=null)
@@ -518,7 +519,7 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                             }
                         }
                     }
-                    else if(i==5)
+                    else if(i==gom)
                     {
                         if(mp!=null)
                         {
@@ -606,7 +607,7 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                         }
 
                     }
-                    else if (i==6)
+                    else if (i==ze)
                     {
                         if(mp!=null)
                         {

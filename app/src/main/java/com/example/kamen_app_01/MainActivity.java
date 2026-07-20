@@ -29,6 +29,7 @@ public class MainActivity extends BaseKamenActivity{
     ImageView myLocalImage;
     private Drawable[] backgroundImages;
     private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,hazard_flag=0,genmflag=0,fumetsuflag=0,bahamut=0,sabermode=0,flag1=0,ohmaflag=0,superherosenki1=0,superherosenki2=0,wonder1=0,wonder2=0,geatsflag=0,fumetsu=0,dea,rampage_index,phblade_index,exc_index,drivemode,sru,finalForm,gotchard,gotchardfinisher;
+    int ksru=1,fn=2,dc=3,dn=5,gm=7,cb=8,eb=9,oz=10,zt=11,swa=12,dg=13,gu=14;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,7 @@ public class MainActivity extends BaseKamenActivity{
                 AppCompatResources.getDrawable(this,R.drawable.gotchard),
                 AppCompatResources.getDrawable(this,R.drawable.gavvhexenheim),
         };
-        int[] sounds = {R.raw.seraph0,R.raw.kuugasru,R.raw.faiznext,R.raw.decadecomplete21,R.raw.oootajadoreternity,R.raw.drivespecial,R.raw.exaidnovel,R.raw.genmmusou,R.raw.crossbuild,R.raw.evolblackhole,R.raw.omazio,R.raw.zerothree,R.raw.saberwa,R.raw.geatsdea,R.raw.gotchardultima,R.raw.gavvhexenheim};
+        int[] sounds = {R.raw.seraph0,R.raw.kuugasruform,R.raw.faiznext,R.raw.decadecomplete21,R.raw.oootajadoreternity,R.raw.drivespecial,R.raw.exaidnovel,R.raw.genmmusou,R.raw.crossbuild,R.raw.evolblackhole,R.raw.omazio,R.raw.zerothree,R.raw.saberwa,R.raw.geatsdea,R.raw.gotchardultima,R.raw.gavvhexenheim};
         int[] henshinsounds={R.raw.henshin_seraph_prime,R.raw.henshinkuugasru,R.raw.henshinfaiznext,R.raw.henshindecadecomplete21,R.raw.henshinoootajadoreternity,R.raw.henshindrivespecial,R.raw.henshinexaidnovel,R.raw.henshingenmmusou,R.raw.henshincrossbuild,R.raw.henshinevolblackhole,R.raw.henshinzioohma,R.raw.henshinzerothree,R.raw.henshinsaberwa,R.raw.henshingeatsdea_0,R.raw.henshingotchardultima,R.raw.henshin_gavvhexenheim};
         int[] longpresssounds={R.raw.finisher_seraph,R.raw.finisher_kuugasru_1,R.raw.exceedcharge,R.raw.finisher_decadecomplete,R.raw.lpoootajadoreternity,R.raw.finisher_drivespecial,R.raw.lpexaidnovel,R.raw.lpgenmmusou,R.raw.lpcrossbuild,R.raw.finisher_evolblackhole,R.raw.finisher_zioohma,R.raw.lpzerothree,R.raw.finisher_saberwa1,R.raw.finisher_geatsdea,R.raw.lpgotchardultima,R.raw.finisher_gavvhexenheim};
         int[] zt_sounds={R.raw.zt_create,R.raw.zt_singularity,R.raw.zt_ability,R.raw.zt_there_ark_ability,R.raw.zt_outsiders_ability};
@@ -199,7 +200,7 @@ public class MainActivity extends BaseKamenActivity{
                         mp=MediaPlayer.create(MainActivity.this,R.raw.judgement_finishtime);
                         mp.start();
                         mp.setOnCompletionListener(mp -> {
-                            if(currentImageIndex==1)
+                            if(currentImageIndex==ksru)
                             {
                                 switch (sru)
                                 {
@@ -207,35 +208,35 @@ public class MainActivity extends BaseKamenActivity{
                                     case 1:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_kuugasru_2);sru=0;break;
                                 }
                             }
-                            else if(currentImageIndex==2 && exc_index!=-1)
+                            else if(currentImageIndex==fn && exc_index!=-1)
                             {
                                 mp1=MediaPlayer.create(MainActivity.this,exceed_sound.get(exc_index));
                             }
-                            else if(currentImageIndex==5 && drivemode==1)
+                            else if(currentImageIndex==dn && drivemode==1)
                             {
                                 mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_drivenext);
                             }
-                            else if(currentImageIndex==7 && flag==1 || currentImageIndex==8 && hazard_flag==1 || currentImageIndex==10 && ohmaflag==1 || currentImageIndex==11 && ztweap_index==8)
+                            else if(currentImageIndex==gm && flag==1 || currentImageIndex==cb && hazard_flag==1 || currentImageIndex==oz && ohmaflag==1 || currentImageIndex==zt && ztweap_index==8)
                             {
-                                if(currentImageIndex==7)
+                                if(currentImageIndex==gm)
                                 {
                                     mp1=MediaPlayer.create(MainActivity.this,R.raw.lpgenmmusoualt);
                                     genmflag=1;
                                 }
-                                if(currentImageIndex==8)
+                                if(currentImageIndex==cb)
                                 {
                                     mp1=MediaPlayer.create(MainActivity.this,R.raw.lpcrossbuildhazard);
                                 }
-                                if(currentImageIndex==10)
+                                if(currentImageIndex==oz)
                                 {
                                     mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_ohmazio);
                                 }
-                                if(currentImageIndex==11)
+                                if(currentImageIndex==zt)
                                 {
                                     mp1 = MediaPlayer.create(MainActivity.this, R.raw.lpzerothreealt);
                                 }
                             }
-                            else if(currentImageIndex==7 && fumetsuflag==1)
+                            else if(currentImageIndex==gm && fumetsuflag==1)
                             {
                                 switch (fumetsu)
                                 {
@@ -244,7 +245,7 @@ public class MainActivity extends BaseKamenActivity{
                                     case 2:mp1=MediaPlayer.create(MainActivity.this,R.raw.lpgenmhyperfumetsu3);break;
                                 }
                             }
-                            else if(currentImageIndex==12)
+                            else if(currentImageIndex== swa)
                             {
                                 if(sabermode==0)
                                 {
@@ -272,7 +273,7 @@ public class MainActivity extends BaseKamenActivity{
                                     }
                                 }
                             }
-                            else if(currentImageIndex==13 && geatsflag!=0)
+                            else if(currentImageIndex==dg && geatsflag!=0)
                             {
                                 switch(geatsflag)
                                 {
@@ -282,7 +283,7 @@ public class MainActivity extends BaseKamenActivity{
                                     case 4:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_geatsdea_4);break;
                                 }
                             }
-                            else if(currentImageIndex==14 && gotchard!=0) {
+                            else if(currentImageIndex==gu && gotchard!=0) {
                                 switch (gotchard) {
                                     case 1:
                                         switch (gotchardfinisher)
@@ -344,24 +345,24 @@ public class MainActivity extends BaseKamenActivity{
                             {
                                 mp1=MediaPlayer.create(MainActivity.this,R.raw.henshin_seraphsupreme_prime);
                             }
-                            else if(currentImageIndex==5 && drivemode==1)
+                            else if(currentImageIndex==dn && drivemode==1)
                             {
                                 mp1=MediaPlayer.create(MainActivity.this,R.raw.henshindrivenext);
                             }
-                            else if(currentImageIndex==7 && fumetsuflag==1)
+                            else if(currentImageIndex==gm && fumetsuflag==1)
                             {
                                 mp1=MediaPlayer.create(MainActivity.this,R.raw.henshingenmhyperfumetsu);
                             }
-                            else if(currentImageIndex==8 && hazard_flag==1)
+                            else if(currentImageIndex==cb && hazard_flag==1)
                             {
                                 mp1=MediaPlayer.create(MainActivity.this,R.raw.henshincrossbuildhazard);
 
                             }
-                            else if(currentImageIndex==10 && ohmaflag==1)
+                            else if(currentImageIndex==oz && ohmaflag==1)
                             {
                                 mp1=MediaPlayer.create(MainActivity.this,R.raw.henshinohmazio);
                             }
-                            else if(currentImageIndex==12 && sabermode!=0)
+                            else if(currentImageIndex==swa && sabermode!=0)
                             {
                                 switch(sabermode)
                                 {
@@ -369,7 +370,7 @@ public class MainActivity extends BaseKamenActivity{
                                     case 2:mp1=MediaPlayer.create(MainActivity.this,R.raw.henshinsabershs);break;
                                 }
                             }
-                            else if(currentImageIndex==13)
+                            else if(currentImageIndex==dg)
                             {
                                 switch(dea)
                                 {
@@ -377,7 +378,7 @@ public class MainActivity extends BaseKamenActivity{
                                     case 1:mp1=MediaPlayer.create(MainActivity.this,R.raw.henshingeatsdea_1);dea=0;break;
                                 }
                             }
-                            else if(currentImageIndex==14 && gotchard!=0) {
+                            else if(currentImageIndex==gu && gotchard!=0) {
                                 switch (gotchard) {
                                     case 1:
                                         mp1 = MediaPlayer.create(MainActivity.this, R.raw.henshin_miraclegotchard);
@@ -419,33 +420,33 @@ public class MainActivity extends BaseKamenActivity{
                     {
                         mp=MediaPlayer.create(MainActivity.this,R.raw.seraphsupremeridewatch);
                     }
-                    else if(currentImageIndex==5 && drivemode==1)
+                    else if(currentImageIndex==dn && drivemode==1)
                     {
                         mp=MediaPlayer.create(MainActivity.this,R.raw.drivenext);
                     }
-                    else if(currentImageIndex==7 && fumetsuflag==1)
+                    else if(currentImageIndex==gm && fumetsuflag==1)
                     {
                         mp=MediaPlayer.create(MainActivity.this,R.raw.genmhyperfumetsu);
                     }
                     else if(flag1==1)
                     {
-                        if(currentImageIndex==3)
+                        if(currentImageIndex==dc)
                         {
                             flag1=0;
                             mp=MediaPlayer.create(MainActivity.this,R.raw.lpdecadecomplete21);
                         }
-                        if(currentImageIndex==9)
+                        if(currentImageIndex==eb)
                         {
                             flag1=0;
                             mp=MediaPlayer.create(MainActivity.this,R.raw.lpevolblackhole);
                         }
-                        if(currentImageIndex==10)
+                        if(currentImageIndex==oz)
                         {
                             flag1=0;
                             mp=MediaPlayer.create(MainActivity.this,R.raw.lpohma);
                         }
                     }
-                    else if(currentImageIndex==12)
+                    else if(currentImageIndex==swa)
                     {
                         if(sabermode==0)
                         {
@@ -470,7 +471,7 @@ public class MainActivity extends BaseKamenActivity{
                             }
                         }
                     }
-                    else if(currentImageIndex==14 && gotchard!=0) {
+                    else if(currentImageIndex==gu && gotchard!=0) {
                         switch (gotchard) {
                             case 1:
                                 mp = MediaPlayer.create(MainActivity.this, R.raw.miraclegotchard);
@@ -483,7 +484,7 @@ public class MainActivity extends BaseKamenActivity{
                     else
                     {
                         mp = MediaPlayer.create(MainActivity.this, sound.get(currentImageIndex));
-                        if(currentImageIndex==3 || currentImageIndex==9 || currentImageIndex==10 )
+                        if(currentImageIndex==dc || currentImageIndex==eb || currentImageIndex==oz )
                         {
                             flag1=1;
                         }
@@ -536,7 +537,7 @@ public class MainActivity extends BaseKamenActivity{
                         }
 
                     }
-                    else if(currentImageIndex==1)
+                    else if(currentImageIndex==ksru)
                     {
                         myLocalImage.clearAnimation();
                         if (mp != null) {
@@ -553,7 +554,7 @@ public class MainActivity extends BaseKamenActivity{
                             mp.start();
                         }
                     }
-                    else if (currentImageIndex == 2) {
+                    else if (currentImageIndex == fn) {
                         myLocalImage.clearAnimation();
                         if (mp != null) {
                             mp.release();
@@ -593,7 +594,7 @@ public class MainActivity extends BaseKamenActivity{
                             exc_index=-1;
                         }
                     }
-                    else if (currentImageIndex == 5)
+                    else if (currentImageIndex == dn)
                     {
                         myLocalImage.clearAnimation();
                         if(mp!=null)
@@ -622,7 +623,7 @@ public class MainActivity extends BaseKamenActivity{
                             myLocalImage.setImageDrawable(backgroundImages[currentImageIndex]);
                         }
                     }
-                    else if(currentImageIndex==7)
+                    else if(currentImageIndex==gm)
                     {
                         myLocalImage.clearAnimation();
                         if(mp!=null)
@@ -709,7 +710,7 @@ public class MainActivity extends BaseKamenActivity{
                         }
 
                     }
-                    else if(currentImageIndex==8)
+                    else if(currentImageIndex==cb)
                     {
                         myLocalImage.clearAnimation();
                         if(mp!=null)
@@ -735,7 +736,7 @@ public class MainActivity extends BaseKamenActivity{
                             mp.start();
                         }
                     }
-                    if(currentImageIndex==10)
+                    if(currentImageIndex==oz)
                     {
                         myLocalImage.clearAnimation();
                         if(mp!=null) {
@@ -769,7 +770,7 @@ public class MainActivity extends BaseKamenActivity{
                         }
 
                     }
-                    else if(currentImageIndex==11)
+                    else if(currentImageIndex==zt)
                     {
                         myLocalImage.clearAnimation();
                         if(mp!=null)
@@ -889,7 +890,7 @@ public class MainActivity extends BaseKamenActivity{
                         }
 
                     }
-                    else if(currentImageIndex==12)
+                    else if(currentImageIndex==swa)
                     {
                         myLocalImage.clearAnimation();
                         if(mp!=null) {
@@ -991,7 +992,7 @@ public class MainActivity extends BaseKamenActivity{
                             }
                         }
                     }
-                    else if(currentImageIndex==13)
+                    else if(currentImageIndex==dg)
                     {
                         myLocalImage.clearAnimation();
                         if(mp!=null)
@@ -1044,7 +1045,7 @@ public class MainActivity extends BaseKamenActivity{
                             }
                         }
                     }
-                    else if(currentImageIndex==14)
+                    else if(currentImageIndex==gu)
                     {
                         myLocalImage.clearAnimation();
                         if(mp!=null)

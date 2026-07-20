@@ -24,6 +24,7 @@ import java.util.ArrayList;
 public class HeiseiRiders1 extends BaseKamenActivity {
     int i=0,flag=0,kabuto=0,hculoop=0,blade;
     ImageView myLocalImage;
+    int bkf=4,hk=6;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,7 +132,7 @@ public class HeiseiRiders1 extends BaseKamenActivity {
                     boolean upSwipe = diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE;
                     boolean rightSwipe = diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
                     boolean leftSwipe= diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
-                    if(i==4)
+                    if(i==bkf)
                     {
                         myLocalImage.clearAnimation();
                         if(mp!=null)
@@ -163,7 +164,7 @@ public class HeiseiRiders1 extends BaseKamenActivity {
                             blade=3;
                         }
                     }
-                    else if(i==6)
+                    else if(i==hk)
                     {
                         myLocalImage.clearAnimation();
                         if(mp!=null)
@@ -246,7 +247,7 @@ public class HeiseiRiders1 extends BaseKamenActivity {
                     mp = MediaPlayer.create(HeiseiRiders1.this,R.raw.judgement_finishtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
-                        if(i==4)
+                        if(i==bkf)
                         {
                             switch(blade)
                             {
@@ -256,7 +257,7 @@ public class HeiseiRiders1 extends BaseKamenActivity {
                                 case 3:mp1=MediaPlayer.create(HeiseiRiders1.this,R.raw.finisher_bladeking_4);break;
                             }
                         }
-                        else if(i==6 && kabuto!=0)
+                        else if(i==hk && kabuto!=0)
                         {
                             switch (kabuto)
                             {
