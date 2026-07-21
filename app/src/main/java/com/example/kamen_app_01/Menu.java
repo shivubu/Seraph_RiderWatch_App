@@ -137,5 +137,8 @@ public class Menu extends BaseKamenActivity {
     protected View getRotaryView() {// This tells the base class to unbind the listener from the imageView
         return heiseigen1;
     }
+    @Override
+    protected void setupRotaryLogic() {
+    }
 
 }

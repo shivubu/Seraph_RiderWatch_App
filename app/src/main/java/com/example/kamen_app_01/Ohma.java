@@ -107,51 +107,6 @@ public class Ohma extends BaseKamenActivity {
         belt_text.setVisibility(View.INVISIBLE);
         ohmabelt=findViewById(R.id.imageView13);
         ridewatch.setVisibility(View.INVISIBLE);
-        ridewatch.setOnGenericMotionListener((view, motionEvent) -> {
-            if (motionEvent.getAction() == MotionEvent.ACTION_SCROLL &&
-                    motionEvent.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)){
-                if(mp!=null)
-                {
-                    mp.release();
-                    mp=null;
-                }
-                float delta = -motionEvent.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
-                        ViewConfigurationCompat.getScaledHorizontalScrollFactor(ViewConfiguration.get(getApplicationContext()), getApplicationContext());
-                if (delta > 0) {
-                    // Rotate clockwise
-                    if(mp!=null)
-                    {
-                        mp.release();
-                        mp=null;
-                    }
-                    mp=MediaPlayer.create(Ohma.this,R.raw.transition2);
-                    mp.start();
-                    currentImageIndex++;
-                } else if (delta < 0) {
-                    // Rotate counter-clockwise
-                    if(mp!=null)
-                    {
-                        mp.release();
-                        mp=null;
-                    }
-                    mp=MediaPlayer.create(Ohma.this,R.raw.transition2);
-                    mp.start();
-                    currentImageIndex--;
-                }
-                // Wrap around the image array
-                if (currentImageIndex < 0) {
-                    currentImageIndex = ridewatches.length - 1;
-                } else if (currentImageIndex >= ridewatches.length) {
-                    currentImageIndex = 0;
-                }
-                // Update the background image
-                if (ridewatches.length > 0) {
-                    ridewatch.setImageDrawable(ridewatches[currentImageIndex]);
-                }
-                return true;
-            }
-            return false;
-        });
         ohmabelt.setOnClickListener(v -> {
             audiomanager.setStreamVolume(AudioManager.STREAM_MUSIC,targetvolume,0);
             backgroundimage.setVisibility(View.VISIBLE);
@@ -270,5 +225,53 @@ public class Ohma extends BaseKamenActivity {
     @Override
     protected View getRotaryView() {// This tells the base class to unbind the listener from the imageView
         return ridewatch;
+    }
+    @Override
+    protected void setupRotaryLogic() {
+        ridewatch.setOnGenericMotionListener((view, motionEvent) -> {
+            if (motionEvent.getAction() == MotionEvent.ACTION_SCROLL &&
+                    motionEvent.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)){
+                if(mp!=null)
+                {
+                    mp.release();
+                    mp=null;
+                }
+                float delta = -motionEvent.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
+                        ViewConfigurationCompat.getScaledHorizontalScrollFactor(ViewConfiguration.get(getApplicationContext()), getApplicationContext());
+                if (delta > 0) {
+                    // Rotate clockwise
+                    if(mp!=null)
+                    {
+                        mp.release();
+                        mp=null;
+                    }
+                    mp=MediaPlayer.create(Ohma.this,R.raw.transition2);
+                    mp.start();
+                    currentImageIndex++;
+                } else if (delta < 0) {
+                    // Rotate counter-clockwise
+                    if(mp!=null)
+                    {
+                        mp.release();
+                        mp=null;
+                    }
+                    mp=MediaPlayer.create(Ohma.this,R.raw.transition2);
+                    mp.start();
+                    currentImageIndex--;
+                }
+                // Wrap around the image array
+                if (currentImageIndex < 0) {
+                    currentImageIndex = ridewatches.length - 1;
+                } else if (currentImageIndex >= ridewatches.length) {
+                    currentImageIndex = 0;
+                }
+                // Update the background image
+                if (ridewatches.length > 0) {
+                    ridewatch.setImageDrawable(ridewatches[currentImageIndex]);
+                }
+                return true;
+            }
+            return false;
+        });
     }
 }

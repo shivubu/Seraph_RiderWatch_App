@@ -55,5 +55,8 @@ public class LauncherActivity extends BaseKamenActivity {
     protected View getRotaryView() {
         return null;
     }
+    @Override
+    protected void setupRotaryLogic() {
+    }
 }
 

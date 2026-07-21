@@ -1,6 +1,7 @@
 package com.example.kamen_app_01;
 
 import android.annotation.SuppressLint;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.GestureDetector;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.Insets;
 import androidx.core.view.InputDeviceCompat;
 import androidx.core.view.MotionEventCompat;
@@ -28,6 +30,7 @@ public class HeiseiRiders2 extends BaseKamenActivity {
     int i=0,flag=0,kiwami=0,hazard,w,kiwamicounter,kiwami1,tricounter,triflag,mugen,mighty;
     ImageView myLocalImage;
     int dcjx=0,wi=3,gk=4,dt=5,gm=6,exm=7,bg=8,gz=9;
+    private Drawable[] backgroundImages;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +44,17 @@ public class HeiseiRiders2 extends BaseKamenActivity {
             return insets;
         });
         Animation fade= AnimationUtils.loadAnimation(this,R.anim.customfade);
-        int[] rw = {R.drawable.w,
-                R.drawable.ooo,
-                R.drawable.fourze,
-                R.drawable.wizard,
-                R.drawable.gaim,
-                R.drawable.drive,
-                R.drawable.ghost,
-                R.drawable.exaid,
-                R.drawable.build,
-                R.drawable.grandzio};
+        backgroundImages= new Drawable[]{ AppCompatResources.getDrawable(this,R.drawable.w),
+                AppCompatResources.getDrawable(this,R.drawable.ooo),
+                AppCompatResources.getDrawable(this,R.drawable.fourze),
+                AppCompatResources.getDrawable(this,R.drawable.wizard),
+                AppCompatResources.getDrawable(this,R.drawable.gaim),
+                AppCompatResources.getDrawable(this,R.drawable.drive),
+                AppCompatResources.getDrawable(this,R.drawable.ghost),
+                AppCompatResources.getDrawable(this,R.drawable.exaid),
+                AppCompatResources.getDrawable(this,R.drawable.build),
+                AppCompatResources.getDrawable(this,R.drawable.grandzio)
+        };
         int[] sounds = {R.raw.doublecjex, R.raw.oooputo,R.raw.fourzecosmic,R.raw.wizardinfinity,R.raw.gaimkiwami,R.raw.drivetrideron,R.raw.ghostmugen,R.raw.exaidmuteki,R.raw.buildgenius,R.raw.grandzio};
         int[] henshinsounds={R.raw.henshindoublecjx,R.raw.henshinoooputo,R.raw.henshinfourzecosmic,R.raw.henshinwizardinfinity,R.raw.henshingaimkiwami1,R.raw.henshindrivetrideron,R.raw.henshinghostmugen,R.raw.henshinexaidmuteki,R.raw.henshinbuildgenius,R.raw.henshingrandzio};
         int[] longpresssounds={R.raw.lpdouble,R.raw.lpooo,R.raw.lpfourze,R.raw.lpwizard,R.raw.lpgaim,R.raw.lpdrive,R.raw.lpghost,R.raw.lpexaid,R.raw.lpbuild,R.raw.lpzio};
@@ -59,10 +63,6 @@ public class HeiseiRiders2 extends BaseKamenActivity {
         int[] trideronhenshins={R.raw.henshin_trideron123,R.raw.henshin_trideronsaver,R.raw.henshin_triderondream,R.raw.henshin_triderongenbar,R.raw.henshin_trideronweather,R.raw.henshin_triderontough,R.raw.henshin_triderongrand};
         int[] trideronfinishers={R.raw.finisher_trideron123,R.raw.finisher_trideronsaver,R.raw.finisher_triderondream,R.raw.finisher_triderongenbar,R.raw.finisher_trideronweather,R.raw.finisher_triderontough,R.raw.finisher_triderongrand};
         int[] ghostmugenfinishers={R.raw.mugen_yorokobi,R.raw.mugen_tanoshii,R.raw.mugen_shinnen,R.raw.mugen_isama,R.raw.mugen_ikari,R.raw.mugen_kanashimi,R.raw.mugen_love};
-        ArrayList<Integer> screen = new ArrayList<>();
-        for (int j : rw) {
-            screen.add(j);
-        }
         ArrayList<Integer> sound = new ArrayList<>();
         for (int j : sounds) {
             sound.add(j);
@@ -96,61 +96,9 @@ public class HeiseiRiders2 extends BaseKamenActivity {
             mugenfinishers.add(j);
         }
         myLocalImage = findViewById(R.id.imageView7);
-        myLocalImage.setImageResource(screen.get(i));
+        myLocalImage.setImageDrawable(backgroundImages[i]);
         myLocalImage.setFocusable(true);
         myLocalImage.requestFocus();
-        myLocalImage.setOnGenericMotionListener((view, motionEvent) -> {
-            if (motionEvent.getAction() == MotionEvent.ACTION_SCROLL &&
-                    motionEvent.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)){
-                if(mp!=null)
-                {
-                    mp.release();
-                    mp=null;
-                    myLocalImage.clearAnimation();
-                }
-                if(mp1!=null)
-                {
-                    mp1.release();
-                    mp1=null;
-                    myLocalImage.clearAnimation();
-                }
-                flag=0;
-                float delta = -motionEvent.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
-                        ViewConfigurationCompat.getScaledHorizontalScrollFactor(ViewConfiguration.get(getApplicationContext()), getApplicationContext());
-                if (delta > 0) {
-                    // Rotate clockwise
-                    mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.transition2);
-                    mp.start();
-                    i++;
-                } else if (delta < 0) {
-                    // Rotate counter-clockwise
-                    mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.transition2);
-                    mp.start();
-                    i--;
-                }
-                // Wrap around the image array
-                if (i < 0) {
-                    i = screen.size() - 1;
-                } else if (i >= screen.size()) {
-                    i = 0;
-                }
-                // Update the background image
-                if (!screen.isEmpty()) {
-                    myLocalImage.setImageResource(screen.get(i));
-                    switch (i)
-                    {
-                        case 0:w=0;break;
-                        case 4: kiwami=0;kiwami1=0;kiwamicounter=-1;break;
-                        case 5: tricounter=-1;triflag=0;break;
-                        case 6: mugen=-1;break;
-                        case 7: mighty=0;break;
-                        case 8: hazard=0;break;
-                    }
-                }
-                return true;
-            }
-            return false;
-        });
         myLocalImage.setOnTouchListener(new View.OnTouchListener() {
             final GestureDetector gestureDetector=new GestureDetector(getApplicationContext(),new GestureDetector.SimpleOnGestureListener()
             {
@@ -192,7 +140,7 @@ public class HeiseiRiders2 extends BaseKamenActivity {
                         }
                         if(upSwipe)
                         {
-                            myLocalImage.setImageResource(screen.get(i));
+                            myLocalImage.setImageDrawable(backgroundImages[i]);
                             w=0;
                         }
                         if(leftSwipe || rightSwipe)
@@ -227,7 +175,7 @@ public class HeiseiRiders2 extends BaseKamenActivity {
                         }
                         if(upSwipe)
                         {
-                            myLocalImage.setImageResource(screen.get(i));
+                            myLocalImage.setImageDrawable(backgroundImages[i]);
                         }
                     }
                     else if(i==gk)
@@ -590,6 +538,63 @@ public class HeiseiRiders2 extends BaseKamenActivity {
     @Override
     protected View getRotaryView() {// This tells the base class to unbind the listener from the imageView
         return myLocalImage;
+    }
+    @Override
+    protected void setupRotaryLogic() {
+        myLocalImage.setOnGenericMotionListener((view, motionEvent) -> {
+            if (motionEvent.getAction() == MotionEvent.ACTION_SCROLL &&
+                    motionEvent.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)){
+                myLocalImage.setFocusable(true);
+                myLocalImage.requestFocus();
+                if(mp!=null)
+                {
+                    mp.release();
+                    mp=null;
+                    myLocalImage.clearAnimation();
+                }
+                if(mp1!=null)
+                {
+                    mp1.release();
+                    mp1=null;
+                    myLocalImage.clearAnimation();
+                }
+                flag=0;
+                float delta = -motionEvent.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
+                        ViewConfigurationCompat.getScaledHorizontalScrollFactor(ViewConfiguration.get(getApplicationContext()), getApplicationContext());
+                if (delta > 0) {
+                    // Rotate clockwise
+                    mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.transition2);
+                    mp.start();
+                    i++;
+                } else if (delta < 0) {
+                    // Rotate counter-clockwise
+                    mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.transition2);
+                    mp.start();
+                    i--;
+                }
+                // Wrap around the image array
+                if (i < 0) {
+                    i = backgroundImages.length - 1;
+                } else if (i >= backgroundImages.length) {
+                    i = 0;
+                }
+                // Update the background image
+                if (backgroundImages.length>0) {
+                    myLocalImage.setImageDrawable(backgroundImages[i]);
+                    switch (i)
+                    {
+                        case 0:w=0;break;
+                        case 4: kiwami=0;kiwami1=0;kiwamicounter=-1;break;
+                        case 5: tricounter=-1;triflag=0;break;
+                        case 6: mugen=-1;break;
+                        case 7: mighty=0;break;
+                        case 8: hazard=0;break;
+                    }
+                }
+                return true;
+            }
+            return false;
+        });
     }
 
 

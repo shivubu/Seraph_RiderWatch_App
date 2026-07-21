@@ -108,66 +108,6 @@ public class MainActivity extends BaseKamenActivity{
         myLocalImage = findViewById(R.id.imageView);
         myLocalImage.setFocusable(true);
         myLocalImage.requestFocus();
-        myLocalImage.setOnGenericMotionListener((view, motionEvent) -> {
-            if (motionEvent.getAction() == MotionEvent.ACTION_SCROLL &&
-                    motionEvent.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)){
-                if(mp!=null)
-                {
-                    mp.release();
-                    mp=null;
-                    myLocalImage.clearAnimation();
-                }
-                if(mp1!=null) {
-                    mp1.release();
-                    mp1 = null;
-                    myLocalImage.clearAnimation();
-                }
-                if(loopPlayer!=null)
-                {
-                    loopPlayer.release();
-                    loopPlayer=null;
-                }
-                flag1=0;
-                float delta = -motionEvent.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
-                        ViewConfigurationCompat.getScaledHorizontalScrollFactor(ViewConfiguration.get(getApplicationContext()), getApplicationContext());
-                if (delta > 0) {
-                    // Rotate clockwise
-                    mp=MediaPlayer.create(MainActivity.this,R.raw.transition2);
-                    mp.start();
-                    currentImageIndex++;
-                } else if (delta < 0) {
-                    // Rotate counter-clockwise
-                    mp=MediaPlayer.create(MainActivity.this,R.raw.transition2);
-                    mp.start();
-                    currentImageIndex--;
-                }
-                // Wrap around the image array
-                if (currentImageIndex < 0) {
-                    currentImageIndex = backgroundImages.length - 1;
-                } else if (currentImageIndex >= backgroundImages.length) {
-                    currentImageIndex = 0;
-                }
-                // Update the background image
-                if (backgroundImages.length > 0) {
-                    myLocalImage.setImageDrawable(backgroundImages[currentImageIndex]);
-                    switch(currentImageIndex)
-                    {
-                        case 0:finalForm=0;
-                        case 1:sru=0;break;
-                        case 2:exc_index=-1;break;
-                        case 5:drivemode=0;break;
-                        case 7:fumetsu=0;flag=0;genmflag=0;fumetsuflag=0;break;
-                        case 10: ohmaflag=0;break;
-                        case 11: zt_index=-1;ztweap_index=-1;phblade_index=-1;rampage_index=-1;break;
-                        case 12: sabermode=0;bahamut=0;superherosenki1=superherosenki2=0;wonder1=wonder2=0;break;
-                        case 13: geatsflag=0;dea=0;break;
-                        case 14: gotchard=0;gotchardfinisher=0;break;
-                    }
-                }
-                return true;
-            }
-            return false;
-        });
         myLocalImage.setOnTouchListener(new View.OnTouchListener() {
             final GestureDetector gestureDetector=new GestureDetector(getApplicationContext(),new GestureDetector.SimpleOnGestureListener()
             {
@@ -1102,6 +1042,72 @@ public class MainActivity extends BaseKamenActivity{
     @Override
     protected View getRotaryView() {// This tells the base class to unbind the listener from the imageView
         return myLocalImage;
+    }
+
+    @Override
+    protected void setupRotaryLogic() {
+        myLocalImage.setOnGenericMotionListener((view, motionEvent) -> {
+            if (motionEvent.getAction() == MotionEvent.ACTION_SCROLL &&
+                    motionEvent.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)){
+                myLocalImage.setFocusable(true);
+                myLocalImage.requestFocus();
+                if(mp!=null)
+                {
+                    mp.release();
+                    mp=null;
+                    myLocalImage.clearAnimation();
+                }
+                if(mp1!=null) {
+                    mp1.release();
+                    mp1 = null;
+                    myLocalImage.clearAnimation();
+                }
+                if(loopPlayer!=null)
+                {
+                    loopPlayer.release();
+                    loopPlayer=null;
+                }
+                flag1=0;
+                float delta = -motionEvent.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
+                        ViewConfigurationCompat.getScaledHorizontalScrollFactor(ViewConfiguration.get(getApplicationContext()), getApplicationContext());
+                if (delta > 0) {
+                    // Rotate clockwise
+                    mp=MediaPlayer.create(MainActivity.this,R.raw.transition2);
+                    mp.start();
+                    currentImageIndex++;
+                } else if (delta < 0) {
+                    // Rotate counter-clockwise
+                    mp=MediaPlayer.create(MainActivity.this,R.raw.transition2);
+                    mp.start();
+                    currentImageIndex--;
+                }
+                // Wrap around the image array
+                if (currentImageIndex < 0) {
+                    currentImageIndex = backgroundImages.length - 1;
+                } else if (currentImageIndex >= backgroundImages.length) {
+                    currentImageIndex = 0;
+                }
+                // Update the background image
+                if (backgroundImages.length > 0) {
+                    myLocalImage.setImageDrawable(backgroundImages[currentImageIndex]);
+                    switch(currentImageIndex)
+                    {
+                        case 0:finalForm=0;
+                        case 1:sru=0;break;
+                        case 2:exc_index=-1;break;
+                        case 5:drivemode=0;break;
+                        case 7:fumetsu=0;flag=0;genmflag=0;fumetsuflag=0;break;
+                        case 10: ohmaflag=0;break;
+                        case 11: zt_index=-1;ztweap_index=-1;phblade_index=-1;rampage_index=-1;break;
+                        case 12: sabermode=0;bahamut=0;superherosenki1=superherosenki2=0;wonder1=wonder2=0;break;
+                        case 13: geatsflag=0;dea=0;break;
+                        case 14: gotchard=0;gotchardfinisher=0;break;
+                    }
+                }
+                return true;
+            }
+            return false;
+        });
     }
 
 }

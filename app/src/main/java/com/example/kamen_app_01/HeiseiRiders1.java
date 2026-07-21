@@ -1,5 +1,6 @@
 package com.example.kamen_app_01;
 import android.annotation.SuppressLint;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.GestureDetector;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.Insets;
 import androidx.core.view.InputDeviceCompat;
 import androidx.core.view.MotionEventCompat;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 
 public class HeiseiRiders1 extends BaseKamenActivity {
     int i=0,flag=0,kabuto=0,hculoop=0,blade;
+    private Drawable[] backgroundImages;
     ImageView myLocalImage;
     int bkf=4,hk=6;
     @SuppressLint("ClickableViewAccessibility")
@@ -38,15 +41,22 @@ public class HeiseiRiders1 extends BaseKamenActivity {
             return insets;
         });
         Animation fade= AnimationUtils.loadAnimation(this,R.anim.customfade);
-        int[] rw = {R.drawable.kuuga, R.drawable.agito,R.drawable.ryuki,R.drawable.faiz,R.drawable.blade,R.drawable.hibiki,R.drawable.kabuto,R.drawable.deno,R.drawable.kiva,R.drawable.decadec};
+        backgroundImages= new Drawable[]{ AppCompatResources.getDrawable(this,R.drawable.kuuga),
+                AppCompatResources.getDrawable(this,R.drawable.agito),
+                AppCompatResources.getDrawable(this,R.drawable.ryuki),
+                AppCompatResources.getDrawable(this,R.drawable.faiz),
+                AppCompatResources.getDrawable(this,R.drawable.blade),
+                AppCompatResources.getDrawable(this,R.drawable.hibiki),
+                AppCompatResources.getDrawable(this,R.drawable.kabuto),
+                AppCompatResources.getDrawable(this,R.drawable.deno),
+                AppCompatResources.getDrawable(this,R.drawable.kiva),
+                AppCompatResources.getDrawable(this,R.drawable.decadec)
+        };
         int[] sounds = {R.raw.kuugault, R.raw.agitoshining,R.raw.ryukisurvive,R.raw.faizblaster,R.raw.bladeking,R.raw.hibikiarmed,R.raw.kabutohyper,R.raw.denoliner,R.raw.kivaemperor,R.raw.decadecomplete};
         int[] henshinsounds={R.raw.henshinkuugault,R.raw.henshinagitoshining,R.raw.henshinryukisurvive,R.raw.henshinfaizblaster,R.raw.henshinbladeking,R.raw.henshinhibikiarmed,R.raw.henshinkabutohyper,R.raw.henshindenoliner,R.raw.henshinkivaemperor,R.raw.henshindecadecomplete};
         int[] longprsssounds={R.raw.lpkuuga,R.raw.lpagito,R.raw.lpryuki,R.raw.lpfaiz,R.raw.lpblade,R.raw.lphibiki,R.raw.lpkabuto,R.raw.lpdeno,R.raw.lpkiva,R.raw.lpdecade};
         int[] finishersounds={R.raw.finisher_kuugault,R.raw.finisher_agitoshining,R.raw.finisher_ryukisurvive,R.raw.finisher_faizblaster,R.raw.finisher_bladeking_1,R.raw.finisher_hibikiarmed,R.raw.finisher_kabutohyper,R.raw.finisher_denoliner,R.raw.finisher_kivaemperor,R.raw.finisher_decadecomplete};
-        ArrayList<Integer> screen = new ArrayList<>();
-        for (int j : rw) {
-            screen.add(j);
-        }
+
         ArrayList<Integer> sound = new ArrayList<>();
         for (int j : sounds) {
             sound.add(j);
@@ -64,60 +74,9 @@ public class HeiseiRiders1 extends BaseKamenActivity {
             finishersound.add(j);
         }
         myLocalImage = findViewById(R.id.imageView6);
-        myLocalImage.setImageResource(screen.get(i));
+        myLocalImage.setImageDrawable(backgroundImages[i]);
         myLocalImage.setFocusable(true);
         myLocalImage.requestFocus();
-        myLocalImage.setOnGenericMotionListener((view, motionEvent) -> {
-            if (motionEvent.getAction() == MotionEvent.ACTION_SCROLL &&
-                    motionEvent.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)){
-                if(mp!=null)
-                {
-                    mp.release();
-                    mp=null;
-                }
-                if(mp1!=null) {
-                    mp1.release();
-                    mp1 = null;
-                }
-                if(loopPlayer!=null)
-                {
-                    loopPlayer.release();
-                    loopPlayer=null;
-                }
-                myLocalImage.clearAnimation();
-                flag=0;
-                float delta = -motionEvent.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
-                        ViewConfigurationCompat.getScaledHorizontalScrollFactor(ViewConfiguration.get(getApplicationContext()), getApplicationContext());
-                if (delta > 0) {
-                    // Rotate clockwise
-                    mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.transition2);
-                    mp.start();
-                    i++;
-                } else if (delta < 0) {
-                    // Rotate counter-clockwise
-                    mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.transition2);
-                    mp.start();
-                    i--;
-                }
-                // Wrap around the image array
-                if (i < 0) {
-                    i = screen.size() - 1;
-                } else if (i >= screen.size()) {
-                    i = 0;
-                }
-                // Update the background image
-                if (!screen.isEmpty()) {
-                    myLocalImage.setImageResource(screen.get(i));
-                    switch(i)
-                    {
-                        case 4:blade=0;
-                        case 6:kabuto=hculoop=0;break;
-                    }
-                }
-                return true;
-            }
-            return false;
-        });
         myLocalImage.setOnTouchListener(new View.OnTouchListener() {
             final GestureDetector gestureDetector=new GestureDetector(getApplicationContext(),new GestureDetector.SimpleOnGestureListener()
             {
@@ -352,7 +311,62 @@ public class HeiseiRiders1 extends BaseKamenActivity {
     protected View getRotaryView() {// This tells the base class to unbind the listener from the imageView
         return myLocalImage;
     }
-
+    @Override
+    protected void setupRotaryLogic() {
+        myLocalImage.setOnGenericMotionListener((view, motionEvent) -> {
+            if (motionEvent.getAction() == MotionEvent.ACTION_SCROLL &&
+                    motionEvent.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)){
+                myLocalImage.setFocusable(true);
+                myLocalImage.requestFocus();
+                if(mp!=null)
+                {
+                    mp.release();
+                    mp=null;
+                }
+                if(mp1!=null) {
+                    mp1.release();
+                    mp1 = null;
+                }
+                if(loopPlayer!=null)
+                {
+                    loopPlayer.release();
+                    loopPlayer=null;
+                }
+                myLocalImage.clearAnimation();
+                flag=0;
+                float delta = -motionEvent.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
+                        ViewConfigurationCompat.getScaledHorizontalScrollFactor(ViewConfiguration.get(getApplicationContext()), getApplicationContext());
+                if (delta > 0) {
+                    // Rotate clockwise
+                    mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.transition2);
+                    mp.start();
+                    i++;
+                } else if (delta < 0) {
+                    // Rotate counter-clockwise
+                    mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.transition2);
+                    mp.start();
+                    i--;
+                }
+                // Wrap around the image array
+                if (i < 0) {
+                    i = backgroundImages.length - 1;
+                } else if (i >= backgroundImages.length) {
+                    i = 0;
+                }
+                // Update the background image
+                if (backgroundImages.length>0) {
+                    myLocalImage.setImageDrawable(backgroundImages[i]);
+                    switch(i)
+                    {
+                        case 4:blade=0;
+                        case 6:kabuto=hculoop=0;break;
+                    }
+                }
+                return true;
+            }
+            return false;
+        });
+    }
 
 
 }

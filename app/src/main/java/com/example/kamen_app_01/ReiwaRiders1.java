@@ -1,6 +1,7 @@
 package com.example.kamen_app_01;
 
 import android.annotation.SuppressLint;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.GestureDetector;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.Insets;
 import androidx.core.view.InputDeviceCompat;
 import androidx.core.view.MotionEventCompat;
@@ -30,6 +32,7 @@ public class ReiwaRiders1 extends BaseKamenActivity {
     int zindex;
     int zt=0,cs=1,ur=2,gn=3,gr=4,gom=5,ze=6;
     ImageView myLocalImage;
+    private Drawable[] backgroundImages;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +47,14 @@ public class ReiwaRiders1 extends BaseKamenActivity {
             return insets;
         });
         Animation fade= AnimationUtils.loadAnimation(this,R.anim.customfade);
-        int[] rw = {R.drawable.zerotwo,R.drawable.sabercross,R.drawable.reviultimate,R.drawable.geats9,R.drawable.gotchardrainbow,R.drawable.gavvover,R.drawable.zeztz_exdream};
+        backgroundImages= new Drawable[]{ AppCompatResources.getDrawable(this,R.drawable.zerotwo),
+                AppCompatResources.getDrawable(this,R.drawable.sabercross),
+                AppCompatResources.getDrawable(this,R.drawable.reviultimate),
+                AppCompatResources.getDrawable(this,R.drawable.geats9),
+                AppCompatResources.getDrawable(this,R.drawable.gotchardrainbow),
+                AppCompatResources.getDrawable(this,R.drawable.gavvover),
+                AppCompatResources.getDrawable(this,R.drawable.zeztz_exdream)
+        };
         int[] sounds = {R.raw.zerotwo,R.raw.sabercross,R.raw.reviultimate,R.raw.geats9,R.raw.gotchardrainbow,R.raw.gavvover,R.raw.zeztzexdream};
         int[] henshinsounds={R.raw.henshinzerotwo,R.raw.henshincrosssaber,R.raw.henshinrevicerex,R.raw.henshingeats9,R.raw.henshingotchardrainbow,R.raw.henshingavvover,R.raw.henshin_zeztzexdream};
         int[] longpress={R.raw.lpzeroone,R.raw.lpsaber,R.raw.lprevi,R.raw.lpgeats,R.raw.lpgotchard};
@@ -52,10 +62,6 @@ public class ReiwaRiders1 extends BaseKamenActivity {
         int[] gavvover={R.raw.gavvover0,R.raw.gavvover1,R.raw.gavvover2,R.raw.gavvover3};
         int[] gavvmaster={R.raw.mastergummy,R.raw.mastersnack,R.raw.mastermarsh,R.raw.masterchoco,R.raw.mastercandy,R.raw.masterdonuts,R.raw.mastercake};
         int[] zeztz={R.raw.impact,R.raw.transform,R.raw.wing,R.raw.recovery,R.raw.barrier,R.raw.stream,R.raw.machinery,R.raw.projection,R.raw.wonder,R.raw.gravity,R.raw.plasma,R.raw.booster,R.raw.catastrom,R.raw.orderm,R.raw.erase};
-        ArrayList<Integer> screen = new ArrayList<>();
-        for (int j : rw) {
-            screen.add(j);
-        }
         ArrayList<Integer> sound = new ArrayList<>();
         for (int j : sounds) {
             sound.add(j);
@@ -85,60 +91,9 @@ public class ReiwaRiders1 extends BaseKamenActivity {
             zeztzsound.add(j);
         }
         myLocalImage = findViewById(R.id.imageView8);
-        myLocalImage.setImageResource(screen.get(i));
+        myLocalImage.setImageDrawable(backgroundImages[i]);
         myLocalImage.setFocusable(true);
         myLocalImage.requestFocus();
-        myLocalImage.setOnGenericMotionListener((view, motionEvent) -> {
-            if (motionEvent.getAction() == MotionEvent.ACTION_SCROLL &&
-                    motionEvent.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)){
-                if(mp!=null)
-                {
-                    mp.release();
-                    mp=null;
-                    myLocalImage.clearAnimation();
-                }
-                if(mp1!=null) {
-                    mp1.release();
-                    mp1 = null;
-                    myLocalImage.clearAnimation();
-                }
-                flag=0;
-                float delta = -motionEvent.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
-                        ViewConfigurationCompat.getScaledHorizontalScrollFactor(ViewConfiguration.get(getApplicationContext()), getApplicationContext());
-                if (delta > 0) {
-                    // Rotate clockwise
-                    mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.transition2);
-                    mp.start();
-                    i++;
-                } else if (delta < 0) {
-                    // Rotate counter-clockwise
-                    mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.transition2);
-                    mp.start();
-                    i--;
-                }
-                // Wrap around the image array
-                if (i < 0) {
-                    i = screen.size() - 1;
-                } else if (i >= screen.size()) {
-                    i = 0;
-                }
-                // Update the background image
-                if (!screen.isEmpty()) {
-                    myLocalImage.setImageResource(screen.get(i));
-                    switch(i)
-                    {
-                        case 0: hellrise=0;break;
-                        case 1: saber=0;primitive=0;pdhenshin=0;pdfinisher=0;break;
-                        case 3: geatsflag=0; break;
-                        case 4: gotchardfinisher=0;break;
-                        case 5: gavvmode=0;gavvoverhenshin=0; overindex=-1; masterindex=-1; break;
-                        case 6: zeztzfinisher=0;zindex=-1;break;
-                    }
-                }
-                return true;
-            }
-            return false;
-        });
         myLocalImage.setOnTouchListener(new View.OnTouchListener() {
             final GestureDetector gestureDetector=new GestureDetector(getApplicationContext(),new GestureDetector.SimpleOnGestureListener()
             {
@@ -670,6 +625,62 @@ public class ReiwaRiders1 extends BaseKamenActivity {
     @Override
     protected View getRotaryView() {// This tells the base class to unbind the listener from the imageView
         return myLocalImage;
+    }
+    @Override
+    protected void setupRotaryLogic() {
+        myLocalImage.setOnGenericMotionListener((view, motionEvent) -> {
+            if (motionEvent.getAction() == MotionEvent.ACTION_SCROLL &&
+                    motionEvent.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)){
+                myLocalImage.setFocusable(true);
+                myLocalImage.requestFocus();
+                if(mp!=null)
+                {
+                    mp.release();
+                    mp=null;
+                    myLocalImage.clearAnimation();
+                }
+                if(mp1!=null) {
+                    mp1.release();
+                    mp1 = null;
+                    myLocalImage.clearAnimation();
+                }
+                flag=0;
+                float delta = -motionEvent.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
+                        ViewConfigurationCompat.getScaledHorizontalScrollFactor(ViewConfiguration.get(getApplicationContext()), getApplicationContext());
+                if (delta > 0) {
+                    // Rotate clockwise
+                    mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.transition2);
+                    mp.start();
+                    i++;
+                } else if (delta < 0) {
+                    // Rotate counter-clockwise
+                    mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.transition2);
+                    mp.start();
+                    i--;
+                }
+                // Wrap around the image array
+                if (i < 0) {
+                    i = backgroundImages.length - 1;
+                } else if (i >= backgroundImages.length) {
+                    i = 0;
+                }
+                // Update the background image
+                if (backgroundImages.length>0) {
+                    myLocalImage.setImageDrawable(backgroundImages[i]);
+                    switch(i)
+                    {
+                        case 0: hellrise=0;break;
+                        case 1: saber=0;primitive=0;pdhenshin=0;pdfinisher=0;break;
+                        case 3: geatsflag=0; break;
+                        case 4: gotchardfinisher=0;break;
+                        case 5: gavvmode=0;gavvoverhenshin=0; overindex=-1; masterindex=-1; break;
+                        case 6: zeztzfinisher=0;zindex=-1;break;
+                    }
+                }
+                return true;
+            }
+            return false;
+        });
     }
 
 }
