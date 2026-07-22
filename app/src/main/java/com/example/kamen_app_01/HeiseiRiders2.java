@@ -265,11 +265,15 @@ public class HeiseiRiders2 extends BaseKamenActivity {
                         }
                         if(downSwipe)
                         {
+                            mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.finisher_drive_trailergun);
+                            mp.start();
                             tricounter=-1;
                             triflag=0;
                         }
                         if(upSwipe)
                         {
+                            mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.transition2);
+                            mp.start();
                             tricounter=-1;
                             triflag=1;
                         }
