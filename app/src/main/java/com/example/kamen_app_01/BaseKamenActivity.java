@@ -12,7 +12,8 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;public abstract class BaseKamenActivity extends AppCompatActivity {
 
     protected MediaPlayer mp, mp1, end;protected PerfectLoopMediaPlayer loopPlayer;
-    protected Handler handler = new Handler(Looper.getMainLooper());protected abstract ImageView getLocalImageView();
+    protected Handler handler = new Handler(Looper.getMainLooper());
+    protected abstract ImageView getLocalImageView();
     protected abstract Class<?> getBackTargetClass();
     protected abstract View getRotaryView();
 

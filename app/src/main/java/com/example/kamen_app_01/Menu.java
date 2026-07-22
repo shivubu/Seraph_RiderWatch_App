@@ -126,7 +126,7 @@ public class Menu extends BaseKamenActivity {
 
     }
     @Override
-    protected ImageView getLocalImageView() {return heiseigen1;
+    protected ImageView getLocalImageView() {return null;
     }
 
     @Override
@@ -135,7 +135,7 @@ public class Menu extends BaseKamenActivity {
         return LauncherActivity.class;}
     @Override
     protected View getRotaryView() {// This tells the base class to unbind the listener from the imageView
-        return heiseigen1;
+        return null;
     }
     @Override
     protected void setupRotaryLogic() {
