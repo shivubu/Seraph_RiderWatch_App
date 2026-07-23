@@ -196,7 +196,7 @@ public class HeiseiRiders1 extends BaseKamenActivity {
                             loopPlayer = null;
                         }
                         if (upSwipe || downSwipe) {
-                            mp = MediaPlayer.create(HeiseiRiders1.this, R.raw.denoliner);
+                            mp = MediaPlayer.create(HeiseiRiders1.this, R.raw.denliner);
                             mp.start();
                         }
 
