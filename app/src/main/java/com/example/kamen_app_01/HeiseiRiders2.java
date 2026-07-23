@@ -479,7 +479,7 @@ public class HeiseiRiders2 extends BaseKamenActivity {
                         mp1=null;
                     }
                     myLocalImage.startAnimation(fade);
-                    mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.judgementformtime);
+                    mp=MediaPlayer.create(HeiseiRiders2.this,R.raw.finaljudgementformtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
                         if(i==bg && hazard==1)

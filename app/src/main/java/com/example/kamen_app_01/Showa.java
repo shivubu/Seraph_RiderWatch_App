@@ -171,7 +171,7 @@ public class Showa extends BaseKamenActivity {
                         mp1=null;
                     }
                     myLocalImage.startAnimation(fade);
-                    mp=MediaPlayer.create(Showa.this,R.raw.judgementformtime);
+                    mp=MediaPlayer.create(Showa.this,R.raw.finaljudgementformtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
                         if(i==amz && amazon_mode!=0)

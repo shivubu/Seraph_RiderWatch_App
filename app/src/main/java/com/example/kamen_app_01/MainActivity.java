@@ -278,7 +278,7 @@ public class MainActivity extends BaseKamenActivity{
                         mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
                     }
                     else {
-                        mp=MediaPlayer.create(MainActivity.this,R.raw.judgementformtime);
+                        mp=MediaPlayer.create(MainActivity.this,R.raw.finaljudgementformtime);
                         mp.start();
                         mp.setOnCompletionListener(mp -> {
                             if(currentImageIndex==0 && finalForm==1)

@@ -201,7 +201,7 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                         mp1=null;
                     }
                     myLocalImage.startAnimation(fade);
-                    mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.judgementformtime);
+                    mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.finaljudgementformtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
                         if(i==zt && hellrise==1)

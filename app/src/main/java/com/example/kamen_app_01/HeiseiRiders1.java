@@ -27,7 +27,7 @@ public class HeiseiRiders1 extends BaseKamenActivity {
     int i=0,flag=0,kabuto=0,hculoop=0,blade;
     private Drawable[] backgroundImages;
     ImageView myLocalImage;
-    int bkf=4,hk=6;
+    int bkf=4,hk=6,deno=7;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,6 +181,24 @@ public class HeiseiRiders1 extends BaseKamenActivity {
                                 hculoop=1;
                             });
                         }
+                    } else if (i==deno) {
+                        myLocalImage.clearAnimation();
+                        if (mp != null) {
+                            mp.release();
+                            mp = null;
+                        }
+                        if (mp1 != null) {
+                            mp1.release();
+                            mp1 = null;
+                        }
+                        if (loopPlayer != null) {
+                            loopPlayer.release();
+                            loopPlayer = null;
+                        }
+                        if (upSwipe || downSwipe) {
+                            mp = MediaPlayer.create(HeiseiRiders1.this, R.raw.denoliner);
+                        }
+
                     }
                     return super.onFling(e1, e2, velocityX, velocityY);
 
@@ -250,7 +268,7 @@ public class HeiseiRiders1 extends BaseKamenActivity {
                         loopPlayer=null;
                     }
                     myLocalImage.startAnimation(fade);
-                    mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.judgementformtime);
+                    mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.finaljudgementformtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
                         mp1=MediaPlayer.create(HeiseiRiders1.this,henshinsound.get(i));
