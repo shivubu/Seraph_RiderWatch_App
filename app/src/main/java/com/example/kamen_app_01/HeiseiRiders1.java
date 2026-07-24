@@ -27,7 +27,7 @@ public class HeiseiRiders1 extends BaseKamenActivity {
     int i=0,flag=0,kabuto=0,hculoop=0,blade;
     private Drawable[] backgroundImages;
     ImageView myLocalImage;
-    int bkf=4,hk=6,deno=7;
+    int bkf=4,hk=6,deno=7,kiva=8,decade=9;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,7 +196,64 @@ public class HeiseiRiders1 extends BaseKamenActivity {
                             loopPlayer = null;
                         }
                         if (upSwipe || downSwipe) {
-                            mp = MediaPlayer.create(HeiseiRiders1.this, R.raw.denliner);
+                            mp = MediaPlayer.create(HeiseiRiders1.this, R.raw.denliner_alt);
+                            mp.start();
+                        }
+
+                    }
+                    else if (i==kiva) {
+                        myLocalImage.clearAnimation();
+                        if (mp != null) {
+                            mp.release();
+                            mp = null;
+                        }
+                        if (mp1 != null) {
+                            mp1.release();
+                            mp1 = null;
+                        }
+                        if (loopPlayer != null) {
+                            loopPlayer.release();
+                            loopPlayer = null;
+                        }
+                        if (leftSwipe) {
+                            mp = MediaPlayer.create(HeiseiRiders1.this, R.raw.garulu_fever);
+                            mp.start();
+                        } else if (downSwipe) {
+                            mp = MediaPlayer.create(HeiseiRiders1.this, R.raw.basha_fever);
+                            mp.start();
+                        }
+                        else if(rightSwipe)
+                        {
+                            mp = MediaPlayer.create(HeiseiRiders1.this, R.raw.dogga_fever);
+                            mp.start();
+                        }
+                        else if(upSwipe)
+                        {
+                            mp = MediaPlayer.create(HeiseiRiders1.this, R.raw.finisher_kivaemperor_zanvat1);
+                            mp.start();
+                            mp.setOnCompletionListener(mp -> {
+                                mp1=MediaPlayer.create(HeiseiRiders1.this,R.raw.finisher_kivaemperor_zanvat2);
+                                mp1.start();
+                            });
+                        }
+
+                    }
+                    else if (i==decade) {
+                        myLocalImage.clearAnimation();
+                        if (mp != null) {
+                            mp.release();
+                            mp = null;
+                        }
+                        if (mp1 != null) {
+                            mp1.release();
+                            mp1 = null;
+                        }
+                        if (loopPlayer != null) {
+                            loopPlayer.release();
+                            loopPlayer = null;
+                        }
+                        if (upSwipe || downSwipe) {
+                            mp = MediaPlayer.create(HeiseiRiders1.this, R.raw.auroracurtain);
                             mp.start();
                         }
 

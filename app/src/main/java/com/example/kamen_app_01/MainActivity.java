@@ -534,6 +534,22 @@ public class MainActivity extends BaseKamenActivity{
                             exc_index=-1;
                         }
                     }
+                    else if (currentImageIndex==dc) {
+                        myLocalImage.clearAnimation();
+                        if (mp != null) {
+                            mp.release();
+                            mp = null;
+                        }
+                        if (mp1 != null) {
+                            mp1.release();
+                            mp1 = null;
+                        }
+                        if (upSwipe || downSwipe) {
+                            mp = MediaPlayer.create(MainActivity.this, R.raw.auroracurtain);
+                            mp.start();
+                        }
+
+                    }
                     else if (currentImageIndex == dn)
                     {
                         myLocalImage.clearAnimation();
