@@ -253,7 +253,7 @@ public class HeiseiRiders1 extends BaseKamenActivity {
                             loopPlayer = null;
                         }
                         if (upSwipe || downSwipe) {
-                            mp = MediaPlayer.create(HeiseiRiders1.this, R.raw.auroracurtain);
+                            mp = MediaPlayer.create(HeiseiRiders1.this, R.raw.aurora_curtain);
                             mp.start();
                         }
 

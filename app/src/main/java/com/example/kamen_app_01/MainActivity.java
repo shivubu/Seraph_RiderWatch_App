@@ -475,6 +475,11 @@ public class MainActivity extends BaseKamenActivity{
                             loopPlayer=PerfectLoopMediaPlayer.create(MainActivity.this,R.raw.standby);
                             loopPlayer.start();
                         }
+                        if(rightSwipe)
+                        {
+                            mp=MediaPlayer.create(MainActivity.this,R.raw.time_effect);
+                            mp.start();
+                        }
 
                     }
                     else if(currentImageIndex==ksru)
@@ -545,7 +550,7 @@ public class MainActivity extends BaseKamenActivity{
                             mp1 = null;
                         }
                         if (upSwipe || downSwipe) {
-                            mp = MediaPlayer.create(MainActivity.this, R.raw.auroracurtain);
+                            mp = MediaPlayer.create(MainActivity.this, R.raw.aurora_curtain);
                             mp.start();
                         }
 
