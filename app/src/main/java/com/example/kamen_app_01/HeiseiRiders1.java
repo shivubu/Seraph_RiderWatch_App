@@ -24,7 +24,7 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 
 public class HeiseiRiders1 extends BaseKamenActivity {
-    int i=0,flag=0,kabuto=0,hculoop=0,blade;
+    int i=0,flag=0,kabuto=0,hculoop=0,blade,decade_index;
     private Drawable[] backgroundImages;
     ImageView myLocalImage;
     int bkf=4,hk=6,deno=7,kiva=8,decade=9;
@@ -56,7 +56,7 @@ public class HeiseiRiders1 extends BaseKamenActivity {
         int[] henshinsounds={R.raw.henshinkuugault,R.raw.henshinagitoshining,R.raw.henshinryukisurvive,R.raw.henshinfaizblaster,R.raw.henshinbladeking,R.raw.henshinhibikiarmed,R.raw.henshinkabutohyper,R.raw.henshindenoliner,R.raw.henshinkivaemperor,R.raw.henshindecadecomplete};
         int[] longprsssounds={R.raw.lpkuuga,R.raw.lpagito,R.raw.lpryuki,R.raw.lpfaiz,R.raw.lpblade,R.raw.lphibiki,R.raw.lpkabuto,R.raw.lpdeno,R.raw.lpkiva,R.raw.lpdecade};
         int[] finishersounds={R.raw.finisher_kuugault,R.raw.finisher_agitoshining,R.raw.finisher_ryukisurvive,R.raw.finisher_faizblaster,R.raw.finisher_bladeking_1,R.raw.finisher_hibikiarmed,R.raw.finisher_kabutohyper,R.raw.finisher_denoliner,R.raw.finisher_kivaemperor,R.raw.finisher_decadecomplete};
-
+        int[] decadesounds={R.raw.decade_invisible,R.raw.decade_illusion,R.raw.decade_finalformride,R.raw.decade_finalkamenattackformride,R.raw.decade_rekka,R.raw.decade_terebi_kun};
         ArrayList<Integer> sound = new ArrayList<>();
         for (int j : sounds) {
             sound.add(j);
@@ -72,6 +72,10 @@ public class HeiseiRiders1 extends BaseKamenActivity {
         ArrayList<Integer> finishersound = new ArrayList<>();
         for (int j : finishersounds) {
             finishersound.add(j);
+        }
+        ArrayList<Integer> decadesound = new ArrayList<>();
+        for (int j : decadesounds) {
+            decadesound.add(j);
         }
         myLocalImage = findViewById(R.id.imageView6);
         myLocalImage.setImageDrawable(backgroundImages[i]);
@@ -256,6 +260,25 @@ public class HeiseiRiders1 extends BaseKamenActivity {
                             mp = MediaPlayer.create(HeiseiRiders1.this, R.raw.aurora_curtain);
                             mp.start();
                         }
+                        else if(rightSwipe) {
+                            decade_index++;
+                            if(decade_index>=decadesound.size())
+                            {
+                                decade_index=0;
+                            }
+                            mp=MediaPlayer.create(HeiseiRiders1.this,decadesound.get(decade_index));
+                            mp.start();
+                        }
+                        else if(leftSwipe)
+                        {
+                            decade_index--;
+                            if(decade_index<0)
+                            {
+                                decade_index=decadesound.size()-1;
+                            }
+                            mp=MediaPlayer.create(HeiseiRiders1.this,decadesound.get(decade_index));
+                            mp.start();
+                        }
 
                     }
                     return super.onFling(e1, e2, velocityX, velocityY);
@@ -436,6 +459,7 @@ public class HeiseiRiders1 extends BaseKamenActivity {
                     {
                         case 4:blade=0;
                         case 6:kabuto=hculoop=0;break;
+                        case 9:decade_index=-1;break;
                     }
                 }
                 return true;
