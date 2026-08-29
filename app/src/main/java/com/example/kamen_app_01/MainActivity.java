@@ -986,42 +986,26 @@ public class MainActivity extends BaseKamenActivity{
                         }
                         if(rightSwipe)
                         {
+                            geatsflag=1;
                             mp=MediaPlayer.create(MainActivity.this,R.raw.finisher_geats9);
                             mp.start();
-                            switch(geatsflag)
-                            {
-                                case 0:geatsflag=2;break;
-                                case 1:geatsflag=0;break;
-                            }
                         }
                         if(leftSwipe)
                         {
+                            geatsflag=3;
                             mp=MediaPlayer.create(MainActivity.this,R.raw.finisher_geats9);
                             mp.start();
-                            switch(geatsflag)
-                            {
-                                case 0:geatsflag=1;break;
-                                case 2:geatsflag=0;break;
-                            }
                         }
                         if(upSwipe)
                         {
+                            geatsflag=4;
                             mp=MediaPlayer.create(MainActivity.this,R.raw.finisher_geats9);
                             mp.start();
-                            switch(geatsflag)
-                            {
-                                case 0:geatsflag=3;break;
-                                case 4:geatsflag=0;break;
-                            }
                         }
                         if(downSwipe) {
+                            geatsflag=2;
                             mp = MediaPlayer.create(MainActivity.this, R.raw.finisher_geats9);
                             mp.start();
-                            switch (geatsflag)
-                            {
-                                case 0:geatsflag=4;break;
-                                case 3:geatsflag=0;break;
-                            }
                         }
                     }
                     else if(currentImageIndex==gu)
