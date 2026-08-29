@@ -146,10 +146,10 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                             switch(geatsflag)
                             {
 
-                                case 1:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9_1);break;
-                                case 2:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9_2);break;
-                                case 3:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9_3);break;
-                                case 4:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9_4);break;
+                                case 1:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9_1);geatsflag=0;break;
+                                case 2:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9_2);geatsflag=0;break;
+                                case 3:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9_3);geatsflag=0;break;
+                                case 4:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_geats9_4);geatsflag=0;break;
 
                             }
                         }

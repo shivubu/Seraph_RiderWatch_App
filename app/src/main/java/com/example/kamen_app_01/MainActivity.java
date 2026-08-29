@@ -217,10 +217,10 @@ public class MainActivity extends BaseKamenActivity{
                             {
                                 switch(geatsflag)
                                 {
-                                    case 1:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_geatsdea_1);break;
-                                    case 2:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_geatsdea_2);break;
-                                    case 3:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_geatsdea_3);break;
-                                    case 4:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_geatsdea_4);break;
+                                    case 1:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_geatsdea_1);geatsflag=0;break;
+                                    case 2:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_geatsdea_2);geatsflag=0;break;
+                                    case 3:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_geatsdea_3);geatsflag=0;break;
+                                    case 4:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_geatsdea_4);geatsflag=0;break;
                                 }
                             }
                             else if(currentImageIndex==gu && gotchard!=0) {
