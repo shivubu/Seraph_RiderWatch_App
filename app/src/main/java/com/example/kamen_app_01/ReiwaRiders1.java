@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class ReiwaRiders1 extends BaseKamenActivity {
     int i=0,gavvoverhenshin=0,flag=0,geatsflag=0,saber=0,gavvmode=0,hellrise=0,primitive=0,pdhenshin=0,pdfinisher,zeztzfinisher,gotchardfinisher;
     int overindex,masterindex;
-    int zindex;
+    int zindex,hoi;
     int zt=0,cs=1,ur=2,gn=3,gr=4,gom=5,ze=6;
     ImageView myLocalImage;
     private Drawable[] backgroundImages;
@@ -172,10 +172,21 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                         }
                         else if(i==ze)
                         {
-                            switch(zeztzfinisher)
+                            if(hoi==1)
                             {
-                                case 0:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_zeztzexdream_1);zeztzfinisher=1;break;
-                                case 1:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_zeztzexdream_2);zeztzfinisher=0;break;
+                                switch(zeztzfinisher)
+                                {
+                                    case 0:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_zeztz_hoi_1);zeztzfinisher=1;break;
+                                    case 1:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_zeztz_hoi_2);zeztzfinisher=0;break;
+                                }
+                            }
+                            else
+                            {
+                                switch(zeztzfinisher)
+                                {
+                                    case 0:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_zeztzexdream_1);zeztzfinisher=1;break;
+                                    case 1:mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.finisher_zeztzexdream_2);zeztzfinisher=0;break;
+                                }
                             }
                         }
                         else
@@ -228,6 +239,10 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                                 case 1: mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.henshingavvmaster);break;
                                 case 2: mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.henshinamazinggummy);break;
                             }
+                        }
+                        else if(i==ze && hoi==1)
+                        {
+                            mp1=MediaPlayer.create(ReiwaRiders1.this,R.raw.henshin_zeztz_hoi);
                         }
                         else
                         {
@@ -296,6 +311,11 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                             case 1:mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.gavvmaster);break;
                             case 2:mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.amazinggummy);break;
                         }
+                    }
+                    else if (i==ze && hoi==1)
+                    {
+                        mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.zeztz_hoi);
+
                     }
                     else
                     {
@@ -560,10 +580,29 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                             mp1=null;
                             myLocalImage.clearAnimation();
                         }
-                        if(upSwipe || downSwipe)
+                        if(downSwipe && hoi==0)
                         {
-                            mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.zeztzexdreamfullrise);
+                            hoi=1;
+                            zeztzfinisher=0;
+                            myLocalImage.setImageResource(R.drawable.zeztz_hoi);
+                            mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.transition2);
                             mp.start();
+                        }
+                        else if(upSwipe)
+                        {
+                            if(hoi==1)
+                            {
+                                hoi=0;
+                                zeztzfinisher=0;
+                                myLocalImage.setImageResource(R.drawable.zeztz_exdream);
+                                mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.transition2);
+                                mp.start();
+                            }
+                            else
+                            {
+                                mp=MediaPlayer.create(ReiwaRiders1.this,R.raw.zeztzexdreamfullrise);
+                                mp.start();
+                            }
                         }
                         else if (rightSwipe)
                         {
@@ -658,7 +697,7 @@ public class ReiwaRiders1 extends BaseKamenActivity {
                         case 3: geatsflag=0; break;
                         case 4: gotchardfinisher=0;break;
                         case 5: gavvmode=0;gavvoverhenshin=0; overindex=-1; masterindex=-1; break;
-                        case 6: zeztzfinisher=0;zindex=-1;break;
+                        case 6: zeztzfinisher=0;zindex=-1;hoi=0;break;
                     }
                 }
                 return true;
