@@ -271,7 +271,7 @@ public class MainActivity extends BaseKamenActivity{
                                 mp = MediaPlayer.create(MainActivity.this, henshinsound.get(currentImageIndex));
                                 break;
                             case 1:
-                                mp = MediaPlayer.create(MainActivity.this, R.raw.henshin_seraphsupreme_prime);
+                                mp = MediaPlayer.create(MainActivity.this, R.raw.henshin_seraphsupreme_prime_2);
                                 break;
                         }
                         mp.start();
