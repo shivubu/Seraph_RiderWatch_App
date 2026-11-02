@@ -456,6 +456,11 @@ public class MainActivity extends BaseKamenActivity{
                             mp1.release();
                             mp1 = null;
                         }
+                        if (loopPlayer != null)
+                        {
+                            loopPlayer.release();
+                            loopPlayer=null;
+                        }
                         if(downSwipe && finalForm==0)
                         {
                             myLocalImage.setImageResource(R.drawable.finalform);
