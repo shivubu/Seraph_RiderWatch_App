@@ -29,7 +29,8 @@ public class MainActivity extends BaseKamenActivity{
     ImageView myLocalImage;
     private Drawable[] backgroundImages;
     private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,hazard_flag=0,genmflag=0,fumetsuflag=0,bahamut=0,sabermode=0,flag1=0,ohmaflag=0,superherosenki1=0,superherosenki2=0,wonder1=0,wonder2=0,geatsflag=0,fumetsu=0,dea,rampage_index,phblade_index,exc_index,drivemode,sru,finalForm,gotchard,gotchardfinisher;
-    int ksru=1,fn=2,dc=3,ote=4,dn=5,gm=7,cb=8,eb=9,oz=10,zt=11,swa=12,dg=13,gu=14;
+    int ksru=1,fn=2,dc=3,ote=4,dn=5,gm=7,cb=8,eb=9,oz=10,zt=11,swa=12,dg=13,gu=14,gh=15,zad=16;
+    int zeztzfinisher = 0;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +60,11 @@ public class MainActivity extends BaseKamenActivity{
                 AppCompatResources.getDrawable(this,R.drawable.geatsdea),
                 AppCompatResources.getDrawable(this,R.drawable.gotchard),
                 AppCompatResources.getDrawable(this,R.drawable.gavvhexenheim),
+                AppCompatResources.getDrawable(this,R.drawable.zeztz_agendream),
         };
-        int[] sounds = {R.raw.seraph0,R.raw.kuugasruform,R.raw.faiznext,R.raw.decadecomplete21,R.raw.oootajadoreternity,R.raw.drivespecial,R.raw.exaidnovel,R.raw.genmmusou,R.raw.crossbuild,R.raw.evolblackhole,R.raw.omazio,R.raw.zerothree,R.raw.saberwa,R.raw.geatsdea,R.raw.gotchardultima,R.raw.gavvhexenheim};
-        int[] henshinsounds={R.raw.henshin_seraph_prime,R.raw.henshinkuugasru,R.raw.henshinfaiznext,R.raw.henshindecadecomplete21,R.raw.henshin_oootajadoreternity,R.raw.henshindrivespecial,R.raw.henshinexaidnovel,R.raw.henshingenmmusou,R.raw.henshincrossbuild,R.raw.henshinevolblackhole,R.raw.henshinzioohma,R.raw.henshinzerothree,R.raw.henshinsaberwa,R.raw.henshingeatsdea_0,R.raw.henshingotchardultima,R.raw.henshin_gavvhexenheim};
-        int[] longpresssounds={R.raw.finisher_seraph,R.raw.finisher_kuugasru_1,R.raw.exceedcharge,R.raw.finisher_decadecomplete,R.raw.finisher_oootajadoreternity,R.raw.finisher_drivespecial,R.raw.lpexaidnovel,R.raw.lpgenmmusou,R.raw.lpcrossbuild,R.raw.finisher_evolblackhole,R.raw.finisher_zioohma,R.raw.lpzerothree,R.raw.finisher_saberwa1,R.raw.finisher_geatsdea,R.raw.lpgotchardultima,R.raw.finisher_gavvhexenheim};
+        int[] sounds = {R.raw.seraph0,R.raw.kuugasruform,R.raw.faiznext,R.raw.decadecomplete21,R.raw.oootajadoreternity,R.raw.drivespecial,R.raw.exaidnovel,R.raw.genmmusou,R.raw.crossbuild,R.raw.evolblackhole,R.raw.omazio,R.raw.zerothree,R.raw.saberwa,R.raw.geatsdea,R.raw.gotchardultima,R.raw.gavvhexenheim,R.raw.zeztz_agendream};
+        int[] henshinsounds={R.raw.henshin_seraph_prime,R.raw.henshinkuugasru,R.raw.henshinfaiznext,R.raw.henshindecadecomplete21,R.raw.henshin_oootajadoreternity,R.raw.henshindrivespecial,R.raw.henshinexaidnovel,R.raw.henshingenmmusou,R.raw.henshincrossbuild,R.raw.henshinevolblackhole,R.raw.henshinzioohma,R.raw.henshinzerothree,R.raw.henshinsaberwa,R.raw.henshingeatsdea_0,R.raw.henshingotchardultima,R.raw.henshin_gavvhexenheim,R.raw.henshin_zeztz_agendream};
+        int[] longpresssounds={R.raw.finisher_seraph,R.raw.finisher_kuugasru_1,R.raw.exceedcharge,R.raw.finisher_decadecomplete,R.raw.finisher_oootajadoreternity,R.raw.finisher_drivespecial,R.raw.lpexaidnovel,R.raw.lpgenmmusou,R.raw.lpcrossbuild,R.raw.finisher_evolblackhole,R.raw.finisher_zioohma,R.raw.lpzerothree,R.raw.finisher_saberwa1,R.raw.finisher_geatsdea,R.raw.lpgotchardultima,R.raw.finisher_gavvhexenheim,R.raw.finisher_zeztzexdream_1};
         int[] zt_sounds={R.raw.zt_create,R.raw.zt_singularity,R.raw.zt_ability,R.raw.zt_there_ark_ability,R.raw.zt_outsiders_ability};
         int[] ztweap_sounds={R.raw.attache_calibur,R.raw.attache_shotgun,R.raw.attache_arrow,R.raw.shotriser,R.raw.slashriser,R.raw.thousand_jacker,R.raw.authorise_blaster,R.raw.hopper_blade,R.raw.zerothree_lifeon};
         int[] phblade_sounds={R.raw.progrisingslash,R.raw.dockingrise,R.raw.gigantslash,R.raw.ultimaterise};
@@ -235,6 +237,15 @@ public class MainActivity extends BaseKamenActivity{
                                         mp1 = MediaPlayer.create(MainActivity.this, R.raw.finisher_shiningdaybreak);
                                         break;
                                 }
+                            }
+                            else if(currentImageIndex==zad)
+                            {
+                                switch(zeztzfinisher)
+                                {
+                                    case 0:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_zeztzexdream_1);zeztzfinisher=1;break;
+                                    case 1:mp1=MediaPlayer.create(MainActivity.this,R.raw.finisher_zeztzexdream_2);zeztzfinisher=0;break;
+                                }
+
                             }
                             else {
                                 mp1 = MediaPlayer.create(MainActivity.this, longpress.get(currentImageIndex));
@@ -1130,6 +1141,7 @@ public class MainActivity extends BaseKamenActivity{
                         case 12: sabermode=0;bahamut=0;superherosenki1=superherosenki2=0;wonder1=wonder2=0;break;
                         case 13: geatsflag=0;dea=0;break;
                         case 14: gotchard=0;gotchardfinisher=0;break;
+                        case 16: zeztzfinisher=0;break;
                     }
                 }
                 return true;
