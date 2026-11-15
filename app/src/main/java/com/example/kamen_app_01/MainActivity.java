@@ -570,7 +570,12 @@ public class MainActivity extends BaseKamenActivity{
                         }
                         if(downSwipe)
                         {
-                            if(exc_index==3)
+                            if(exc_index==-1)
+                            {
+                                mp=MediaPlayer.create(MainActivity.this,R.raw.predictiveai);
+                                mp.start();
+                            }
+                            else if(exc_index==3)
                             {
                                 mp=MediaPlayer.create(MainActivity.this,R.raw.blade_mode);
                                 mp.start();
@@ -578,13 +583,9 @@ public class MainActivity extends BaseKamenActivity{
                             }
                             else
                             {
-                                mp= MediaPlayer.create(MainActivity.this,R.raw.predictiveai);
+                                mp=MediaPlayer.create(MainActivity.this,R.raw.faiz_cancel);
                                 mp.start();
-                                mp.setOnCompletionListener(mp -> {
-                                    mp1=MediaPlayer.create(MainActivity.this,R.raw.faiz_cancel);
-                                    mp1.start();
-                                    exc_index=-1;
-                                });
+                                exc_index=-1;
                             }
                         }
                     }
