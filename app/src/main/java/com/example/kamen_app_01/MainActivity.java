@@ -31,6 +31,7 @@ public class MainActivity extends BaseKamenActivity{
     private int currentImageIndex = 0,flag=0,zt_index,ztweap_index,hazard_flag=0,genmflag=0,fumetsuflag=0,bahamut=0,sabermode=0,flag1=0,ohmaflag=0,superherosenki1=0,superherosenki2=0,wonder1=0,wonder2=0,geatsflag=0,fumetsu=0,dea,rampage_index,phblade_index,exc_index,drivemode,sru,finalForm,gotchard,gotchardfinisher;
     int ksru=1,fn=2,dc=3,ote=4,dn=5,gm=7,cb=8,eb=9,oz=10,zt=11,swa=12,dg=13,gu=14,gh=15,zad=16;
     int zeztzfinisher = 0;
+    int faizblastermode=0;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +70,8 @@ public class MainActivity extends BaseKamenActivity{
         int[] ztweap_sounds={R.raw.attache_calibur,R.raw.attache_shotgun,R.raw.attache_arrow,R.raw.shotriser,R.raw.slashriser,R.raw.thousand_jacker,R.raw.authorise_blaster,R.raw.hopper_blade,R.raw.zerothree_lifeon};
         int[] phblade_sounds={R.raw.progrisingslash,R.raw.dockingrise,R.raw.gigantslash,R.raw.ultimaterise};
         int[] rampage_sounds={R.raw.rampagegattling,R.raw.powerrampage,R.raw.speedrampage,R.raw.elementrampage,R.raw.allrampage};
-        int[] faiz_weaps={R.raw.faiz_shot,R.raw.faiz_pointer,R.raw.faiz_edge,R.raw.faiz_blaster,R.raw.faiz_edgeandblaster};
-        int[] exceed_sounds={R.raw.ec_faizshot,R.raw.ec_pointer,R.raw.ec_edge,R.raw.ec_blaster,R.raw.ec_edgeandblaster};
+        int[] faiz_weaps={R.raw.faiz_shot,R.raw.faiz_pointer,R.raw.faiz_edge,R.raw.faiz_blaster};
+        int[] exceed_sounds={R.raw.ec_faizshot,R.raw.ec_pointer,R.raw.ec_edge,R.raw.ec_blaster_blaster};
         ArrayList<Integer> sound = new ArrayList<>();
         for (int j : sounds) {
             sound.add(j);
@@ -152,7 +153,17 @@ public class MainActivity extends BaseKamenActivity{
                             }
                             else if(currentImageIndex==fn && exc_index!=-1)
                             {
-                                mp1=MediaPlayer.create(MainActivity.this,exceed_sound.get(exc_index));
+                               if(exc_index==3 && faizblastermode==0)
+                               {
+                                   mp1=MediaPlayer.create(MainActivity.this,R.raw.ec_blaster_blaster);
+                               }
+                               else if (exc_index==3 && faizblastermode==1) {
+                                   mp1=MediaPlayer.create(MainActivity.this,R.raw.ec_blaster_blade);
+                               }
+                               else
+                               {
+                                   mp1=MediaPlayer.create(MainActivity.this,exceed_sound.get(exc_index));
+                               }
                             }
                             else if(currentImageIndex==dn && drivemode==1)
                             {
@@ -543,16 +554,38 @@ public class MainActivity extends BaseKamenActivity{
                         }
                         if(upSwipe)
                         {
-                            mp=MediaPlayer.create(MainActivity.this,R.raw.lpfaiznext);
-                            mp.start();
-                            myLocalImage.startAnimation(fade);
-                            mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
+                            if(exc_index==3)
+                            {
+                                mp=MediaPlayer.create(MainActivity.this,R.raw.blaster_mode);
+                                mp.start();
+                                faizblastermode=0;
+                            }
+                            else
+                            {
+                                mp=MediaPlayer.create(MainActivity.this,R.raw.lpfaiznext);
+                                mp.start();
+                                myLocalImage.startAnimation(fade);
+                                mp.setOnCompletionListener(mp -> myLocalImage.clearAnimation());
+                            }
                         }
                         if(downSwipe)
                         {
-                            mp= MediaPlayer.create(MainActivity.this,R.raw.predictiveai);
-                            mp.start();
-                            exc_index=-1;
+                            if(exc_index==3)
+                            {
+                                mp=MediaPlayer.create(MainActivity.this,R.raw.blade_mode);
+                                mp.start();
+                                faizblastermode=1;
+                            }
+                            else
+                            {
+                                mp= MediaPlayer.create(MainActivity.this,R.raw.predictiveai);
+                                mp.start();
+                                mp.setOnCompletionListener(mp -> {
+                                    mp1=MediaPlayer.create(MainActivity.this,R.raw.faiz_cancel);
+                                    mp1.start();
+                                    exc_index=-1;
+                                });
+                            }
                         }
                     }
                     else if (currentImageIndex==dc) {
@@ -1133,7 +1166,7 @@ public class MainActivity extends BaseKamenActivity{
                     {
                         case 0:finalForm=0;
                         case 1:sru=0;break;
-                        case 2:exc_index=-1;break;
+                        case 2:exc_index=-1;faizblastermode=0;break;
                         case 5:drivemode=0;break;
                         case 7:fumetsu=0;flag=0;genmflag=0;fumetsuflag=0;break;
                         case 10: ohmaflag=0;break;
