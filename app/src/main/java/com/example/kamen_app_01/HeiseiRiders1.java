@@ -147,22 +147,28 @@ public class HeiseiRiders1 extends BaseKamenActivity {
                         }
                         if(leftSwipe)
                         {
-                            mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.transition2);
-                            mp.start();
-                            switch(kabuto)
+                            if(kabuto==0)
                             {
-                                case 0:kabuto=1;break;
-                                case 2:kabuto=0;break;
+                                kabuto=1;
+                                mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.perfectzector_swordmode);
+                                mp.start();
+                            } else if (kabuto==2) {
+                                kabuto=0;
+                                mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.transition2);
+                                mp.start();
                             }
                         }
                         if(rightSwipe)
                         {
-                            mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.transition2);
-                            mp.start();
-                            switch(kabuto)
+                            if(kabuto==0)
                             {
-                                case 0:kabuto=2;break;
-                                case 1:kabuto=0;break;
+                                kabuto=2;
+                                mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.perfectzector_gunmode);
+                                mp.start();
+                            } else if (kabuto==1) {
+                                kabuto=0;
+                                mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.transition2);
+                                mp.start();
                             }
                         }
                         if (downSwipe) {
@@ -319,8 +325,8 @@ public class HeiseiRiders1 extends BaseKamenActivity {
                         {
                             switch (kabuto)
                             {
-                                case 1:mp1=MediaPlayer.create(HeiseiRiders1.this,R.raw.maxhypercyclone);break;
-                                case 2:mp1=MediaPlayer.create(HeiseiRiders1.this,R.raw.maxhypertyphoon);break;
+                                case 1:mp1=MediaPlayer.create(HeiseiRiders1.this,R.raw.maxhypertyphoon);break;
+                                case 2:mp1=MediaPlayer.create(HeiseiRiders1.this,R.raw.maxhypercyclone);break;
                             }
                         }
                         else {
