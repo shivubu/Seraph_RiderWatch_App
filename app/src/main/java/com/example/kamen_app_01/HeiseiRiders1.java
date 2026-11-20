@@ -28,7 +28,7 @@ public class HeiseiRiders1 extends BaseKamenActivity {
     private Drawable[] backgroundImages;
     ImageView myLocalImage;
     int ku=0,fb=3,bkf=4,hk=6,deno=7,kiva=8,decade=9;
-    int fb_mode=0;
+    int fb_mode=-1;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -376,7 +376,7 @@ public class HeiseiRiders1 extends BaseKamenActivity {
                     mp = MediaPlayer.create(HeiseiRiders1.this,R.raw.judgement_finishtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
-                        if(i==fb)
+                        if(i==fb && fb_mode!=-1)
                         {
                             switch(fb_mode)
                             {
@@ -536,6 +536,7 @@ public class HeiseiRiders1 extends BaseKamenActivity {
                     myLocalImage.setImageDrawable(backgroundImages[i]);
                     switch(i)
                     {
+                        case 3:fb_mode=-1;break;
                         case 4:blade=0;
                         case 6:kabuto=hculoop=0;break;
                         case 9:decade_index=-1;break;
