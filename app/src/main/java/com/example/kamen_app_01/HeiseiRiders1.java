@@ -27,7 +27,8 @@ public class HeiseiRiders1 extends BaseKamenActivity {
     int i=0,flag=0,kabuto=0,hculoop=0,blade,decade_index;
     private Drawable[] backgroundImages;
     ImageView myLocalImage;
-    int bkf=4,hk=6,deno=7,kiva=8,decade=9;
+    int ku=0,fb=3,bkf=4,hk=6,deno=7,kiva=8,decade=9;
+    int fb_mode=0;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +96,66 @@ public class HeiseiRiders1 extends BaseKamenActivity {
                     boolean upSwipe = diffY < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffX) < SWIPE_THRESHOLD_DISTANCE;
                     boolean rightSwipe = diffX > SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
                     boolean leftSwipe= diffX < -SWIPE_THRESHOLD_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY && Math.abs(diffY) < SWIPE_THRESHOLD_DISTANCE;
-                    if(i==bkf)
+                    if (i==ku)
+                    {
+                        if(leftSwipe || rightSwipe)
+                        {
+                            myLocalImage.clearAnimation();
+                            if(mp!=null) {
+                                mp.release();
+                                mp = null;
+                            }
+                            if(mp1!=null) {
+                                mp1.release();
+                                mp1 = null;
+                            }
+                            if(loopPlayer!=null)
+                            {
+                                loopPlayer.release();
+                                loopPlayer=null;
+                            }
+                            mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.kuuga_attack_1);
+                            mp.start();
+
+                        }
+                    }
+                    else if(i==fb)
+                    {
+                        myLocalImage.clearAnimation();
+                        if(mp!=null) {
+                            mp.release();
+                            mp = null;
+                        }
+                        if(mp1!=null) {
+                            mp1.release();
+                            mp1 = null;
+                        }
+                        if(loopPlayer!=null)
+                        {
+                            loopPlayer.release();
+                            loopPlayer=null;
+                        }
+                        if(leftSwipe)
+                        {
+                            mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.faizblaster_discharge);
+                            mp.start();
+                        } else if (rightSwipe) {
+                            mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.faizblaster_takeoff);
+                            mp.start();
+                        }
+                        else if(upSwipe)
+                        {
+                            fb_mode=0;
+                            mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.blaster_mode);
+                            mp.start();
+                        }
+                        else if(downSwipe) {
+                            fb_mode = 1;
+                            mp = MediaPlayer.create(HeiseiRiders1.this, R.raw.blade_mode);
+                            mp.start();
+                        }
+                    }
+                    else if(i==bkf)
                     {
                         myLocalImage.clearAnimation();
                         if(mp!=null)
@@ -107,6 +167,11 @@ public class HeiseiRiders1 extends BaseKamenActivity {
                         {
                             mp1.release();
                             mp1=null;
+                        }
+                        if(loopPlayer!=null)
+                        {
+                            loopPlayer.release();
+                            loopPlayer=null;
                         }
                         mp=MediaPlayer.create(HeiseiRiders1.this,R.raw.transition2);
                         mp.start();
@@ -311,7 +376,15 @@ public class HeiseiRiders1 extends BaseKamenActivity {
                     mp = MediaPlayer.create(HeiseiRiders1.this,R.raw.judgement_finishtime);
                     mp.start();
                     mp.setOnCompletionListener(mp -> {
-                        if(i==bkf)
+                        if(i==fb)
+                        {
+                            switch(fb_mode)
+                            {
+                                case 0:mp1=MediaPlayer.create(HeiseiRiders1.this,R.raw.faiz_blaster_ec_blastermode);break;
+                                case 1:mp1=MediaPlayer.create(HeiseiRiders1.this,R.raw.faiz_blaster_ec_blade_mode);break;
+                            }
+                        }
+                        else if(i==bkf)
                         {
                             switch(blade)
                             {
